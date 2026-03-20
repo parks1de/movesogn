@@ -11,16 +11,7 @@
    - Serif-adjacent spacing — breathing room is luxury
    ============================================================ */
 
-/* ── Colour overrides (local to this page) ──────────────── */
-:root {
-  --cb-gold:       #C49A28;
-  --cb-gold-light: rgba(196,154,40,0.15);
-  --cb-gold-dim:   rgba(196,154,40,0.08);
-  --cb-warm-dark:  #1A1510;
-  --cb-warm-mid:   #2E2519;
-  --cb-sand:       #F5F0E8;
-  --cb-sand-mid:   #EDE5D8;
-}
+
 
 
 /* ═══════════════════════════════════════════════════════════
