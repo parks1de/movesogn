@@ -1,0 +1,214 @@
+/* ============================================================
+   NavBar — v3 refinement
+   Changes vs v2:
+   - scrolled state: richer shadow + subtle backdrop-filter
+   - links: underline-reveal on hover instead of orange flash
+   - active link: persistent orange underline bar
+   - Kontakt pill: less "button", more integrated (border only)
+   - hamburger bars: slightly thinner, crisp
+   - drawer: smooth slide-down with backdrop
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  transition:
+    background-color 0.32s ease,
+    box-shadow 0.32s ease,
+    backdrop-filter 0.32s ease;
+}
+
+/* ── State: transparent over hero ──────────────────────── */
+.transparent {
+  background-color: transparent;
+}
+
+/* ── State: scrolled — v3: backdrop-filter + richer shadow */
+.scrolled {
+  background-color: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-nav);
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ── Logo ───────────────────────────────────────────────── */
+.logo {
+  flex-shrink: 0;
+  line-height: 0;
+  /* v3: very subtle lift on hover */
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.logo:hover { opacity: 0.82; }
+
+/* ── Desktop nav links ──────────────────────────────────── */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  margin-left: auto;
+}
+
+.link {
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-body);
+  border-radius: 4px;
+  transition: color var(--transition-base), background-color var(--transition-base);
+  /* no underline by default */
+}
+
+/* v3: underline grows left→right on hover */
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--color-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s var(--ease-out-expo);
+}
+
+.link:hover {
+  color: var(--color-body);
+  background-color: rgba(0,0,0,0.04);
+}
+.link:hover::after { transform: scaleX(1); }
+
+/* Active link — persistent underline */
+.linkActive {
+  color: var(--color-body);
+  font-weight: 600;
+}
+.linkActive::after {
+  transform: scaleX(1);
+}
+
+/* ── On transparent hero: links are white ───────────────── */
+.transparent .link           { color: rgba(255,255,255,0.88); }
+.transparent .link:hover     { color: white; background-color: rgba(255,255,255,0.1); }
+.transparent .link::after    { background: white; }
+.transparent .linkActive     { color: white; font-weight: 600; }
+
+/* ── Kontakt — v3: border pill, integrates better ───────── */
+.link[href="/kontakt"] {
+  color: var(--color-orange);
+  border: 1.5px solid var(--color-orange-border);
+  padding: 0.4rem 0.875rem;
+  border-radius: 5px;
+  margin-left: 0.375rem;
+  /* hide the underline on this one */
+}
+.link[href="/kontakt"]::after { display: none; }
+
+.link[href="/kontakt"]:hover {
+  background-color: var(--color-orange);
+  color: white;
+  border-color: var(--color-orange);
+  box-shadow: var(--shadow-btn-primary);
+  transform: translateY(-1px);
+}
+
+/* On transparent hero */
+.transparent .link[href="/kontakt"] {
+  color: rgba(255,255,255,0.88);
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.06);
+}
+.transparent .link[href="/kontakt"]:hover {
+  background-color: white;
+  color: var(--color-orange);
+  border-color: white;
+  transform: translateY(-1px);
+}
+
+
+/* ── Hamburger ──────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+.hamburger:hover { background: rgba(0,0,0,0.05); }
+
+.bar {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background-color: var(--color-body);
+  border-radius: 2px;
+  transition: transform 0.25s var(--ease-out-expo), opacity 0.2s ease;
+  transform-origin: center;
+}
+
+.transparent .bar { background-color: white; }
+
+.barOpen1 { transform: translateY(6.5px) rotate(45deg); }
+.barOpen2 { opacity: 0; transform: scaleX(0); }
+.barOpen3 { transform: translateY(-6.5px) rotate(-45deg); }
+
+
+/* ── Mobile drawer — v3: smooth slide, cleaner type ────── */
+.drawer {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255,255,255,0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.25rem clamp(1.25rem, 5vw, 3rem) 2rem;
+  border-top: 1px solid rgba(0,0,0,0.055);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  animation: drawerSlide 0.22s var(--ease-out-expo) forwards;
+}
+
+@keyframes drawerSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.drawerLink {
+  padding: 0.9rem 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--color-body);
+  border-bottom: 1px solid rgba(0,0,0,0.055);
+  transition: color var(--transition-base), padding-left var(--transition-base);
+}
+.drawerLink:last-of-type { border-bottom: none; }
+.drawerLink:hover {
+  color: var(--color-orange);
+  padding-left: 0.375rem;
+}
+
+.drawerCta { margin-top: 1.25rem; align-self: flex-start; }
+
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .links, .cta { display: none; }
+  .hamburger   { display: flex; }
+}

@@ -1,0 +1,399 @@
+/* ============================================================
+   Eigedom — page.module.css  v3
+   
+   Two properties. Two completely different visual tones.
+
+   SOGN  = commercial credibility. Structured. Cool. Factual.
+           Blue undertones. Grid-like. Business presence.
+
+   SPAIN = premium aspiration. Warm. Emotional. Cinematic.
+           Amber/gold undertones. Soft edges. Inviting.
+
+   They must NOT share the same feel.
+   ============================================================ */
+
+
+/* ═══════════════════════════════════════════════════════════
+   SPLIT HERO — shared structure
+═══════════════════════════════════════════════════════════ */
+
+.splitHero {
+  position: relative;
+  height: 75vh;
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: var(--nav-height);
+  overflow: hidden;
+}
+
+.heroHalf {
+  position: relative;
+  overflow: hidden;
+}
+
+/* v3: image zoom on hero half hover */
+.heroHalf img {
+  transition: transform 0.7s var(--ease-out-expo) !important;
+}
+.heroHalf:hover img { transform: scale(1.04) !important; }
+
+/* ── Sogn half overlay: cool blue-dark fade ─────────────── */
+.heroHalfOverlaySogn {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(5,20,45,0.72)  0%,
+    rgba(5,20,45,0.2)   55%,
+    transparent         100%
+  );
+}
+
+/* ── Spain half overlay: warm amber-dark fade ───────────── */
+.heroHalfOverlaySpain {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(80,35,5,0.68)  0%,
+    rgba(80,35,5,0.15)  55%,
+    transparent         100%
+  );
+}
+
+.heroHalfContent {
+  position: absolute; bottom: 2.5rem; left: 2.5rem;
+  z-index: 1; color: white;
+}
+
+/* ── Sogn label: crisp, factual ─────────────────────────── */
+.heroLabelSogn {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7FBBFF;           /* cool blue-white */
+  margin-bottom: 0.625rem;
+}
+
+/* ── Spain label: warm, golden ──────────────────────────── */
+.heroLabelSpain {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #FFD080;           /* warm gold */
+  margin-bottom: 0.625rem;
+}
+
+.heroHalfH2 {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  color: white;
+  max-width: 22ch;
+  margin-top: 0.25rem;
+  line-height: 1.2;
+}
+
+.heroTitleWrap {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+  width: 90%;
+}
+
+.heroH1 {
+  color: var(--color-white);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+  text-align: center;
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  max-width: 20ch;
+  margin: 0 auto;
+}
+
+/* v3: thin separator between halves */
+.splitHero::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(255,255,255,0.12);
+  z-index: 3;
+  pointer-events: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   CONTENT BLOCKS — shared layout
+═══════════════════════════════════════════════════════════ */
+
+.block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.blockReverse .blockImg  { order: 1; }
+.blockReverse .blockText { order: -1; }
+
+.blockImgWrap {
+  position: relative;
+  height: 480px;
+  border-radius: 4px;
+  overflow: hidden;
+  /* v3: image zoom on hover */
+}
+.blockImgWrap img {
+  transition: transform 0.6s var(--ease-out-expo) !important;
+}
+.blockImgWrap:hover img { transform: scale(1.04) !important; }
+
+.blockText h2 { margin-bottom: 1rem; }
+.blockText p { color: var(--color-muted); }
+.blockText p + p { margin-top: 1rem; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   SOGN BLOCK — structured, commercial, cool
+═══════════════════════════════════════════════════════════ */
+
+.sognBlock {
+  background-color: var(--color-bg);
+}
+
+.sognBlock .blockImgWrap {
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.07),
+    0 0 0 1px rgba(4,95,208,0.06);
+}
+.sognBlock .blockImgWrap:hover {
+  box-shadow:
+    0 12px 36px rgba(0,0,0,0.12),
+    0 0 0 1px rgba(4,95,208,0.14);
+}
+
+/* Sogn label: crisp blue */
+.sognLabel {
+  display: inline-block;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: 0.875rem;
+}
+
+/* Sogn facts grid — structured key info presentation */
+.sognFacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.sognFact {
+  padding: 1rem 1.125rem;
+  background: var(--color-surface);
+  border-radius: 3px;
+  border: 1px solid rgba(4,95,208,0.1);
+  border-left: 2px solid var(--color-blue);
+}
+
+.sognFactLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  margin-bottom: 0.25rem;
+}
+
+.sognFactValue {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-body);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   SPAIN BLOCK — premium, warm, emotional
+═══════════════════════════════════════════════════════════ */
+
+/* v3: Spain gets its own background — subtly warmer than default */
+.spainBlock {
+  background-color: var(--color-bg-warm);
+  background-image: radial-gradient(
+    ellipse 70% 60% at 65% 50%,
+    rgba(255,160,60,0.055) 0%,
+    transparent 65%
+  );
+}
+
+.spainBlock .blockImgWrap {
+  /* Softer, warmer shadow — not the sharp blue of Sogn */
+  box-shadow:
+    0 4px 20px rgba(120,60,10,0.12),
+    0 1px 4px rgba(0,0,0,0.08);
+  border-radius: 6px;    /* slightly rounder than Sogn's 4px */
+}
+.spainBlock .blockImgWrap:hover {
+  box-shadow:
+    0 16px 48px rgba(120,60,10,0.18),
+    0 0 0 1px rgba(255,132,33,0.2);
+}
+
+/* Spain label: warm gold — distinct from orange CTAs */
+.spainLabel {
+  display: inline-block;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C07A1E;
+  margin-bottom: 0.875rem;
+}
+
+/* Spain pull-quote — a single emotive sentence, set apart */
+.spainQuote {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 400;
+  font-style: italic;
+  color: #8A5C1A;
+  line-height: 1.5;
+  margin: 1.25rem 0 1.5rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid rgba(200,130,30,0.4);
+  max-width: 36ch;
+}
+
+/* Spain feature list — warm icon markers */
+.spainFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin: 0 0 2rem;
+}
+
+.spainFeature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+}
+
+.spainFeatureDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C07A1E;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Spain CTA: warmer border */
+.spainCta {
+  background-color: transparent;
+  color: #B86E18;
+  border: 1.5px solid rgba(200,130,30,0.45);
+  padding: 0.75rem 1.625rem;
+  border-radius: var(--radius-btn);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition:
+    background-color var(--transition-hover),
+    color var(--transition-hover),
+    border-color var(--transition-hover),
+    box-shadow var(--transition-hover),
+    transform 0.15s var(--ease-out-expo);
+}
+.spainCta:hover {
+  background-color: #B86E18;
+  color: white;
+  border-color: #B86E18;
+  box-shadow: 0 4px 16px rgba(180,110,24,0.28);
+  transform: translateY(-2px);
+}
+.spainCta svg { transition: transform 0.18s var(--ease-out-expo); }
+.spainCta:hover svg { transform: translateX(3px); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT STRIP
+═══════════════════════════════════════════════════════════ */
+
+.contactStrip {
+  background-color: var(--color-dark);
+  padding-block: 4.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* v3: very subtle warm tint in contact strip background */
+.contactStrip::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 50%,
+    rgba(255,132,33,0.04) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.contactInner {
+  position: relative; z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.contactInner h2 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+.contactInner p {
+  color: rgba(255,255,255,0.5);
+  max-width: 44ch;
+}
+
+.contactActions {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .splitHero {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .heroHalf { height: 40vh; }
+  .heroTitleWrap { display: none; }
+  .splitHero::after { display: none; }
+
+  .block {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .blockReverse .blockImg  { order: 0; }
+  .blockReverse .blockText { order: 0; }
+  .blockImgWrap { height: 280px; }
+
+  .sognFacts { grid-template-columns: 1fr; }
+
+  .contactInner { flex-direction: column; align-items: flex-start; }
+}

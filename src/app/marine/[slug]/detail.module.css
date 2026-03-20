@@ -1,0 +1,243 @@
+/* ============================================================
+   Marine detail — v3
+   Gallery supports 5–15 images with masonry-style layout
+   ============================================================ */
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 78vh;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4.5rem;
+}
+
+.heroOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.75) 0%,
+    rgba(0,0,0,0.2)  50%,
+    transparent      100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--nav-height);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 1.25rem;
+  transition: color var(--transition-base);
+  letter-spacing: 0.01em;
+}
+.back:hover { color: white; }
+
+.heroH1 { color: var(--color-white); }
+
+.heroPrice {
+  color: var(--color-orange);
+  font-size: 1.625rem;
+  font-weight: 700;
+  margin-top: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+
+/* ── Content grid ───────────────────────────────────────── */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 5rem;
+  align-items: start;
+}
+
+.bodyCol h2 { margin-bottom: 1.25rem; }
+.bodyText {
+  color: var(--color-muted);
+  line-height: 1.82;
+  white-space: pre-line;
+  font-size: var(--text-body);
+}
+
+/* ── Specs table ─────────────────────────────────────────── */
+.specsCol {}
+
+.specsTitle {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-orange);
+}
+
+.specsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.specsTable tr {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background var(--transition-base);
+}
+.specsTable tr:hover { background: var(--color-surface); }
+
+.specsTable th {
+  text-align: left;
+  padding: 0.75rem 0.5rem 0.75rem 0;
+  font-weight: 500;
+  color: var(--color-muted);
+  width: 45%;
+}
+
+.specsTable td {
+  padding: 0.75rem 0 0.75rem 0.5rem;
+  font-weight: 600;
+  text-align: right;
+  color: var(--color-body);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   GALLERY — supports 5–15 images
+   Layout: masonry-style grid with featured first image
+   Pattern for N images:
+   - 1 image:  full width
+   - 2 images: 2-col equal
+   - 3 images: 1 large + 2 right stacked
+   - 4+ images: 3-col grid, first spans 2 cols
+   - 7+ images: continues in 3-col
+═══════════════════════════════════════════════════════════ */
+
+.gallerySection {
+  background: var(--color-bg);
+}
+
+.galleryHeading {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+  margin-bottom: 1.5rem;
+}
+
+/* Main masonry wrapper */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 280px;
+  gap: 0.625rem;
+}
+
+/* First image always gets featured treatment */
+.galleryItem {
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+/* Image zoom on hover */
+.galleryItem img {
+  transition: transform 0.55s var(--ease-out-expo);
+}
+.galleryItem:hover img { transform: scale(1.05); }
+
+/* Hover overlay */
+.galleryItem::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 0.2s ease;
+}
+.galleryItem:hover::after { background: rgba(0,0,0,0.08); }
+
+/* Featured: first item spans 2 cols */
+.galleryItem:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Portrait items (every 5th after first, or tagged) */
+.galleryItemTall {
+  grid-row: span 2;
+}
+
+/* Wide items */
+.galleryItemWide {
+  grid-column: span 2;
+}
+
+/* Gallery count badge */
+.galleryCount {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 99px;
+  letter-spacing: 0.04em;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+/* ── Contact form section ────────────────────────────────── */
+.formSection {
+  background: var(--color-bg-warm);
+  background-image: radial-gradient(
+    ellipse 70% 60% at 50% 50%,
+    rgba(255,132,33,0.04) 0%,
+    transparent 70%
+  );
+}
+
+.formWrap {
+  max-width: 680px;
+  margin-inline: auto;
+  background: var(--color-white);
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+  padding: 3.5rem;
+}
+
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .contentGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 220px;
+  }
+  .galleryItem:first-child { grid-column: span 2; grid-row: span 1; }
+}
+
+@media (max-width: 560px) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 240px;
+  }
+  .galleryItem:first-child { grid-column: span 1; grid-row: span 1; }
+  .galleryItemTall { grid-row: span 1; }
+  .galleryItemWide { grid-column: span 1; }
+  .formWrap { padding: 2rem 1.25rem; }
+}

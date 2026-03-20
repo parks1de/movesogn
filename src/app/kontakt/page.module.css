@@ -1,0 +1,184 @@
+/* ============================================================
+   Kontakt — v3
+   Form is the hero of this page. Nothing competes with it.
+   Centred. Spacious. Confident.
+   ============================================================ */
+
+/* ── Header ─────────────────────────────────────────────── */
+.header {
+  padding-top: calc(var(--nav-height) + 5.5rem);
+  padding-bottom: 3.5rem;
+  background-color: var(--color-bg);
+  text-align: center;
+}
+
+.title {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sub {
+  font-size: var(--text-body-lg);
+  color: var(--color-muted);
+  max-width: 48ch;
+  margin-inline: auto;
+}
+
+/* ── Channel cards ───────────────────────────────────────── */
+.channelGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.channelCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.875rem 2rem;
+  background: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 4px;
+  box-shadow: var(--shadow-card-rest);
+  text-decoration: none;
+  transition:
+    border-color var(--transition-hover),
+    box-shadow var(--transition-hover),
+    transform var(--transition-hover);
+}
+
+.channelCard:hover {
+  border-color: var(--color-orange-border);
+  box-shadow: var(--shadow-card-orange);
+  transform: translateY(-3px);
+}
+
+.channelIcon {
+  color: var(--color-orange);
+  margin-bottom: 0.625rem;
+  transition: transform var(--transition-hover);
+}
+.channelCard:hover .channelIcon { transform: scale(1.1); }
+
+.channelLabel {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-subtle);
+}
+
+.channelValue {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-body);
+}
+
+.channelDesc {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+/* ── Form section — centred, no competition ─────────────── */
+.formSection {
+  background-color: var(--color-surface);
+}
+
+.formWrap {
+  max-width: 680px;
+  margin-inline: auto;
+  /* Elevated card treatment — the form is the main action */
+  background: var(--color-white);
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  padding: 3.5rem;
+}
+
+/* ── Locations section ───────────────────────────────────── */
+.locationsSection {
+  background-color: var(--color-bg);
+}
+
+.locTitle {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: 0.375rem;
+  margin-bottom: 2.5rem;
+}
+
+.locGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.locCard {
+  padding: 1.625rem 1.75rem;
+  background: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 4px;
+  box-shadow: var(--shadow-card-rest);
+  transition:
+    box-shadow var(--transition-hover),
+    transform var(--transition-hover),
+    border-color var(--transition-hover);
+}
+
+.locCard:hover {
+  box-shadow: var(--shadow-card-orange);
+  transform: translateY(-3px);
+  border-color: var(--color-orange-border);
+}
+
+.locNote {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 0.375rem;
+  max-width: none;
+}
+
+.locName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-body);
+  margin-bottom: 0.875rem;
+  letter-spacing: -0.01em;
+}
+
+.locAddress {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.locAddress a {
+  color: var(--color-blue);
+  transition: color var(--transition-base);
+}
+.locAddress a:hover { color: var(--color-orange); }
+
+/* ── Map ─────────────────────────────────────────────────── */
+.mapWrap {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-card-rest);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .channelGrid { grid-template-columns: 1fr; }
+  .formWrap { padding: 2.5rem 2rem; }
+}
+
+@media (max-width: 600px) {
+  .channelGrid { grid-template-columns: 1fr; }
+  .formWrap { padding: 2rem 1.25rem; }
+}
