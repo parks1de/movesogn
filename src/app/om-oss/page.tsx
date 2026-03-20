@@ -106,7 +106,7 @@ export default async function OmOssPage() {
       {/* ── TIMELINE ─────────────────────────────────────────── */}
       <section className={`section bg-surface`}>
         <div className="container">
-          <FadeUp className="text-center" style={{ marginBottom: '4rem' }}>
+          <FadeUp className="text-center mb-8">
             <span className="label">Milepælar</span>
             <h2>Reisa vår</h2>
           </FadeUp>
