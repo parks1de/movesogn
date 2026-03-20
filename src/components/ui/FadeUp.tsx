@@ -6,9 +6,10 @@ type FadeUpProps = {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  delay?: number; // milliseconds, e.g. delay={180}
 };
 
-export default function FadeUp({ children, className, style }: FadeUpProps) {
+export default function FadeUp({ children, className, style, delay = 0 }: FadeUpProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -27,8 +28,12 @@ export default function FadeUp({ children, className, style }: FadeUpProps) {
     <div
       ref={ref}
       className={className}
-      style={style}
-      data-visible={visible}
+      style={{
+        ...style,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
+      }}
     >
       {children}
     </div>
