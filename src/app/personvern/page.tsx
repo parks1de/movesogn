@@ -133,7 +133,7 @@ export default function PersonvernPage() {
           </p>
           <address>
             MOVE Sogn AS<br />
-            Kaupangervegen 1, 6854 Kaupanger<br />
+            Skarpeteigvegen 1, 6854 Kaupanger<br />
             <a href="tel:+4757676666">57 67 66 66</a><br />
             <a href="mailto:post@movesogn.no">post@movesogn.no</a>
           </address>

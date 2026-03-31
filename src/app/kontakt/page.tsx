@@ -31,8 +31,8 @@ const channels = [
   {
     icon: 'map-pin' as const,
     label: 'Besøk oss',
-    value: 'Kaupangervegen 1',
-    href: 'https://maps.google.com/?q=Kaupangervegen+1+Kaupanger',
+    value: 'Skarpeteigvegen 1',
+    href: 'https://maps.google.com/?q=Skarpeteigvegen+1+Kaupanger',
     desc: '6854 Kaupanger',
   },
 ];
@@ -40,14 +40,14 @@ const channels = [
 const locations = [
   {
     name: 'MOVE Sogn / Toyota Sogn',
-    address: 'Kaupangervegen 1, 6854 Kaupanger',
+    address: 'Skarpeteigvegen 1, 6854 Kaupanger',
     phone: '57 67 66 66',
     email: 'post@movesogn.no',
     note: 'Hovudkontor — bil, båt, sykkel',
   },
   {
     name: 'Skadesenteret Sogn',
-    address: 'Kaupangervegen 1, 6854 Kaupanger',
+    address: 'Skarpeteigvegen 1, 6854 Kaupanger',
     phone: '57 67 66 66',
     email: 'post@movesogn.no',
     note: 'Karosseri & skadereparasjon',
