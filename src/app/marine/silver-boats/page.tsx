@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FadeUp from '@/components/ui/FadeUp';
+import ContactForm from '@/components/ui/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Silver Boats | MOVE Sogn Marine',
@@ -12,21 +13,31 @@ export const metadata: Metadata = {
 export default function SilverBoatsPage() {
   return (
     <>
-      {/* TODO: [SANITY] Fetch hero image + headline from CMS (type: pageHero) */}
-      <section style={{ paddingTop: 'calc(var(--nav-height) + 5rem)', paddingBottom: '5rem' }}>
+      <section style={{ paddingTop: 'calc(var(--nav-height) + 5rem)', paddingBottom: '4rem' }}>
         <div className="container">
           <FadeUp>
             <span className="label">Marine</span>
-            <h1>Silver Boats</h1>
-            {/* TODO: [SANITY] Fetch intro text and brand story from CMS (type: marineBrandPage) */}
+            <h1 style={{ marginTop: '0.5rem', marginBottom: '1.5rem' }}>Silver Boats</h1>
+            <p style={{ fontSize: 'var(--text-body-lg)', maxWidth: '56ch', marginBottom: '1rem' }}>
+              Kvalitetsbåtar for alle høve — Beaver, Hawk, Shark, Tiger, Viper.
+            </p>
+            <p style={{ maxWidth: '56ch', marginBottom: '2.5rem' }}>
+              Ta kontakt for prisar og tilgjengelegheit.
+            </p>
+            {/* TODO: [SANITY] populate models */}
           </FadeUp>
         </div>
       </section>
 
-      {/* TODO: [SANITY] Fetch boat models / specs from CMS (type: boatModel) */}
-      <section className="section bg-warm">
+      <section className="section bg-surface">
         <div className="container">
-          {/* TODO: Boat model cards */}
+          <FadeUp style={{ maxWidth: 680, marginInline: 'auto' }}>
+            <ContactForm
+              formType="contact"
+              heading="Spør om Silver Boats"
+              subheading="Fyll ut skjemaet så kjem me tilbake til deg."
+            />
+          </FadeUp>
         </div>
       </section>
     </>

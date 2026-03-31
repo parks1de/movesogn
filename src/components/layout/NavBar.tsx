@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import styles from './NavBar.module.css';
 
 type SubItem = { href: string; label: string; external?: boolean };
@@ -53,10 +53,19 @@ export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
   const pathname                = usePathname();
+  const router                  = useRouter();
+  const headerRef               = useRef<HTMLElement>(null);
 
   const heroPages = ['/', '/bil', '/marine', '/sykkel', '/eigedom', '/om-oss'];
   const isHeroPage = heroPages.some(p => pathname === p);
   const transparent = isHeroPage && !scrolled;
+
+  // Close any open desktop dropdown by blurring the focused nav element
+  const closeDropdowns = () => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -73,11 +82,22 @@ export default function NavBar() {
 
   useEffect(() => { setOpen(false); }, [pathname]);
 
+  // Close desktop dropdown when clicking outside the nav
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        closeDropdowns();
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
+
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/');
 
   return (
-    <header className={`${styles.nav} ${transparent ? styles.transparent : styles.scrolled}`}>
+    <header ref={headerRef} className={`${styles.nav} ${transparent ? styles.transparent : styles.scrolled}`}>
       <div className={`container ${styles.inner}`}>
 
         {/* ── Logo ─────────────────────────────────────────── */}
@@ -97,13 +117,14 @@ export default function NavBar() {
           {navItems.map((item) =>
             item.dropdown ? (
               <div key={item.href} className={styles.dropdownTrigger}>
-                <Link
-                  href={item.href}
-                  className={`${styles.link} ${isActive(item.href) ? styles.linkActive : ''}`}
+                {/* Dropdown-only trigger — no navigation on click */}
+                <button
+                  className={`${styles.link} ${styles.linkBtn} ${isActive(item.href) ? styles.linkActive : ''}`}
+                  aria-haspopup="true"
                 >
                   {item.label}
                   <ChevronIcon className={styles.chevron} />
-                </Link>
+                </button>
                 <div className={styles.dropdownMenu}>
                   {item.dropdown.map((sub) =>
                     sub.external ? (
@@ -113,6 +134,7 @@ export default function NavBar() {
                         className={styles.dropdownItem}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={closeDropdowns}
                       >
                         {sub.label}
                         <ExternalIcon />
@@ -122,6 +144,7 @@ export default function NavBar() {
                         key={sub.href}
                         href={sub.href}
                         className={`${styles.dropdownItem} ${isActive(sub.href) ? styles.dropdownItemActive : ''}`}
+                        onClick={closeDropdowns}
                       >
                         {sub.label}
                       </Link>
@@ -140,10 +163,10 @@ export default function NavBar() {
             )
           )}
 
-          {/* ── Language toggle (EN) — TODO: wire to next-intl post-launch ── */}
+          {/* ── Language toggle (EN) ── */}
           <button
             className={styles.langToggle}
-            onClick={() => localStorage.setItem('lang', 'en')}
+            onClick={() => router.push('?lang=en')}
             aria-label="Switch to English"
           >
             EN
@@ -173,14 +196,23 @@ export default function NavBar() {
         <nav className={styles.drawer} aria-label="Mobil navigasjon">
           {navItems.map((item) => (
             <div key={item.href} className={styles.drawerGroup}>
-              <Link
-                href={item.href}
-                className={styles.drawerLink}
-                onClick={() => setOpen(false)}
-                style={isActive(item.href) ? { color: 'var(--color-orange)', fontWeight: 600 } : undefined}
-              >
-                {item.label}
-              </Link>
+              {item.dropdown ? (
+                <span
+                  className={styles.drawerLink}
+                  style={isActive(item.href) ? { color: 'var(--color-orange)', fontWeight: 600 } : undefined}
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <Link
+                  href={item.href}
+                  className={styles.drawerLink}
+                  onClick={() => setOpen(false)}
+                  style={isActive(item.href) ? { color: 'var(--color-orange)', fontWeight: 600 } : undefined}
+                >
+                  {item.label}
+                </Link>
+              )}
               {item.dropdown && (
                 <div className={styles.drawerSub}>
                   {item.dropdown.map((sub) =>

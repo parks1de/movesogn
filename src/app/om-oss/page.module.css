@@ -41,7 +41,9 @@
 
 /* Story */
 .storyWrap {
-  max-width: var(--max-prose-sm);
+  max-width: 680px;
+  margin-inline: auto;
+  text-align: center;
 }
 .storyH2 { margin-bottom: 2rem; }
 .storyWrap p { color: var(--color-muted); line-height: 1.8; }

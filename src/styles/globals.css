@@ -130,9 +130,11 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
+  overflow-x: hidden;
   font-family: var(--f-body);
   font-size: var(--text-body);
   line-height: 1.7;

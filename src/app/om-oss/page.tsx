@@ -54,9 +54,10 @@ export default async function OmOssPage() {
       {/* ── HERO ────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroBg}>
+          {/* TODO: replace with a proper Om oss image when available */}
           <Image
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85"
-            alt="Luftfoto av Kaupanger og Sognefjorden"
+            src="/images/toyota-sogn-hero.jpg"
+            alt="MOVE Sogn — Toyota Sogn i Kaupanger"
             fill
             priority
             sizes="100vw"

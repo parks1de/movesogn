@@ -114,6 +114,17 @@
   margin: 0 auto;
 }
 
+/* Dark top overlay so transparent nav text remains readable on this page */
+.splitHero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+  z-index: 4;
+  pointer-events: none;
+}
+
 /* v3: thin separator between halves */
 .splitHero::after {
   content: '';

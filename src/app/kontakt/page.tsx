@@ -142,25 +142,25 @@ export default async function KontaktPage() {
       {/* MANAGED VIA SANITY — siteSettings → openingHours */}
       <section className="section--sm">
         <div className="container">
-          <FadeUp>
+          <FadeUp className={styles.hoursSection}>
             <span className="label">Opningstider</span>
-            <div className={styles.hoursCard}>
-              <div className={styles.hoursRow}>
-                <span className={styles.hoursDay}>Måndag – fredag</span>
-                <span className={styles.hoursTime}>{openingHours.weekdays}</span>
+            <div className={styles.hoursGrid}>
+              <div className={styles.hoursCell}>
+                <span className={styles.hoursDayLabel}>Kvardagar</span>
+                <span className={styles.hoursTimeVal}>{openingHours.weekdays}</span>
               </div>
-              <div className={styles.hoursRow}>
-                <span className={styles.hoursDay}>
+              <div className={styles.hoursCell}>
+                <span className={styles.hoursDayLabel}>
                   Laurdag
                   {openingHours.saturdayNote && (
                     <span className={styles.hoursNote}> ({openingHours.saturdayNote})</span>
                   )}
                 </span>
-                <span className={styles.hoursTime}>{openingHours.saturday}</span>
+                <span className={styles.hoursTimeVal}>{openingHours.saturday}</span>
               </div>
-              <div className={styles.hoursRow}>
-                <span className={styles.hoursDay}>Sundag</span>
-                <span className={styles.hoursTime}>{openingHours.sunday}</span>
+              <div className={styles.hoursCell}>
+                <span className={styles.hoursDayLabel}>Sundag</span>
+                <span className={styles.hoursTimeVal}>{openingHours.sunday}</span>
               </div>
             </div>
           </FadeUp>
@@ -191,8 +191,8 @@ export default async function KontaktPage() {
           {/* Map */}
           <FadeUp delay={100} className={styles.mapWrap}>
             <iframe
-              title="MOVE Sogn — Kaupanger"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3947.2!2d7.2333!3d61.1833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zKaupanger!5e0!3m2!1snn!2sno!4v1"
+              title="MOVE Sogn — Skarpeteigvegen 1, 6854 Kaupanger"
+              src="https://maps.google.com/maps?q=Skarpeteigvegen+1,+6854+Kaupanger&output=embed"
               width="100%"
               height="280"
               style={{ border: 0, borderRadius: 4, display: 'block' }}

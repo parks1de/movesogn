@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import FadeUp from '@/components/ui/FadeUp';
+import Icon from '@/components/ui/Icon';
+import ContactForm from '@/components/ui/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Suzuki Båtmotor | MOVE Sogn Marine',
@@ -12,21 +15,38 @@ export const metadata: Metadata = {
 export default function SuzukiPage() {
   return (
     <>
-      {/* TODO: [SANITY] Fetch hero image + headline from CMS (type: pageHero) */}
-      <section style={{ paddingTop: 'calc(var(--nav-height) + 5rem)', paddingBottom: '5rem' }}>
+      <section style={{ paddingTop: 'calc(var(--nav-height) + 5rem)', paddingBottom: '4rem' }}>
         <div className="container">
           <FadeUp>
-            <span className="label">Marine</span>
-            <h1>Suzuki Båtmotor</h1>
-            {/* TODO: [SANITY] Fetch intro text and service info from CMS (type: marineBrandPage) */}
+            <span className="label">Marine · Suzuki</span>
+            <h1 style={{ marginTop: '0.5rem', marginBottom: '1.5rem' }}>Suzuki Båtmotor</h1>
+
+            <p style={{ fontSize: 'var(--text-body-lg)', maxWidth: '56ch', marginBottom: '1rem' }}>
+              DF9,9B — 9,9 HK med EFI (Elektronisk bensininnsprøytning), Lean Burn forbrenningskontroll, vekt frå 44 kg.
+              Leverast i manuell og el.start utgåve.
+            </p>
+            <p style={{ maxWidth: '56ch', marginBottom: '2rem' }}>
+              Autorisert Suzuki-verkstad — faglærde mekanikarar.
+            </p>
+
+            <Link href="/marine/service" className="btn btn--primary" style={{ marginBottom: '2.5rem' }}>
+              Bestill service
+              <Icon name="arrow-right" size={16} />
+            </Link>
+            {/* TODO: [SANITY] populate motor models + service offerings */}
           </FadeUp>
         </div>
       </section>
 
-      {/* TODO: [SANITY] Fetch motor models + service offerings from CMS (type: suzukiContent) */}
-      <section className="section bg-warm">
+      <section className="section bg-surface">
         <div className="container">
-          {/* TODO: Motor models + service CTA */}
+          <FadeUp style={{ maxWidth: 680, marginInline: 'auto' }}>
+            <ContactForm
+              formType="contact"
+              heading="Spør om Suzuki-motor"
+              subheading="Fyll ut skjemaet så kjem me tilbake til deg."
+            />
+          </FadeUp>
         </div>
       </section>
     </>

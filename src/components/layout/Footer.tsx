@@ -12,7 +12,7 @@ const footerLinks = {
   ],
   partnarar: [
     { label: 'Toyota Sogn',        href: 'https://www.toyotasogn.no',       external: true  },
-    { label: 'Hertz Bilutleige',   href: 'https://www.hertz.no',            external: true  },
+    { label: 'Hertz Bilutleige',   href: '/bil/hertz',                      external: false },
     { label: 'Skadesenteret Sogn', href: 'https://www.skadesenteretsogn.no',external: true  },
     { label: 'Silver Boats',       href: 'https://www.silverboats.no',      external: true  },
   ],

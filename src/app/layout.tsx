@@ -5,6 +5,7 @@ import '../styles/globals.css';
 import NavBar from '@/components/layout/NavBar';
 import Footer from '@/components/layout/Footer';
 import CookieBanner from '@/components/ui/CookieBanner';
+import LangBanner from '@/components/ui/LangBanner';
 
 const syne = Syne({
   subsets: ['latin'],
@@ -129,6 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
 
+        <LangBanner />
         <NavBar />
         <main id="main-content">{children}</main>
         <Footer />
