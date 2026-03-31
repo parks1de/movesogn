@@ -479,7 +479,7 @@
 
 .enquirySub {
   font-size: 1rem;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.62);
   max-width: 44ch;
   margin-inline: auto;
   line-height: 1.65;
@@ -495,19 +495,31 @@
 }
 
 /* Override form colours for dark background */
-.enquiryFormWrap :global(label) {
-  color: rgba(255,255,255,0.6) !important;
+/* Target the <span class="fieldLabel"> inside each <label> */
+.enquiryFormWrap :global(label span) {
+  color: rgba(255,255,255,0.82) !important;
+}
+/* Also cover h2/p in the form header area */
+.enquiryFormWrap :global(h2),
+.enquiryFormWrap :global(p) {
+  color: rgba(255,255,255,0.82) !important;
 }
 .enquiryFormWrap :global(input),
 .enquiryFormWrap :global(textarea),
 .enquiryFormWrap :global(select) {
-  background: rgba(255,255,255,0.06) !important;
-  border-color: rgba(255,255,255,0.15) !important;
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(255,255,255,0.22) !important;
   color: white !important;
+}
+.enquiryFormWrap :global(input::placeholder),
+.enquiryFormWrap :global(textarea::placeholder) {
+  color: rgba(255,255,255,0.42) !important;
+  opacity: 1 !important;
 }
 .enquiryFormWrap :global(input:focus),
 .enquiryFormWrap :global(textarea:focus) {
-  border-color: rgba(196,154,40,0.5) !important;
+  border-color: rgba(196,154,40,0.55) !important;
+  box-shadow: 0 0 0 3px rgba(196,154,40,0.12) !important;
   outline: none !important;
 }
 

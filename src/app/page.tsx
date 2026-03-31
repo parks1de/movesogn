@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from '@/components/ui/FadeUp';
 import Icon from '@/components/ui/Icon';
+import StatCounter from '@/components/ui/StatCounter';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -241,6 +242,13 @@ export default function HeimsidePage() {
           <FadeUp>
             <span className="label">Sidan 1984</span>
             <h2 className={styles.fortyH2}>40 år med rørsle i Sogn.</h2>
+          </FadeUp>
+          <StatCounter items={[
+            { value: 40, suffix: '+', label: 'År i Sogn',      duration: 1200 },
+            { value: 60, suffix: '+', label: 'Medarbeidarar',  duration: 1600 },
+            { value: 4,  suffix: '',  label: 'Avdelingar',     duration: 800  },
+          ]} />
+          <FadeUp>
             <p className={styles.fortySub}>
               Frå ANI Bil til MOVE — 60 medarbeidarar og ein ambisjon om å alltid vera der for deg.
             </p>

@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import FadeUp from '@/components/ui/FadeUp';
 
 export const metadata: Metadata = {
-  title: 'Sogn næringseigendom — PV5, Køff, ANI Anlegg | MOVE Sogn',
+  title: 'Konserneigedommar — PV5, Køff, ANI Anlegg | MOVE Sogn',
   description: 'Næringslokale i veksande Sogn — PV5 næringspark, Køff kafé og ANI Anlegg. Kontakt MOVE Sogn for ledige areal.',
   openGraph: {
-    images: [{ url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80', width: 1200, height: 630, alt: 'Sogn næringseigendom — MOVE Sogn' }],
+    images: [{ url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80', width: 1200, height: 630, alt: 'Konserneigedommar — MOVE Sogn' }],
   },
 };
 
@@ -17,7 +17,7 @@ export default function NaringseigendomPage() {
         <div className="container">
           <FadeUp>
             <span className="label">Eigedom · Sogn</span>
-            <h1>Sogn næringseigendom</h1>
+            <h1>Konserneigedommar</h1>
             {/* TODO: [SANITY] Fetch intro text from CMS (type: naringseigendomPage) */}
           </FadeUp>
         </div>

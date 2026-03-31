@@ -41,7 +41,7 @@ const navItems: NavItem[] = [
     href: '/eigedom',
     label: 'Eigedom',
     dropdown: [
-      { href: '/eigedom/naringseigendom', label: 'Sogn næringseigendom' },
+      { href: '/eigedom/naringseigendom', label: 'Konserneigedommar' },
       { href: '/eigedom/casa-banderas',   label: 'Casa Banderas' },
     ],
   },
