@@ -10,39 +10,9 @@ export const metadata: Metadata = {
   description: 'Me flyttar deg — gjennom livet. Toyota, Summerfun-båtar, el-syklar og eigedom i Sogn. 40 år med lokal mobilitet.',
 };
 
-const mobilitetCards = [
-  {
-    label: 'Bil',
-    title: 'Toyota Sogn',
-    desc: 'Verdskjend kvalitet og lokal kunnskap — nye og brukte Toyota på Kaupanger.',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=900&q=80',
-    href: 'https://www.toyotasogn.no',
-    external: true,
-    cta: 'Besøk Toyota Sogn',
-  },
-  {
-    label: 'Bil',
-    title: 'Bilhuset Førde',
-    desc: 'Mercedes, Peugeot og KIA frå moderne lokale på Øyrane i Førde.',
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=900&q=80',
-    href: 'https://www.bilhusetforde.no',
-    external: true,
-    cta: 'Besøk Bilhuset Førde',
-  },
-  {
-    label: 'Bilutleige',
-    title: 'MOVE Bilutleige',
-    desc: 'Hundre leigebiler på fem stader i Sogn og Sunnfjord — alltid på farten.',
-    image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
-    href: '/mobilitet',
-    external: false,
-    cta: 'Sjå leigebil',
-  },
-];
-
-const marinePhilosophy = [
-  { icon: 'anchor' as const,  title: 'Enkel å bruka',      desc: 'Designa for alle — frå nybyrjar til erfaren båteigar.' },
-  { icon: 'shield' as const,  title: 'Trygg konstruksjon', desc: 'CE-godkjent og bygd for norske farvatn.' },
+const marineProps = [
+  { icon: 'anchor'  as const, title: 'Enkel å bruka',      desc: 'Designa for alle — frå nybyrjar til erfaren båteigar.' },
+  { icon: 'shield'  as const, title: 'Trygg konstruksjon', desc: 'CE-godkjent og bygd for norske farvatn.' },
   { icon: 'compass' as const, title: 'Skapt for fjorden',  desc: 'Kvar modell er valt for Sognefjorden.' },
 ];
 
@@ -62,7 +32,6 @@ export default function HeimsidePage() {
             style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
           />
           <div className={styles.heroOverlay} />
-          {/* v3: soft brand-tinted gradient layer */}
           <div className={styles.heroTint} aria-hidden="true" />
         </div>
         <div className={`container ${styles.heroContent}`}>
@@ -80,7 +49,7 @@ export default function HeimsidePage() {
             </p>
           </FadeUp>
           <FadeUp delay={280}>
-            <Link href="/mobilitet" className="btn btn--primary">
+            <Link href="/bil" className="btn btn--primary">
               Utforsk MOVE
               <Icon name="arrow-right" size={16} />
             </Link>
@@ -89,24 +58,51 @@ export default function HeimsidePage() {
         <div className={styles.heroScroll} aria-hidden="true"><span /></div>
       </section>
 
-      {/* ── MOBILITET GATEWAY ───────────────────────────────── */}
-      <section className={`section--md ${styles.mobilitetSection}`}>
-        <div className="container">
-          <FadeUp className={styles.sectionIntro}>
-            <span className="label">Mobilitet</span>
-            <h2>Vel din måte å bevega deg på.</h2>
+
+      {/* ── TOYOTA SOGN — #1 PUSH ───────────────────────────── */}
+      {/* TODO: [SANITY] Fetch hero image, headline, subtext, CTA from CMS (type: toyotaBlock) */}
+      <section className={styles.toyotaSection}>
+        <div className={styles.toyotaBg}>
+          <Image
+            src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&q=85"
+            alt="Toyota Sogn — ny og brukt Toyota på Kaupanger"
+            fill
+            sizes="100vw"
+            quality={85}
+            style={{ objectFit: 'cover', objectPosition: 'center 45%' }}
+          />
+          <div className={styles.toyotaOverlay} />
+        </div>
+        <div className={`container ${styles.toyotaContent}`}>
+          <FadeUp>
+            <span className={styles.toyotaEyebrow}>Bil</span>
           </FadeUp>
-          <div className={styles.mobilitetGrid}>
-            {mobilitetCards.map((card, i) => (
-              <FadeUp key={card.title} delay={i * 80} className={styles.mobilitetCardWrap}>
-                <MobilitetCard {...card} />
-              </FadeUp>
-            ))}
-          </div>
+          <FadeUp delay={80}>
+            <h2 className={styles.toyotaH2}>Toyota Sogn.</h2>
+          </FadeUp>
+          <FadeUp delay={160}>
+            <p className={styles.toyotaSub}>
+              Verdskjend kvalitet og lokal kunnskap —<br />
+              nye og brukte Toyota på Kaupanger.
+            </p>
+          </FadeUp>
+          <FadeUp delay={240}>
+            <a
+              href="https://www.toyotasogn.no"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary"
+            >
+              Besøk Toyota Sogn
+              <Icon name="external-link" size={16} />
+            </a>
+          </FadeUp>
         </div>
       </section>
 
-      {/* ── MARINE SPOTLIGHT ────────────────────────────────── */}
+
+      {/* ── MARINE TEASER ───────────────────────────────────── */}
+      {/* TODO: [SANITY] Fetch image, headline, body text, props list from CMS (type: marineSectionBlock) */}
       <section className={`section bg-warm ${styles.marineSection}`}>
         <div className={`container ${styles.marineSplit}`}>
           <FadeUp className={styles.marineImgWrap}>
@@ -120,15 +116,15 @@ export default function HeimsidePage() {
             />
           </FadeUp>
           <FadeUp delay={120} className={styles.marineText}>
-            <span className="label">Marine &amp; Fritid</span>
+            <span className="label">Marine</span>
             <h2>Livet er best på sjøen.</h2>
             <p>
-              Frå ungdomsbåten Hasle Summerfun til dei solide Silver-båtane frå Finland —
+              Frå ungdomsbåten Hasle Summerfun til dei solide Silver Boats frå Finland —
               me har det du treng for å oppdage Sognefjorden. Autorisert Suzuki-service
               på Kaupanger.
             </p>
             <div className={styles.marineProps}>
-              {marinePhilosophy.map((p) => (
+              {marineProps.map((p) => (
                 <div key={p.title} className={styles.marineProp}>
                   <Icon name={p.icon} size={18} />
                   <span>{p.title}</span>
@@ -136,21 +132,23 @@ export default function HeimsidePage() {
               ))}
             </div>
             <Link href="/marine" className="btn btn--outline-blue">
-              Sjå Summerfun-båtar
+              Sjå båtar
               <Icon name="arrow-right" size={16} />
             </Link>
           </FadeUp>
         </div>
       </section>
 
+
       {/* ── SYKKEL TEASER ───────────────────────────────────── */}
+      {/* TODO: [SANITY] Fetch headline, body, image from CMS (type: sykkelSectionBlock) */}
       <section className={`section bg-dark ${styles.sykkelSection}`}>
         <div className={`container ${styles.sykkelInner}`}>
           <FadeUp className={styles.sykkelText}>
-            <span className="label">Mikromobilitet</span>
+            <span className="label">Sykkel</span>
             <h2 className="text-white">Framtida køyrer elektrisk.</h2>
             <p className={styles.sykkelSub}>
-              NIU el-scooterar, Peugeot og Crescent el-syklar — frå kr 7 990. Null utslepp, låge kostnader.
+              Merida el-syklar og NIU el-moped — null utslepp, låge kostnader, fri rørsle i Sogn.
             </p>
             <Link href="/sykkel" className="btn btn--primary" style={{ marginTop: '2rem' }}>
               Sjå el-syklar
@@ -160,7 +158,7 @@ export default function HeimsidePage() {
           <FadeUp delay={140} className={styles.sykkelImgWrap}>
             <Image
               src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-              alt="Elektrisk scooter — MOVE Sogn"
+              alt="Elektrisk sykkel — MOVE Sogn"
               width={500}
               height={380}
               quality={80}
@@ -171,7 +169,9 @@ export default function HeimsidePage() {
         </div>
       </section>
 
+
       {/* ── EIGEDOM TEASER ──────────────────────────────────── */}
+      {/* TODO: [SANITY] Fetch eigedom cards from CMS (type: eigedomCard) */}
       <section className="section bg-surface">
         <div className="container">
           <FadeUp className={styles.sectionIntro}>
@@ -180,9 +180,8 @@ export default function HeimsidePage() {
           </FadeUp>
           <div className={styles.eigedomGrid}>
 
-            {/* Sogn: structured, business-credibility tone */}
             <FadeUp className={styles.eigedomCardWrap}>
-              <Link href="/eigedom" className={`${styles.eigedomCard} ${styles.eigedomSogn}`}>
+              <Link href="/eigedom/naringseigendom" className={`${styles.eigedomCard} ${styles.eigedomSogn}`}>
                 <div className={styles.eigedomImgWrap}>
                   <Image
                     src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80"
@@ -205,7 +204,6 @@ export default function HeimsidePage() {
               </Link>
             </FadeUp>
 
-            {/* Spain: premium, warm, aspirational tone */}
             <FadeUp delay={100} className={styles.eigedomCardWrap}>
               <Link href="/eigedom/casa-banderas" className={`${styles.eigedomCard} ${styles.eigedomSpain}`}>
                 <div className={styles.eigedomImgWrap}>
@@ -234,7 +232,9 @@ export default function HeimsidePage() {
         </div>
       </section>
 
-      {/* ── 40 ÅR ────────────────────────────────────────────── */}
+
+      {/* ── 40 ÅR LEGACY ────────────────────────────────────── */}
+      {/* TODO: [SANITY] Fetch legacy stats and copy from CMS (type: legacyBlock) */}
       <section className={`section--xl ${styles.fortySection}`}>
         <div className={styles.fortyBg} aria-hidden="true">40</div>
         <div className="container text-center">
@@ -253,34 +253,4 @@ export default function HeimsidePage() {
       </section>
     </>
   );
-}
-
-function MobilitetCard({ label, title, desc, image, href, external, cta }: typeof mobilitetCards[0]) {
-  const inner = (
-    <article className={`${styles.mobilitetCard}`}>
-      <div className={styles.mobilitetCardImgWrap}>
-        <Image
-          src={image}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          quality={75}
-          style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
-        />
-      </div>
-      <div className={styles.mobilitetCardBody}>
-        <span className="label">{label}</span>
-        <h3 className={styles.mobilitetCardTitle}>{title}</h3>
-        <p className={styles.mobilitetCardDesc}>{desc}</p>
-        <span className={styles.mobilitetCardCta}>
-          {cta}
-          <Icon name={external ? 'external-link' : 'arrow-right'} size={14} />
-        </span>
-      </div>
-    </article>
-  );
-
-  return external
-    ? <a href={href} target="_blank" rel="noopener noreferrer" className={styles.mobilitetCardLink}>{inner}</a>
-    : <Link href={href} className={styles.mobilitetCardLink}>{inner}</Link>;
 }

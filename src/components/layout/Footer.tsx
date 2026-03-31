@@ -5,22 +5,22 @@ import styles from './Footer.module.css';
 
 const footerLinks = {
   tenester: [
-    { label: 'Mobilitet',        href: '/mobilitet' },
-    { label: 'Marine & Fritid',  href: '/marine' },
-    { label: 'Sykkel',           href: '/sykkel' },
-    { label: 'Eigedom',          href: '/eigedom' },
+    { label: 'Bil',       href: '/bil' },
+    { label: 'Marine',    href: '/marine' },
+    { label: 'Sykkel',    href: '/sykkel' },
+    { label: 'Eigedom',   href: '/eigedom' },
   ],
   partnarar: [
-    { label: 'Toyota Sogn',          href: 'https://www.toyotasogn.no',       external: true },
-    { label: 'Bilhuset Førde',       href: 'https://www.bilhusetforde.no',     external: true },
-    { label: 'Skadesenteret Sogn',   href: 'https://www.skadesenteretsogn.no', external: true },
-    { label: 'Hertz Sogndal',        href: 'https://www.hertz.no',             external: true },
+    { label: 'Toyota Sogn',        href: 'https://www.toyotasogn.no',       external: true  },
+    { label: 'Hertz Bilutleige',   href: 'https://www.hertz.no',            external: true  },
+    { label: 'Skadesenteret Sogn', href: 'https://www.skadesenteretsogn.no',external: true  },
+    { label: 'Silver Boats',       href: '/marine/silver-boats',            external: false },
   ],
   om: [
-    { label: 'Om oss',                 href: '/om-oss',              external: false },
-    { label: 'Kontakt',                href: '/kontakt',             external: false },
-    { label: 'Personvernerklæring',    href: '/personvern',          external: false },
-    { label: 'Informasjonskapslar',    href: '/informasjonskapslar', external: false },
+    { label: 'Om oss',               href: '/om-oss',              external: false },
+    { label: 'Kontakt',              href: '/kontakt',             external: false },
+    { label: 'Personvernerklæring',  href: '/personvern',          external: false },
+    { label: 'Informasjonskapslar',  href: '/informasjonskapslar', external: false },
   ],
 };
 
@@ -29,10 +29,9 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.grid}`}>
 
-        {/* ── Brand column: M icon mark + tagline + contact ── */}
+        {/* ── Brand column ─────────────────────────────────── */}
         <div className={styles.brand}>
           <Link href="/" aria-label="MOVE Sogn — til startsida" className={styles.logoWrap}>
-            {/* Footer uses the standalone M mark — compact, iconic */}
             <Image
               src="/images/logo-footer-m.svg"
               alt="MOVE"
@@ -88,14 +87,18 @@ export default function Footer() {
           <ul>
             {footerLinks.partnarar.map((l) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  className={styles.footerLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {l.label}
-                </a>
+                {l.external ? (
+                  <a
+                    href={l.href}
+                    className={styles.footerLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {l.label}
+                  </a>
+                ) : (
+                  <Link href={l.href} className={styles.footerLink}>{l.label}</Link>
+                )}
               </li>
             ))}
           </ul>
