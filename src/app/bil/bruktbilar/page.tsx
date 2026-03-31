@@ -13,7 +13,7 @@ export default function BruktbilarPage() {
     <section className={styles.gateway}>
       <div className={styles.heroBg}>
         <Image
-          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&q=85"
+          src="/images/toyota-sogn-hero.jpg"
           alt="Toyota Sogn — bruktbilar på Kaupanger"
           fill
           priority

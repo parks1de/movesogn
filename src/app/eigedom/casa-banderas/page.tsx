@@ -10,24 +10,19 @@ export const metadata: Metadata = {
   title: 'Casa Banderas — Eksklusiv feriebolig i Spania',
   description: 'Casa Banderas — privat luksusbustad på Costa del Sol. Panoramautsikt over Middelhavet, fullt utstyrt og tilgjengeleg for eksklusiv utleige.',
   openGraph: {
-    images: [{ url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80', width: 1200, height: 630, alt: 'Casa Banderas — terrasse med havutsikt' }],
+    images: [{ url: '/images/casa-banderas/cb-01.jpg', width: 1200, height: 630, alt: 'Casa Banderas — terrasse med havutsikt' }],
   },
 };
 
-// 10-20 gallery images — placeholders ready for real images
 const galleryImages = [
-  { src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=85', alt: 'Casa Banderas — terrasse med havutsikt', wide: true, tall: false },
-  { src: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80', alt: 'Stoveseksjon med panoramavindauge',     wide: false, tall: true  },
-  { src: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80', alt: 'Hovudsoverom med balkong',               wide: false, tall: false },
-  { src: 'https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=1200&q=80', alt: 'Kjøkken i marmor og bøk',                  wide: false, tall: false },
-  { src: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1200&q=80', alt: 'Privat basseng',                          wide: true,  tall: false },
-  { src: 'https://images.unsplash.com/photo-1615571022219-eb45cf7faa9d?w=1200&q=80', alt: 'Terrasse med solstolar og havutsikt',    wide: false, tall: false },
-  { src: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80', alt: 'Baderom i marmor',                        wide: false, tall: true  },
-  { src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80', alt: 'Soverom 2',                               wide: false, tall: false },
-  { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80', alt: 'Spisestove med terrassedør',             wide: false, tall: false },
-  { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80', alt: 'Kveldsstemning på terrassen',            wide: true,  tall: false },
-  { src: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80', alt: 'Nærleik til golfbane',                   wide: false, tall: false },
-  { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80', alt: 'Stranda 5 min unna',                     wide: false, tall: false },
+  { src: '/images/casa-banderas/cb-01.jpg', alt: 'Casa Banderas — eksteriør',        wide: true,  tall: false },
+  { src: '/images/casa-banderas/cb-02.jpg', alt: 'Casa Banderas — interiør',         wide: false, tall: true  },
+  { src: '/images/casa-banderas/cb-03.jpg', alt: 'Casa Banderas — stove og utsikt',  wide: false, tall: false },
+  { src: '/images/casa-banderas/cb-04.jpg', alt: 'Casa Banderas — hage og basseng',  wide: false, tall: false },
+  { src: '/images/casa-banderas/cb-05.jpg', alt: 'Casa Banderas — terrasse',         wide: true,  tall: false },
+  { src: '/images/casa-banderas/cb-06.jpg', alt: 'Casa Banderas — soverom',          wide: false, tall: false },
+  { src: '/images/casa-banderas/cb-07.jpg', alt: 'Casa Banderas — utsikt',           wide: false, tall: true  },
+  { src: '/images/casa-banderas/cb-08.jpg', alt: 'Casa Banderas — omgjevnadar',      wide: false, tall: false },
 ];
 
 const amenities = [
@@ -48,7 +43,7 @@ export default function CasaBanderasPage() {
       ═══════════════════════════════════════════════════ */}
       <section className={styles.hero}>
         <Image
-          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90"
+          src="/images/casa-banderas/cb-01.jpg"
           alt="Casa Banderas — panoramautsikt over Middelhavet"
           fill
           priority
