@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
     label: 'Bil',
     dropdown: [
       { href: 'https://www.toyotasogn.no', label: 'Toyota Sogn',    external: true },
-      { href: '/bil/bruktbilar',           label: 'Bruktbilar' },
+      { href: 'https://toyotasogn.no/bruktbilar', label: 'Bruktbilar', external: true },
       { href: '/bil/hertz',                label: 'Hertz Bilutleige' },
     ],
   },
