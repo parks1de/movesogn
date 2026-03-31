@@ -4,6 +4,9 @@ import FadeUp from '@/components/ui/FadeUp';
 export const metadata: Metadata = {
   title: 'NIU Moped | MOVE Sogn Sykkel',
   description: 'NIU elektriske mopeder — stilreine, raske og miljøvenlege. MOVE Sogn er autorisert NIU-forhandlar i Sogn.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80', width: 1200, height: 630, alt: 'NIU elektrisk moped — MOVE Sogn' }],
+  },
 };
 
 export default function NiuPage() {

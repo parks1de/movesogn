@@ -14,8 +14,8 @@ const placeholderProducts: SykkelProduct[] = [
   { slug: 'niu-uqi-gt-sport', name: 'NIU UQi GT Sport', category: 'scooter', range_km: '50', motor_w: '1200', weight: '62', price_from: '19 990', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80', images: '', body: 'Enkel og prisgunstig elektrisk scooter med innovativt retro-design og god NIU-kvalitet. For alle — ungdommar eller pendlarar.' },
   { slug: 'niu-mqi-sport', name: 'NIU MQi+ Sport', category: 'scooter', range_km: '100', motor_w: '2000', weight: '72', price_from: '22 990', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80', images: '', body: 'Scooteren med best rekkevidde i NIU-serien. Morosam, rask og kvalitetssikker. Perfekt for pendling og skule.' },
   { slug: 'niu-kqi3-pro', name: 'NIU KQi3 Pro', category: 'sparkesykkel', range_km: '50', motor_w: '300', weight: '16', price_from: '7 990', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', images: '', body: 'Ikonisk halo-frontlykt, robuste hjul og skivebrems. Lett å folde, passar i bagasjerommet. NIU-app for statistikk og låsing.' },
-  { slug: 'peugeot-el-sykkel', name: 'Peugeot El-sykkel', category: 'sykkel', range_km: '140', motor_w: '250', weight: '22', price_from: 'Kontakt oss', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', images: '', body: 'Peugeot el-sykkel med lett aluminiumsramme og Lithium-ion-batteri. Fire nivå pedalassistanse. Rekkevidde opptil 140 km.' },
-  { slug: 'crescent-el-sykkel', name: 'Crescent El-sykkel', category: 'sykkel', range_km: '120', motor_w: '250', weight: '20', price_from: 'Kontakt oss', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', images: '', body: 'Crescent el-sykkel designa for norske forhold. Pedelec-system for assistert innsats. Perfekt for bykøyring og terreng.' },
+  { slug: 'merida-e-crossway', name: 'Merida eSPRESSO CROSS', category: 'sykkel', range_km: '150', motor_w: '250', weight: '22', price_from: 'Kontakt oss', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', images: '', body: 'Merida el-sykkel for terreng og asfalt — lett aluminiumsramme, Shimano driv og Lithium-ion-batteri. Opptil 150 km rekkevidde.' },
+  { slug: 'merida-e-speeder', name: 'Merida eSPEEDER', category: 'sykkel', range_km: '130', motor_w: '250', weight: '20', price_from: 'Kontakt oss', image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', images: '', body: 'Rask og elegant Merida el-sykkel for dagleg pendling — aerodynamisk design og integrert batteri. Perfekt for bykøyring i Sogn.' },
 ];
 
 interface Props { params: { slug: string } }
@@ -77,7 +77,7 @@ export default async function SykkelDetailPage({ params }: Props) {
       <section className="section">
         <div className={`container ${styles.contentGrid}`}>
           <FadeUp className={styles.bodyCol}>
-            <span className="label">{product.category === 'sykkel' ? 'El-sykkel' : product.category === 'scooter' ? 'El-scooter' : 'Sparkesykkel'}</span>
+            <span className="label">{product.category === 'sykkel' ? 'Merida El-sykkel' : product.category === 'scooter' ? 'NIU Moped' : 'Sparkesykkel'}</span>
             <h2>{product.name}</h2>
             <p className={styles.bodyText}>{product.body}</p>
           </FadeUp>

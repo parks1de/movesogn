@@ -15,17 +15,58 @@ export const metadata: Metadata = {
     template: '%s | MOVE Sogn',
   },
   description:
-    'MOVE Sogn tilbyr Toyota, bilutleige, Summerfun-båtar, el-syklar, el-scooterar og eigedom i Sogn. 40 år med mobilitet og lokalkunne.',
+    'MOVE Sogn tilbyr Toyota, Hertz bilutleige, Summerfun-båtar, Merida el-syklar, NIU moped og eigedom i Sogn. 40 år med mobilitet og lokalkunne.',
   openGraph: {
     siteName: 'MOVE Sogn',
     locale: 'nn_NO',
     type: 'website',
-    images: [{ url: '/og-default.jpg', width: 1200, height: 630 }],
+    url: SITE_URL,
+    images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: 'MOVE Sogn' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@movesogn',
   },
   icons: {
     icon: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'MOVE Sogn',
+  telephone: '+4757676666',
+  email: 'post@movesogn.no',
+  url: 'https://www.movesogn.no',
+  logo: 'https://www.movesogn.no/images/logo-blue.svg',
+  image: 'https://www.movesogn.no/og-default.jpg',
+  priceRange: '££',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Kaupangervegen 1',
+    addressLocality: 'Kaupanger',
+    postalCode: '6854',
+    addressCountry: 'NO',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 61.1833,
+    longitude: 7.2333,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '17:00',
+    },
+  ],
+  sameAs: [
+    'https://www.facebook.com/movesogn',
+    'https://www.instagram.com/movesogn',
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -38,6 +79,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
+        />
+        {/* LocalBusiness JSON-LD — critical for local search visibility */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
       </head>
       <body>

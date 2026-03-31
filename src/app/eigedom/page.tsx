@@ -8,6 +8,9 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Eigedom — Næringslokale og Casa Banderas',
   description: 'MOVE Eigedom — næringslokale i Kaupanger og eksklusiv feriebolig Casa Banderas på Costa del Sol. Ta kontakt for visning og førespurnad.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80', width: 1200, height: 630, alt: 'Næringslokale i Sogn — MOVE Eigedom' }],
+  },
 };
 
 export default function EigedomPage() {

@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: 'Om oss — 40 år med rørsle i Sogn',
   description:
     'MOVE Sogn har røter heilt tilbake til 1984. Les historia om ANI Bil, Toyota Sogn og reisa til dagens MOVE-konsern med 60 medarbeidarar.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80', width: 1200, height: 630, alt: 'Sognefjorden — MOVE Sogn' }],
+  },
 };
 
 export const revalidate = 3600;
@@ -16,8 +19,8 @@ export const revalidate = 3600;
 const placeholderTimeline: TimelineEntry[] = [
   { order: '1', year: '1984', headline: 'ANI Bil startar opp', description: 'Grunnlaget for det som skulle bli MOVE Sogn vert lagt på Kaupanger i Sogn.' },
   { order: '2', year: '2008', headline: 'Toyota Sogn AS', description: 'Selskapet skiftar namn til Toyota Sogn AS og forsterkar merkevaresatsinga.' },
-  { order: '3', year: '2011', headline: 'Bilhuset Førde', description: 'MOVE investerer i Bilhuset Førde AS — Mercedes, Peugeot og KIA i Sunnfjord.' },
-  { order: '4', year: '2021', headline: 'Nye lokale i Førde', description: 'Bilhuset Førde opnar 3 200 m² moderne lokale på Øyrane. Omsetning passerer 260 mill.' },
+  { order: '3', year: '2011', headline: 'Vekst og ekspansjon', description: 'MOVE utvider porteføljen og bygger eit sterkare konsern — fleire merke, fleire stader, meir til kundane.' },
+  { order: '4', year: '2021', headline: 'Rekordår', description: 'Historisk høge tal for Sogn: over 900 leverte bilar. Hertz-utleige, marine og eigedom under same tak.' },
   { order: '5', year: 'I dag', headline: 'MOVE Sogn', description: '60 medarbeidarar, over 900 bilar, Hertz-utleige, båt, el-syklar og eigedom — alt under MOVE.' },
 ];
 
@@ -89,9 +92,9 @@ export default async function OmOssPage() {
                 me prøver å etterleve: respekt for menneske, samarbeid og «kunden først».
               </p>
               <p>
-                I 2011 investerte me i Bilhuset Førde AS. Det tek tid å snu ei slik bedrift, og
-                etter 10 år er det kjekt å sjå at me har lukkast — frå 40 til 260 millionar i
-                omsetning, frå 14 til 20 medarbeidarar, frå 2 til 3 bilmerke.
+                Gjennom konsekvent satsing på kvalitet og lokal forankring har MOVE vakse til
+                å bli ein av dei leiande aktørane for mobilitet i Sogn — med Toyota som det
+                sentrale merket og ei stadig breiare portefølje av tenester.
               </p>
               <p>
                 Totalt har MOVE-konsernet i dag 60 medarbeidarar og leverte over 900 nye og brukte

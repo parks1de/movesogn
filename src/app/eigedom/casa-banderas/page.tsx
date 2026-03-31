@@ -9,6 +9,9 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Casa Banderas — Eksklusiv feriebolig i Spania',
   description: 'Casa Banderas — privat luksusbustad på Costa del Sol. Panoramautsikt over Middelhavet, fullt utstyrt og tilgjengeleg for eksklusiv utleige.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80', width: 1200, height: 630, alt: 'Casa Banderas — terrasse med havutsikt' }],
+  },
 };
 
 // 10-20 gallery images — placeholders ready for real images

@@ -5,9 +5,12 @@ import Icon from '@/components/ui/Icon';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Mobilitet — Toyota Sogn, Bilhuset Førde & Bilutleige',
+  title: 'Mobilitet — Toyota Sogn & Hertz Bilutleige',
   description:
-    'MOVE Sogn er din portal til Toyota Sogn, Bilhuset Førde og MOVE Bilutleige i Sogn og Sunnfjord. Lokal kunnskap, merkevarekvalitet.',
+    'MOVE Sogn er din portal til Toyota Sogn og Hertz bilutleige i Sogn. Lokal kunnskap, merkevarekvalitet.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&q=80', width: 1200, height: 630, alt: 'Toyota Sogn — MOVE Sogn' }],
+  },
 };
 
 const brands = [
@@ -24,20 +27,6 @@ const brands = [
     cta: 'Besøk Toyota Sogn',
     href: 'https://www.toyotasogn.no',
     imgLeft: false,
-  },
-  {
-    label: 'Bilhuset',
-    title: 'Bilhuset Førde',
-    subtitle: 'Mercedes, Peugeot og KIA — godt brukt, godt val',
-    body: `I 2011 investerte MOVE i Bilhuset Førde AS. I dag representerer dei bilmerka Mercedes, 
-    Peugeot og KIA frå moderne lokale på Øyrane i Førde — 3 200 m² opna hausten 2021. 
-    Frå 40 til over 260 millionar i omsetning og frå 14 til 20 medarbeidarar: ei bedrift i 
-    sterk vekst som set kundane først.`,
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=1200&q=80',
-    imageAlt: 'Bilhuset Førde bilforhandler på Øyrane',
-    cta: 'Besøk Bilhuset Førde',
-    href: 'https://www.bilhusetforde.no',
-    imgLeft: true,
   },
   {
     label: 'Bilutleige',
@@ -57,7 +46,7 @@ const brands = [
 
 const values = [
   { icon: 'map-pin' as const, title: 'Lokal service', desc: 'Alltid nokon å ringe — me kjenner deg og ditt behov.' },
-  { icon: 'award' as const, title: 'Merkevarekvalitet', desc: 'Toyota, Mercedes, KIA og Peugeot — dokumentert kvalitet.' },
+  { icon: 'award' as const, title: 'Merkevarekvalitet', desc: 'Toyota — dokumentert kvalitet og verdskjend teknologi.' },
   { icon: 'key' as const, title: 'Fleksibel utleige', desc: '100 leigebiler på fem stader i regionen.' },
   { icon: 'shield' as const, title: 'Garantert kvalitet', desc: 'Kvar bruktbil er gjennomgått og godkjent.' },
 ];
@@ -83,7 +72,7 @@ export default function MobilitetPage() {
             <span className={styles.heroLabel}>Mobilitet</span>
             <h1 className={styles.heroH1}>Din bil. Vår lidenskap.</h1>
             <p className={styles.heroSub}>
-              Frå Toyota Sogn til Bilhuset Førde og MOVE Bilutleige — me har alt du treng i Sogn og Sunnfjord.
+              Toyota Sogn og Hertz bilutleige — lokal kunnskap og merkevarekvalitet i Sogn.
             </p>
           </FadeUp>
         </div>

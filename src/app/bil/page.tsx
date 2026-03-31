@@ -8,6 +8,9 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Bil — Toyota, bruktbil, Hertz og Lexus | MOVE Sogn',
   description: 'MOVE Sogn tilbyr Toyota, bruktbilar, Hertz bilutleige og Lexus bruktbil i Sogn. Besøk oss på Kaupanger.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&q=80', width: 1200, height: 630, alt: 'Toyota Sogn — MOVE Sogn Bil' }],
+  },
 };
 
 // TODO: [SANITY] Fetch bil-section intro from CMS (type: bilPageHero)

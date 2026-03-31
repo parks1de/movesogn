@@ -4,6 +4,9 @@ import FadeUp from '@/components/ui/FadeUp';
 export const metadata: Metadata = {
   title: 'Bruktbilar | MOVE Sogn',
   description: 'Stort utval av kvalitetssikra bruktbilar hos MOVE Sogn på Kaupanger.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=1200&q=80', width: 1200, height: 630, alt: 'Bruktbilar — MOVE Sogn' }],
+  },
 };
 
 export default function BruktbilarPage() {

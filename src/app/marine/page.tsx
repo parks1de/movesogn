@@ -8,9 +8,12 @@ import ContactForm from '@/components/ui/ContactForm';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Marine & Fritid — Summerfun og Silver Boats',
+  title: 'Marine — Summerfun, Silver Boats og Suzuki',
   description:
     'Kjøp Hasle Summerfun og Silver Boats på Kaupanger i Sogn. Autorisert Suzuki-service. Frå kr 65 900.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1200&q=80', width: 1200, height: 630, alt: 'Båt på Sognefjorden — MOVE Sogn Marine' }],
+  },
 };
 
 export const revalidate = 300; // ISR 5 min

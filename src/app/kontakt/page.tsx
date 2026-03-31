@@ -8,6 +8,9 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Kontakt oss',
   description: 'Ta kontakt med MOVE Sogn på Kaupanger. Ring 57 67 66 66 eller send e-post til post@movesogn.no.',
+  openGraph: {
+    images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: 'MOVE Sogn — Kontakt oss' }],
+  },
 };
 
 const channels = [
@@ -41,13 +44,6 @@ const locations = [
     phone: '57 67 66 66',
     email: 'post@movesogn.no',
     note: 'Hovudkontor — bil, båt, sykkel',
-  },
-  {
-    name: 'Bilhuset Førde',
-    address: 'Øyrane, 6812 Førde',
-    phone: '57 67 66 66',
-    email: 'post@bilhusetforde.no',
-    note: 'Mercedes · Peugeot · KIA',
   },
   {
     name: 'Skadesenteret Sogn',

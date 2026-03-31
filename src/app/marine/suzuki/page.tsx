@@ -4,6 +4,9 @@ import FadeUp from '@/components/ui/FadeUp';
 export const metadata: Metadata = {
   title: 'Suzuki Båtmotor | MOVE Sogn Marine',
   description: 'Autorisert Suzuki-service og -sal på Kaupanger. Pålitelege påhengarsmotorar for alle båttypar.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1200&q=80', width: 1200, height: 630, alt: 'Suzuki Båtmotor — MOVE Sogn Marine' }],
+  },
 };
 
 export default function SuzukiPage() {

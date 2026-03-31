@@ -8,9 +8,12 @@ import ContactForm from '@/components/ui/ContactForm';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Sykkel — El-syklar, el-scooterar & sparkesyklar',
+  title: 'Sykkel — Merida el-syklar og NIU moped',
   description:
-    'MOVE Sogn sel el-syklar frå Peugeot og Crescent, NIU el-scooterar og sparkesyklar. Frå kr 7 990. Kaupanger i Sogn.',
+    'MOVE Sogn sel Merida el-syklar og NIU el-moped i Sogn. Null utslepp, låge kostnader. Kaupanger i Sogn.',
+  openGraph: {
+    images: [{ url: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', width: 1200, height: 630, alt: 'El-sykkel på fjordveg i Sogn' }],
+  },
 };
 
 export const revalidate = 300;
@@ -65,35 +68,35 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'Ikonisk halo-frontlykt, robuste hjul og skivebrems. Lett å folde, passar i bagasjerommet. NIU-app for statistikk og låsing.',
   },
   {
-    slug: 'peugeot-el-sykkel',
-    name: 'Peugeot El-sykkel',
+    slug: 'merida-e-crossway',
+    name: 'Merida eSPRESSO CROSS',
     category: 'sykkel',
-    range_km: '140',
+    range_km: '150',
     motor_w: '250',
     weight: '22',
     price_from: 'Kontakt oss',
     image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&q=80',
     images: '',
-    body: 'Peugeot el-sykkel med lette aluminiumsramme og Lithium-ion-batteri. Fire nivå av pedalassistanse. Rekkevidde opptil 140 km.',
+    body: 'Merida el-sykkel for terreng og asfalt — lett aluminiumsramme, Shimano driv og Lithium-ion-batteri. Opptil 150 km rekkevidde.',
   },
   {
-    slug: 'crescent-el-sykkel',
-    name: 'Crescent El-sykkel',
+    slug: 'merida-e-speeder',
+    name: 'Merida eSPEEDER',
     category: 'sykkel',
-    range_km: '120',
+    range_km: '130',
     motor_w: '250',
     weight: '20',
     price_from: 'Kontakt oss',
     image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&q=80',
     images: '',
-    body: 'Crescent el-sykkel — designa for norske forhold. Perfekt for bykøyring og terrengturer. Pedelec-system for assistert innsats.',
+    body: 'Rask og elegant Merida el-sykkel for dagleg pendling — aerodynamisk design og integrert batteri. Perfekt for bykøyring i Sogn.',
   },
 ];
 
 const categories = [
-  { key: 'scooter',      label: 'El-scooter' },
+  { key: 'scooter',      label: 'NIU Moped' },
   { key: 'sparkesykkel', label: 'Sparkesykkel' },
-  { key: 'sykkel',       label: 'El-sykkel' },
+  { key: 'sykkel',       label: 'Merida El-sykkel' },
 ];
 
 const valueProps = [
@@ -139,7 +142,7 @@ export default async function SykkelPage() {
               Framtida er elektrisk.<br />Og ho ser bra ut.
             </h1>
             <p className={styles.heroSub}>
-              NIU scooterar, Peugeot og Crescent el-syklar — levert frå Kaupanger.
+              Merida el-syklar og NIU el-moped — levert frå Kaupanger.
             </p>
           </FadeUp>
         </div>
