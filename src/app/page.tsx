@@ -35,6 +35,7 @@ export default function HeimsidePage() {
           <div className={styles.heroOverlay} />
           <div className={styles.heroTint} aria-hidden="true" />
         </div>
+        <div className={styles.heroGhost} aria-hidden="true">MOVE</div>
         <div className={`container ${styles.heroContent}`}>
           <FadeUp>
             <span className={styles.heroEyebrow}>MOVE Sogn</span>
@@ -59,6 +60,8 @@ export default function HeimsidePage() {
         <div className={styles.heroScroll} aria-hidden="true"><span /></div>
       </section>
 
+
+      <div className="page-break-accent" />
 
       {/* ── TOYOTA SOGN — #1 PUSH ───────────────────────────── */}
       {/* TODO: [SANITY] Fetch hero image, headline, subtext, CTA from CMS (type: toyotaBlock) */}
@@ -104,7 +107,7 @@ export default function HeimsidePage() {
 
       {/* ── MARINE TEASER ───────────────────────────────────── */}
       {/* TODO: [SANITY] Fetch image, headline, body text, props list from CMS (type: marineSectionBlock) */}
-      <section className={`section bg-warm ${styles.marineSection}`}>
+      <section className={`section bg-mist ${styles.marineSection}`}>
         <div className={`container ${styles.marineSplit}`}>
           <FadeUp className={styles.marineImgWrap}>
             <Image
@@ -171,9 +174,11 @@ export default function HeimsidePage() {
       </section>
 
 
+      <div className="page-break-accent" />
+
       {/* ── EIGEDOM TEASER ──────────────────────────────────── */}
       {/* TODO: [SANITY] Fetch eigedom cards from CMS (type: eigedomCard) */}
-      <section className="section bg-surface">
+      <section className="section bg-canvas">
         <div className="container">
           <FadeUp className={styles.sectionIntro}>
             <span className="label">Eigedom</span>

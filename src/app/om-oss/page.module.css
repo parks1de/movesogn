@@ -5,6 +5,25 @@
   display: flex;
   align-items: flex-end;
   padding-bottom: 5rem;
+  overflow: hidden;
+}
+
+/* Ghost watermark: "MOVE" with blue tint */
+.heroGhost {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(200px, 28vw, 420px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(4,95,208,0.12);
+  pointer-events: none;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  z-index: 1;
+  user-select: none;
 }
 .heroBg { position: absolute; inset: 0; z-index: 0; }
 .heroOverlay {

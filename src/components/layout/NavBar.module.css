@@ -61,8 +61,9 @@
   align-items: center;
   gap: 0.3125rem;
   padding: 0.5rem 0.75rem;
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-family: var(--f-display);
+  font-size: 13px;
+  font-weight: 600;
   color: var(--color-body);
   border-radius: 4px;
   white-space: nowrap;

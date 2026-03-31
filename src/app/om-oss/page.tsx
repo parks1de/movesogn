@@ -64,6 +64,7 @@ export default async function OmOssPage() {
           />
           <div className={styles.heroOverlay} />
         </div>
+        <div className={styles.heroGhost} aria-hidden="true">MOVE</div>
         <div className={`container ${styles.heroContent}`}>
           <FadeUp>
             <span className={styles.heroLabel}>Om MOVE</span>
