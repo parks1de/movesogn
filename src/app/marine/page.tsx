@@ -187,11 +187,13 @@ export default async function MarinePage() {
       {/* ── CONTACT FORM ─────────────────────────────────────── */}
       <section className="section">
         <div className="container">
-          <ContactForm
-            formType="marine"
-            heading="Spør om pris eller levering"
-            subheading="Fyll ut skjemaet så kjem me tilbake til deg med meir informasjon."
-          />
+          <div style={{ maxWidth: 600, marginInline: 'auto', textAlign: 'center' }}>
+            <ContactForm
+              formType="marine"
+              heading="Spør om pris eller levering"
+              subheading="Fyll ut skjemaet så kjem me tilbake til deg med meir informasjon."
+            />
+          </div>
         </div>
       </section>
     </>

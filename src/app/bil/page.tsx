@@ -6,8 +6,8 @@ import Icon from '@/components/ui/Icon';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Bil — Toyota, bruktbil, Hertz og Lexus | MOVE Sogn',
-  description: 'MOVE Sogn tilbyr Toyota, bruktbilar, Hertz bilutleige og Lexus bruktbil i Sogn. Besøk oss på Kaupanger.',
+  title: 'Bil — Toyota og Hertz bilutleige | MOVE Sogn',
+  description: 'MOVE Sogn tilbyr Toyota og Hertz bilutleige i Sogn. Besøk oss på Kaupanger.',
   openGraph: {
     images: [{ url: '/images/toyota-sogn-hero.jpg', width: 1200, height: 630, alt: 'Toyota Sogn — MOVE Sogn Bil' }],
   },
@@ -25,15 +25,6 @@ const bilBrands = [
     cta: 'Besøk Toyota Sogn',
   },
   {
-    label: 'Bruktbil',
-    title: 'Bruktbilar',
-    desc: 'Stort utval av kvalitetssikra bruktbilar — alle merke og prisar.',
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=900&q=80',
-    href: '/bil/bruktbilar',
-    external: false,
-    cta: 'Sjå bruktbilar',
-  },
-  {
     label: 'Bilutleige',
     title: 'Hertz Bilutleige',
     desc: 'Hundre leigebiler på fem stader i Sogn og Sunnfjord — alltid på farten.',
@@ -41,15 +32,6 @@ const bilBrands = [
     href: '/bil/hertz',
     external: false,
     cta: 'Sjå leigebil',
-  },
-  {
-    label: 'Luxury',
-    title: 'Lexus Bruktbil',
-    desc: 'Utvalde brukte Lexus-bilar — premium køyreglede til fornuftige prisar.',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80',
-    href: '/bil/lexus-bruktbil',
-    external: false,
-    cta: 'Sjå Lexus',
   },
 ];
 
@@ -79,7 +61,7 @@ export default function BilPage() {
           <FadeUp delay={100}>
             <p className={styles.heroSub}>
               {/* TODO: [SANITY] Fetch tagline from CMS */}
-              Toyota, bruktbilar, bilutleige og Lexus — alt under eitt tak på Kaupanger.
+              Toyota og Hertz bilutleige — alt under eitt tak på Kaupanger.
             </p>
           </FadeUp>
         </div>

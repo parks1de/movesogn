@@ -23,9 +23,10 @@ export default function HeimsidePage() {
       {/* ── HERO ────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroBg}>
+          {/* TODO: replace src with /images/hero-kaupanger.jpg once uploaded to /public/images/ */}
           <Image
-            src="/images/hero-kaupanger.jpg"
-            alt="Kaupanger, Sogn — drone"
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85"
+            alt="Kaupanger og Sognefjorden — drone"
             fill
             priority
             sizes="100vw"

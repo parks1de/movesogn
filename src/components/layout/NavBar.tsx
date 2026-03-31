@@ -33,8 +33,9 @@ const navItems: NavItem[] = [
     href: '/sykkel',
     label: 'Sykkel',
     dropdown: [
-      { href: '/sykkel/merida', label: 'Merida' },
-      { href: '/sykkel/niu',    label: 'NIU Moped' },
+      { href: '/sykkel/merida',        label: 'Merida' },
+      { href: '/sykkel/niu',           label: 'NIU Moped' },
+      { href: '/sykkel/sparkesykkel',  label: 'Sparkesykkel' },
     ],
   },
   {
@@ -82,7 +83,7 @@ export default function NavBar() {
         {/* ── Logo ─────────────────────────────────────────── */}
         <Link href="/" className={styles.logo} aria-label="MOVE Sogn — til startsida">
           <Image
-            src={transparent ? '/images/logo-nav-white.svg' : '/images/logo-nav-colour.svg'}
+            src={transparent ? '/images/logo-nav-white.png' : '/images/logo-nav-colour.png'}
             alt="MOVE Sogn"
             width={148}
             height={40}
@@ -138,6 +139,15 @@ export default function NavBar() {
               </Link>
             )
           )}
+
+          {/* ── Language toggle (EN) — TODO: wire to next-intl post-launch ── */}
+          <button
+            className={styles.langToggle}
+            onClick={() => localStorage.setItem('lang', 'en')}
+            aria-label="Switch to English"
+          >
+            EN
+          </button>
 
           {/* ── Orange CTA ──────────────────────────────────── */}
           <Link href="/kontakt" className={styles.ctaLink}>

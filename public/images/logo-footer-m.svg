@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <path d="M2 4 L2 28 L8 28 L8 16 L16 24 L24 16 L24 28 L30 28 L30 4 L24 4 L16 14 L8 4 Z" fill="#FF8421"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 703.67 820.95"><defs><style>.f{fill:#ff8421;}.g{filter:url(#d);}</style><filter id="d" filterUnits="userSpaceOnUse"><feOffset dx="0" dy="0"/><feGaussianBlur result="e" stdDeviation="45.35"/><feFlood flood-color="#045fd0" flood-opacity="1"/><feComposite in2="e" operator="in"/><feComposite in="SourceGraphic"/></filter></defs><g id="a"/><g id="b"><g id="c"><g class="g"><path class="f" d="M117.28,234.56V820.95H0V0H117.28l234.56,439.8L586.39,0h117.28V586.39h-117.28V234.56l-175.92,351.84h-117.28L117.28,234.56Z"/></g></g></g></svg>

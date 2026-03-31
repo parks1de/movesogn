@@ -3,7 +3,16 @@ import Link from 'next/link';
 import ContactForm from '@/components/ui/ContactForm';
 import Icon from '@/components/ui/Icon';
 import FadeUp from '@/components/ui/FadeUp';
+import { sanityFetch } from '@/lib/sanity';
 import styles from './page.module.css';
+
+// MANAGED VIA SANITY — siteSettings → openingHours
+type OpeningHours = {
+  weekdays?: string;
+  saturday?: string;
+  saturdayNote?: string;
+  sunday?: string;
+};
 
 export const metadata: Metadata = {
   title: 'Kontakt oss',
@@ -61,7 +70,21 @@ const locations = [
   },
 ];
 
-export default function KontaktPage() {
+export default async function KontaktPage() {
+  // MANAGED VIA SANITY — siteSettings → openingHours
+  let openingHours: OpeningHours = {
+    weekdays: '07.30–16.00',
+    saturday: '10.00–13.00',
+    saturdayNote: 'Sommartid',
+    sunday: 'Stengt',
+  };
+  try {
+    const fetched = await sanityFetch<OpeningHours>(
+      `*[_type == "siteSettings"][0]{openingHours}.openingHours`
+    );
+    if (fetched) openingHours = fetched;
+  } catch {}
+
   return (
     <>
       {/* ── HERO HEADER ────────────────────────────────────── */}
@@ -111,6 +134,35 @@ export default function KontaktPage() {
               heading="Send oss ei melding"
               subheading="Fyll ut skjemaet så kjem me tilbake til deg så snart som mogleg."
             />
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── OPENING HOURS ─────────────────────────────────── */}
+      {/* MANAGED VIA SANITY — siteSettings → openingHours */}
+      <section className="section--sm">
+        <div className="container">
+          <FadeUp>
+            <span className="label">Opningstider</span>
+            <div className={styles.hoursCard}>
+              <div className={styles.hoursRow}>
+                <span className={styles.hoursDay}>Måndag – fredag</span>
+                <span className={styles.hoursTime}>{openingHours.weekdays}</span>
+              </div>
+              <div className={styles.hoursRow}>
+                <span className={styles.hoursDay}>
+                  Laurdag
+                  {openingHours.saturdayNote && (
+                    <span className={styles.hoursNote}> ({openingHours.saturdayNote})</span>
+                  )}
+                </span>
+                <span className={styles.hoursTime}>{openingHours.saturday}</span>
+              </div>
+              <div className={styles.hoursRow}>
+                <span className={styles.hoursDay}>Sundag</span>
+                <span className={styles.hoursTime}>{openingHours.sunday}</span>
+              </div>
+            </div>
           </FadeUp>
         </div>
       </section>

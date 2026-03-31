@@ -101,7 +101,7 @@ const categories = [
 
 const valueProps = [
   { icon: 'leaf'        as const, title: 'Null utslepp', desc: 'Elektrisk drift — bra for lommeboka og naturen.' },
-  { icon: 'clock'       as const, title: 'Spar tid',     desc: 'Slipp kø og parkering. Kom deg dit du skal raskare.' },
+  { icon: 'clock'       as const, title: 'Spar tid',     desc: 'Slepp kø og parkering. Kom deg dit du skal raskare.' },
   { icon: 'trending-up' as const, title: 'Spar pengar',  desc: 'Ladekostnad er ein brøkdel av bensin.' },
   { icon: 'zap'         as const, title: 'Betre helse',  desc: 'El-sykkel gir mosjon utan for stor innsats.' },
 ];

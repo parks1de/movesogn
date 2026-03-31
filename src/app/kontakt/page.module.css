@@ -95,6 +95,30 @@
   padding: 3.5rem;
 }
 
+/* ── Opening hours card ─────────────────────────────────── */
+.hoursCard {
+  max-width: 400px;
+  margin-top: 1rem;
+  border: 1px solid var(--stone);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-card-rest);
+}
+
+.hoursRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  font-size: 0.9375rem;
+}
+.hoursRow + .hoursRow { border-top: 1px solid var(--stone); }
+
+.hoursDay  { color: var(--ink); font-weight: 500; }
+.hoursNote { font-size: 0.8rem; color: var(--ink-light); font-weight: 400; }
+.hoursTime { font-family: var(--f-mono); font-size: 13px; color: var(--orange); font-weight: 500; letter-spacing: 0.04em; }
+
 /* ── Locations section ───────────────────────────────────── */
 .locationsSection {
   background-color: var(--color-bg);
