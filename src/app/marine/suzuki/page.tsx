@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from '@/components/ui/FadeUp';
 import Icon from '@/components/ui/Icon';
@@ -8,9 +9,15 @@ export const metadata: Metadata = {
   title: 'Suzuki Båtmotor | MOVE Sogn Marine',
   description: 'Autorisert Suzuki-service og -sal på Kaupanger. Pålitelege påhengarsmotorar for alle båttypar.',
   openGraph: {
-    images: [{ url: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1200&q=80', width: 1200, height: 630, alt: 'Suzuki Båtmotor — MOVE Sogn Marine' }],
+    images: [{ url: '/images/suzuki/sz-01.png', width: 1200, height: 630, alt: 'Suzuki Båtmotor — MOVE Sogn Marine' }],
   },
 };
+
+const motorImages = [
+  { src: '/images/suzuki/sz-01.png', alt: 'Suzuki båtmotor' },
+  { src: '/images/suzuki/sz-02.jpg', alt: 'Suzuki DF115 — påhengarsmotor' },
+  { src: '/images/suzuki/sz-03.jpg', alt: 'Suzuki DF150 — påhengarsmotor' },
+];
 
 export default function SuzukiPage() {
   return (
@@ -35,6 +42,31 @@ export default function SuzukiPage() {
             </Link>
             {/* TODO: [SANITY] populate motor models + service offerings */}
           </FadeUp>
+        </div>
+      </section>
+
+      {/* ── MOTOR IMAGES ──────────────────────────────────── */}
+      <section className="section bg-mist">
+        <div className="container">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: '1rem',
+          }}>
+            {motorImages.map((img, i) => (
+              <FadeUp key={i} delay={i * 60}>
+                <div style={{ position: 'relative', aspectRatio: '4/3', borderRadius: 4, overflow: 'hidden', background: 'var(--surface)' }}>
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectFit: 'contain', padding: '1rem' }}
+                  />
+                </div>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -23,9 +23,8 @@ export default function HeimsidePage() {
       {/* ── HERO ────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroBg}>
-          {/* TODO: replace src with /images/hero-kaupanger.jpg once uploaded to /public/images/ */}
           <Image
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85"
+            src="/images/hero-kaupanger.jpg"
             alt="Kaupanger og Sognefjorden — drone"
             fill
             priority
@@ -112,8 +111,8 @@ export default function HeimsidePage() {
         <div className={`container ${styles.marineSplit}`}>
           <FadeUp className={styles.marineImgWrap}>
             <Image
-              src="https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1000&q=80"
-              alt="Summerfun-båt på Sognefjorden"
+              src="/images/marine-hero.jpg"
+              alt="Silver-båt på Sognefjorden"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               quality={80}
@@ -162,8 +161,8 @@ export default function HeimsidePage() {
           </FadeUp>
           <FadeUp delay={140} className={styles.sykkelImgWrap}>
             <Image
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-              alt="Elektrisk sykkel — MOVE Sogn"
+              src="/images/sykkel-hero.png"
+              alt="Merida el-sykkel — MOVE Sogn"
               width={500}
               height={380}
               quality={80}
@@ -191,7 +190,7 @@ export default function HeimsidePage() {
               <Link href="/eigedom/naringseigendom" className={`${styles.eigedomCard} ${styles.eigedomSogn}`}>
                 <div className={styles.eigedomImgWrap}>
                   <Image
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80"
+                    src="/images/eigedom-hero.png"
                     alt="Næringslokale i Kaupanger, Sogn"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -215,7 +214,7 @@ export default function HeimsidePage() {
               <Link href="/eigedom/casa-banderas" className={`${styles.eigedomCard} ${styles.eigedomSpain}`}>
                 <div className={styles.eigedomImgWrap}>
                   <Image
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80"
+                    src="/images/casa-banderas/cb-01.jpg"
                     alt="Terrasse med havutsikt — Casa Banderas, Spania"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"

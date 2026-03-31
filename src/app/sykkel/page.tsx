@@ -27,7 +27,7 @@ const placeholderProducts: SykkelProduct[] = [
     motor_w: '1500',
     weight: '70',
     price_from: '24 990',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    image: '/images/sykkel/sk-01.png',
     images: '',
     body: 'Vår mestseljande elektriske scooter. God rekkevidde, lading på vanleg stikkontakt, minimal vedlikehald. Inkl. basis serviceavtale.',
   },
@@ -39,7 +39,7 @@ const placeholderProducts: SykkelProduct[] = [
     motor_w: '1200',
     weight: '62',
     price_from: '19 990',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    image: '/images/sykkel/sk-01.png',
     images: '',
     body: 'Enkel og prisgunstig elektrisk scooter med innovativt retro-design. For alle — ungdommar eller pendlarar i sentrale strøk.',
   },
@@ -51,7 +51,7 @@ const placeholderProducts: SykkelProduct[] = [
     motor_w: '2000',
     weight: '72',
     price_from: '22 990',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    image: '/images/sykkel/sk-01.png',
     images: '',
     body: 'Scooteren med best rekkevidde i NIU-serien. Morosam, rask og kvalitetssikker — pendling og skule er enkelt.',
   },
@@ -63,7 +63,7 @@ const placeholderProducts: SykkelProduct[] = [
     motor_w: '300',
     weight: '16',
     price_from: '7 990',
-    image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&q=80',
+    image: '/images/sykkel/sk-02.png',
     images: '',
     body: 'Ikonisk halo-frontlykt, robuste hjul og skivebrems. Lett å folde, passar i bagasjerommet. NIU-app for statistikk og låsing.',
   },
@@ -75,7 +75,7 @@ const placeholderProducts: SykkelProduct[] = [
     motor_w: '250',
     weight: '22',
     price_from: 'Kontakt oss',
-    image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&q=80',
+    image: '/images/sykkel/sk-03.png',
     images: '',
     body: 'Merida el-sykkel for terreng og asfalt — lett aluminiumsramme, Shimano driv og Lithium-ion-batteri. Opptil 150 km rekkevidde.',
   },
@@ -87,7 +87,7 @@ const placeholderProducts: SykkelProduct[] = [
     motor_w: '250',
     weight: '20',
     price_from: 'Kontakt oss',
-    image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&q=80',
+    image: '/images/sykkel/sk-04.png',
     images: '',
     body: 'Rask og elegant Merida el-sykkel for dagleg pendling — aerodynamisk design og integrert batteri. Perfekt for bykøyring i Sogn.',
   },
@@ -126,8 +126,8 @@ export default async function SykkelPage() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1920&q=85"
-            alt="El-sykkel på fjordveg i Sogn"
+            src="/images/sykkel-hero.png"
+            alt="Merida el-sykkel — MOVE Sogn"
             fill
             priority
             sizes="100vw"
