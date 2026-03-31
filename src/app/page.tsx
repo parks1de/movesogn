@@ -23,8 +23,8 @@ export default function HeimsidePage() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85"
-            alt="Fjordlandskap i Sogn"
+            src="/images/hero-kaupanger.jpg"
+            alt="Kaupanger, Sogn — drone"
             fill
             priority
             sizes="100vw"

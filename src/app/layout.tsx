@@ -45,7 +45,7 @@ const localBusinessSchema = {
   priceRange: '££',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Kaupangervegen 1',
+    streetAddress: 'Skarpeteigvegen 1',
     addressLocality: 'Kaupanger',
     postalCode: '6854',
     addressCountry: 'NO',

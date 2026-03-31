@@ -18,7 +18,6 @@ const navItems: NavItem[] = [
       { href: 'https://www.toyotasogn.no', label: 'Toyota Sogn',    external: true },
       { href: '/bil/bruktbilar',           label: 'Bruktbilar' },
       { href: '/bil/hertz',                label: 'Hertz Bilutleige' },
-      { href: '/bil/lexus-bruktbil',       label: 'Lexus Bruktbil' },
     ],
   },
   {

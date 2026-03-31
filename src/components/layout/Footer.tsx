@@ -55,7 +55,7 @@ export default function Footer() {
             </a>
             <span className={styles.contactRow}>
               <Icon name="map-pin" size={14} />
-              <span>Kaupangervegen 1, Kaupanger</span>
+              <span>Skarpeteigvegen 1, 6854 Kaupanger</span>
             </span>
           </div>
 

@@ -1,34 +1,45 @@
 import type { Metadata } from 'next';
-import FadeUp from '@/components/ui/FadeUp';
+import Image from 'next/image';
+import Icon from '@/components/ui/Icon';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Bruktbilar | MOVE Sogn',
-  description: 'Stort utval av kvalitetssikra bruktbilar hos MOVE Sogn på Kaupanger.',
-  openGraph: {
-    images: [{ url: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=1200&q=80', width: 1200, height: 630, alt: 'Bruktbilar — MOVE Sogn' }],
-  },
+  description: 'MOVE Sogn sitt bruktbiluval finn du hjå Toyota Sogn AS — alltid oppdatert, alltid sertifisert.',
 };
 
 export default function BruktbilarPage() {
   return (
-    <>
-      {/* TODO: [SANITY] Fetch hero image + headline from CMS (type: pageHero) */}
-      <section style={{ paddingTop: 'calc(var(--nav-height) + 5rem)', paddingBottom: '5rem' }}>
-        <div className="container">
-          <FadeUp>
-            <span className="label">Bil</span>
-            <h1>Bruktbilar</h1>
-            {/* TODO: [SANITY] Fetch intro text from CMS */}
-          </FadeUp>
-        </div>
-      </section>
+    <section className={styles.gateway}>
+      <div className={styles.heroBg}>
+        <Image
+          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&q=85"
+          alt="Toyota Sogn — bruktbilar på Kaupanger"
+          fill
+          priority
+          sizes="100vw"
+          quality={85}
+          style={{ objectFit: 'cover', objectPosition: 'center 45%' }}
+        />
+        <div className={styles.overlay} />
+      </div>
 
-      {/* TODO: [SANITY] Fetch bruktbil inventory / featured listings from CMS (type: bruktbilListing) */}
-      <section className="section bg-surface">
-        <div className="container">
-          {/* TODO: Vehicle listing grid */}
-        </div>
-      </section>
-    </>
+      <div className={`container ${styles.content}`}>
+        <h1 className={styles.heading}>Finn din neste bil</h1>
+        <p className={styles.body}>
+          MOVE Sogn sitt bruktbiluval finn du hjå Toyota Sogn AS —
+          alltid oppdatert, alltid sertifisert.
+        </p>
+        <a
+          href="https://toyotasogn.no/bruktbil"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`btn btn--primary ${styles.cta}`}
+        >
+          Sjå bruktbilar hjå Toyota Sogn
+          <Icon name="external-link" size={18} />
+        </a>
+      </div>
+    </section>
   );
 }
