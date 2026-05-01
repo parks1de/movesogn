@@ -1,7 +1,13 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { fetchSykkelProducts, type SykkelProduct } from '@/lib/sheets';
+import { sanityFetch } from '@/lib/sanity';
+
+interface SykkelProduct {
+  slug: string; name: string; category: string;
+  range_km: string; motor_w: string; weight: string;
+  price_from: string; image: string; images: string; body: string;
+}
 import FadeUp from '@/components/ui/FadeUp';
 import Icon from '@/components/ui/Icon';
 import ContactForm from '@/components/ui/ContactForm';
@@ -107,13 +113,20 @@ const valueProps = [
 ];
 
 export default async function SykkelPage() {
-  let products: SykkelProduct[] = [];
+  let products: SykkelProduct[] = placeholderProducts;
   try {
-    const f = await fetchSykkelProducts();
-    products = f.length > 0 ? f : placeholderProducts;
-  } catch {
-    products = placeholderProducts;
-  }
+    const f = await sanityFetch<SykkelProduct[]>(
+      `*[_type == "sykkelProduct"] | order(order asc) {
+        "slug": slug.current, name, category,
+        "range_km": rangeKm, "motor_w": motorW, weight,
+        "price_from": priceFrom,
+        "image": image.asset->url,
+        "images": array::join(gallery[].asset->url, ","),
+        body
+      }`
+    );
+    if (f.length > 0) products = f;
+  } catch {}
 
   const grouped = categories.reduce((acc, cat) => {
     acc[cat.key] = products.filter((p) => p.category === cat.key);

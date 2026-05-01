@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { fetchTimeline, type TimelineEntry } from '@/lib/sheets';
+import { sanityFetch } from '@/lib/sanity';
+
+interface TimelineEntry { order: string; year: string; headline: string; description: string; }
 import FadeUp from '@/components/ui/FadeUp';
 import Icon from '@/components/ui/Icon';
 import styles from './page.module.css';
@@ -45,8 +47,8 @@ const values = [
 export default async function OmOssPage() {
   let timeline: TimelineEntry[] = placeholderTimeline;
   try {
-    const fetched = await fetchTimeline();
-    if (fetched.length > 0) timeline = fetched;
+    const f = await sanityFetch<TimelineEntry[]>(`*[_type=="timelineEntry"]|order(order asc){year,headline,description,"order":string(order)}`);
+    if (f.length > 0) timeline = f;
   } catch {}
 
   return (

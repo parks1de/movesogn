@@ -10,12 +10,6 @@ interface ContactFormProps {
   subheading?: string;
 }
 
-const FORM_GUIDS: Record<string, string> = {
-  contact: process.env.NEXT_PUBLIC_HUBSPOT_FORM_GUID_CONTACT || '',
-  marine:  process.env.NEXT_PUBLIC_HUBSPOT_FORM_GUID_MARINE  || '',
-  sykkel:  process.env.NEXT_PUBLIC_HUBSPOT_FORM_GUID_SYKKEL  || '',
-};
-
 export default function ContactForm({
   formType = 'contact',
   prefilledModel = '',
@@ -38,23 +32,17 @@ export default function ContactForm({
     e.preventDefault();
     setStatus('loading');
 
-    const hsFields = [
-      { name: 'firstname', value: fields.firstname },
-      { name: 'email',     value: fields.email },
-      { name: 'phone',     value: fields.phone },
-      { name: 'message',   value: fields.message },
-    ];
-    if (fields.model) hsFields.push({ name: 'model', value: fields.model });
-
     try {
-      const res = await fetch('/api/hubspot', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          formGuid: FORM_GUIDS[formType],
-          fields: hsFields,
-          pageName: document.title,
-          pageUri: window.location.href,
+          name:     fields.firstname,
+          email:    fields.email,
+          phone:    fields.phone,
+          message:  fields.message,
+          model:    fields.model,
+          formType,
         }),
       });
 

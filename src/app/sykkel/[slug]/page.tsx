@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { fetchSykkelProducts, type SykkelProduct } from '@/lib/sheets';
+import { sanityFetch } from '@/lib/sanity';
+
+interface SykkelProduct {
+  slug: string; name: string; category: string;
+  range_km: string; motor_w: string; weight: string;
+  price_from: string; image: string; images: string; body: string;
+}
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/ui/ContactForm';
 import styles from './detail.module.css';
@@ -22,7 +28,7 @@ interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let products = placeholderProducts;
-  try { const f = await fetchSykkelProducts(); if (f.length) products = f; } catch {}
+  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body}`); if (f.length) products = f; } catch {}
   const p = products.find((x) => x.slug === params.slug);
   if (!p) return { title: 'Produkt ikkje funnen' };
   return {
@@ -33,13 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   let products = placeholderProducts;
-  try { const f = await fetchSykkelProducts(); if (f.length) products = f; } catch {}
+  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body}`); if (f.length) products = f; } catch {}
   return products.map((p) => ({ slug: p.slug }));
 }
 
 export default async function SykkelDetailPage({ params }: Props) {
   let products = placeholderProducts;
-  try { const f = await fetchSykkelProducts(); if (f.length) products = f; } catch {}
+  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body}`); if (f.length) products = f; } catch {}
 
   const product = products.find((p) => p.slug === params.slug);
   if (!product) notFound();

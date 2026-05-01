@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
-import { fetchMarineBoats, type MarineBoat } from '@/lib/sheets';
+import { sanityFetch } from '@/lib/sanity';
+
+interface MarineBoat {
+  slug: string; model_name: string; length: string; persons: string;
+  motor_options: string; price_from: string; image: string;
+  images: string; body: string; specs_table: string;
+}
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/ui/ContactForm';
 import styles from './page.module.css';
@@ -65,13 +71,13 @@ const philosophy = [
 ];
 
 export default async function MarinePage() {
-  let boats: MarineBoat[] = [];
+  let boats: MarineBoat[] = placeholderBoats;
   try {
-    const fetched = await fetchMarineBoats();
-    boats = fetched.length > 0 ? fetched : placeholderBoats;
-  } catch {
-    boats = placeholderBoats;
-  }
+    const f = await sanityFetch<MarineBoat[]>(
+      `*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body,"specs_table":specsTable}`
+    );
+    if (f.length > 0) boats = f;
+  } catch {}
 
   return (
     <>

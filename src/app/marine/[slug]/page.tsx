@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { fetchMarineBoats, type MarineBoat } from '@/lib/sheets';
+import { sanityFetch } from '@/lib/sanity';
+
+interface MarineBoat {
+  slug: string; model_name: string; length: string; persons: string;
+  motor_options: string; price_from: string; image: string;
+  images: string; body: string; specs_table: string;
+}
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/ui/ContactForm';
 import styles from './detail.module.css';
@@ -107,7 +113,7 @@ interface Props { params: { slug: string }; }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let boats = placeholderBoats;
-  try { const f = await fetchMarineBoats(); if (f.length) boats = f; } catch {}
+  try { const f = await sanityFetch<MarineBoat[]>(`*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body,"specs_table":specsTable}`); if (f.length) boats = f; } catch {}
   const boat = boats.find((b) => b.slug === params.slug);
   if (!boat) return { title: 'Båt ikkje funnen' };
   return {
@@ -118,13 +124,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   let boats = placeholderBoats;
-  try { const f = await fetchMarineBoats(); if (f.length) boats = f; } catch {}
+  try { const f = await sanityFetch<MarineBoat[]>(`*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body,"specs_table":specsTable}`); if (f.length) boats = f; } catch {}
   return boats.map((b) => ({ slug: b.slug }));
 }
 
 export default async function BoatDetailPage({ params }: Props) {
   let boats = placeholderBoats;
-  try { const f = await fetchMarineBoats(); if (f.length) boats = f; } catch {}
+  try { const f = await sanityFetch<MarineBoat[]>(`*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body,"specs_table":specsTable}`); if (f.length) boats = f; } catch {}
 
   const boat = boats.find((b) => b.slug === params.slug);
   if (!boat) notFound();
