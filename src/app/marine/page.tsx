@@ -74,7 +74,7 @@ export default async function MarinePage() {
   let boats: MarineBoat[] = placeholderBoats;
   try {
     const f = await sanityFetch<MarineBoat[]>(
-      `*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body,"specs_table":specsTable}`
+      `*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body,"specs_table":specsTable}`
     );
     if (f.length > 0) boats = f;
   } catch {}

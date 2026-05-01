@@ -120,8 +120,8 @@ export default async function SykkelPage() {
         "slug": slug.current, name, category,
         "range_km": rangeKm, "motor_w": motorW, weight,
         "price_from": priceFrom,
-        "image": image.asset->url,
-        "images": array::join(gallery[].asset->url, ","),
+        "image": image,
+        "images": array::join(gallery, ","),
         body
       }`
     );

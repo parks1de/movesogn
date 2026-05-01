@@ -28,7 +28,7 @@ interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let products = placeholderProducts;
-  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body}`); if (f.length) products = f; } catch {}
+  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body}`); if (f.length) products = f; } catch {}
   const p = products.find((x) => x.slug === params.slug);
   if (!p) return { title: 'Produkt ikkje funnen' };
   return {
@@ -39,13 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   let products = placeholderProducts;
-  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body}`); if (f.length) products = f; } catch {}
+  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body}`); if (f.length) products = f; } catch {}
   return products.map((p) => ({ slug: p.slug }));
 }
 
 export default async function SykkelDetailPage({ params }: Props) {
   let products = placeholderProducts;
-  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image.asset->url,"images":array::join(gallery[].asset->url,","),body}`); if (f.length) products = f; } catch {}
+  try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body}`); if (f.length) products = f; } catch {}
 
   const product = products.find((p) => p.slug === params.slug);
   if (!product) notFound();

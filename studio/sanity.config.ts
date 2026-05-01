@@ -6,34 +6,77 @@ import { schemaTypes } from './schemas';
 
 const structure: StructureResolver = (S) =>
   S.list()
-    .title('MOVE Sogn CMS')
+    .title('MOVE Sogn')
     .items([
+
+      // ── Produkt ───────────────────────────────────────────────
       S.listItem()
-        .title('Nettstadinformasjon')
-        .icon(() => '⚙️')
-        .child(S.editor().schemaType('siteSettings').documentId('siteSettings')),
+        .title('Marine — Båtar')
+        .icon(() => '⛵')
+        .child(
+          S.documentTypeList('marineBoat')
+            .title('Alle båtar')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
+
+      S.listItem()
+        .title('El-syklar (Merida)')
+        .icon(() => '🚴')
+        .child(
+          S.documentTypeList('sykkelProduct')
+            .title('El-syklar')
+            .filter('_type == "sykkelProduct" && category == "sykkel"')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
+
+      S.listItem()
+        .title('El-moped / Scooter (NIU)')
+        .icon(() => '🛵')
+        .child(
+          S.documentTypeList('sykkelProduct')
+            .title('El-moped & Scooter')
+            .filter('_type == "sykkelProduct" && category == "scooter"')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
+
+      S.listItem()
+        .title('Sparkesykkel (NIU)')
+        .icon(() => '🛴')
+        .child(
+          S.documentTypeList('sykkelProduct')
+            .title('Sparkesyklar')
+            .filter('_type == "sykkelProduct" && category == "sparkesykkel"')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
 
       S.divider(),
 
+      // ── Om oss ────────────────────────────────────────────────
       S.listItem()
-        .title('Sykkel & Moped')
-        .icon(() => '🚴')
-        .child(S.documentTypeList('sykkelProduct').title('Alle produkt').defaultOrdering([{ field: 'order', direction: 'asc' }])),
-
-      S.listItem()
-        .title('Marine / Båtar')
-        .icon(() => '⛵')
-        .child(S.documentTypeList('marineBoat').title('Alle båtar').defaultOrdering([{ field: 'order', direction: 'asc' }])),
-
-      S.listItem()
-        .title('Historikk (Om oss)')
+        .title('Historikk / Tidslinje')
         .icon(() => '📅')
-        .child(S.documentTypeList('timelineEntry').title('Tidslinje').defaultOrdering([{ field: 'order', direction: 'asc' }])),
+        .child(
+          S.documentTypeList('timelineEntry')
+            .title('Tidslinje — Om oss')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
+
+      S.divider(),
+
+      // ── Innstillingar ─────────────────────────────────────────
+      S.listItem()
+        .title('Innstillingar')
+        .icon(() => '⚙️')
+        .child(
+          S.editor()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+        ),
     ]);
 
 export default defineConfig({
   name: 'movesogn',
-  title: 'MOVE Sogn Studio',
+  title: 'MOVE Sogn',
 
   projectId: 'o76s1gxs',
   dataset: 'production',
