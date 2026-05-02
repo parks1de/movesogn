@@ -2,6 +2,8 @@
 .container {
   height: 300vh;
   position: relative;
+  /* canvas colour shows through as the panel fades — no black flash */
+  background-color: var(--color-surface);
 }
 
 .sticky {
@@ -14,6 +16,7 @@
   overflow: hidden;
   background: #000;
   will-change: opacity;
+  z-index: 10;
 }
 
 /* Video — centered with translate so scale stays centred */
