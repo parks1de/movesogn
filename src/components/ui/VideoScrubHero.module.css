@@ -194,10 +194,10 @@
 
 /* ── Mobile overrides ─────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Extra 25vh lets the hero fade out over the incoming section */
+  /* Extra 40vh lets the hero fade out over the incoming section */
   .container {
-    height: 125vh;
-    height: 125dvh;
+    height: 140vh;
+    height: 140dvh;
   }
   /* Sticky panel only fills the first 100vh — extra space is the fade zone */
   .sticky {
@@ -206,10 +206,10 @@
     min-height: unset;
   }
 
-  /* contain = full boat visible, no cropping (dark bars fill remaining space) */
+  /* contain = full boat visible; 1.15 fills black bars without cropping boat */
   .video {
     object-fit: contain;
-    transform: scale(1.0);
+    transform: scale(1.15);
   }
 
   .ghost      { display: none; }
