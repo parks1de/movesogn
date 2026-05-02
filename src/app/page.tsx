@@ -95,7 +95,7 @@ export default function HeimsidePage() {
             <p className={styles.sykkelSub}>
               Merida el-syklar og NIU el-moped — null utslepp, låge kostnader, fri rørsle i Sogn.
             </p>
-            <Link href="/sykkel/merida" className="btn btn--primary" style={{ marginTop: '2rem' }}>
+            <Link href="/sykkel" className="btn btn--primary" style={{ marginTop: '2rem' }}>
               Sjå el-syklar
               <Icon name="arrow-right" size={16} />
             </Link>

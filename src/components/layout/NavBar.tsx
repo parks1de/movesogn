@@ -34,7 +34,7 @@ const navItems: NavItem[] = [
     href: '/elmoped',
     label: 'El-mobilitet',
     dropdown: [
-      { href: '/sykkel/merida', label: 'El-syklar' },
+      { href: '/sykkel', label: 'El-syklar' },
       { href: '/elmoped',       label: 'El-moped' },
       { href: '/sparkesykkel',  label: 'Sparkesykkel' },
     ],

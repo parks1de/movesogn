@@ -2,21 +2,20 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { sanityFetch } from '@/lib/sanity';
+import FadeUp from '@/components/ui/FadeUp';
+import Icon from '@/components/ui/Icon';
+import ContactForm from '@/components/ui/ContactForm';
+import styles from './page.module.css';
 
 interface SykkelProduct {
   slug: string; name: string; category: string;
   range_km: string; motor_w: string; weight: string;
   price_from: string; image: string; images: string; body: string;
 }
-import FadeUp from '@/components/ui/FadeUp';
-import Icon from '@/components/ui/Icon';
-import ContactForm from '@/components/ui/ContactForm';
-import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Sykkel — Merida el-syklar og NIU moped',
-  description:
-    'MOVE Sogn sel Merida el-syklar og NIU el-moped i Sogn. Null utslepp, låge kostnader. Kaupanger i Sogn.',
+  title: 'El-syklar — MOVE Sogn',
+  description: 'Elektriske syklar hos MOVE Sogn i Kaupanger. Opptil 150 km rekkevidde — for pendling og eventyr i Sogn.',
   openGraph: {
     images: [{ url: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=80', width: 1200, height: 630, alt: 'El-sykkel på fjordveg i Sogn' }],
   },
@@ -24,55 +23,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 300;
 
-const placeholderProducts: SykkelProduct[] = [
-  {
-    slug: 'niu-nqi-sport',
-    name: 'NIU NQi Sport',
-    category: 'scooter',
-    range_km: '70',
-    motor_w: '1500',
-    weight: '70',
-    price_from: '24 990',
-    image: '/images/sykkel/sk-01.png',
-    images: '',
-    body: 'Vår mestseljande elektriske scooter. God rekkevidde, lading på vanleg stikkontakt, minimal vedlikehald. Inkl. basis serviceavtale.',
-  },
-  {
-    slug: 'niu-uqi-gt-sport',
-    name: 'NIU UQi GT Sport',
-    category: 'scooter',
-    range_km: '50',
-    motor_w: '1200',
-    weight: '62',
-    price_from: '19 990',
-    image: '/images/sykkel/sk-01.png',
-    images: '',
-    body: 'Enkel og prisgunstig elektrisk scooter med innovativt retro-design. For alle — ungdommar eller pendlarar i sentrale strøk.',
-  },
-  {
-    slug: 'niu-mqi-sport',
-    name: 'NIU MQi+ Sport',
-    category: 'scooter',
-    range_km: '100',
-    motor_w: '2000',
-    weight: '72',
-    price_from: '22 990',
-    image: '/images/sykkel/sk-01.png',
-    images: '',
-    body: 'Scooteren med best rekkevidde i NIU-serien. Morosam, rask og kvalitetssikker — pendling og skule er enkelt.',
-  },
-  {
-    slug: 'niu-kqi3-pro',
-    name: 'NIU KQi3 Pro',
-    category: 'sparkesykkel',
-    range_km: '50',
-    motor_w: '300',
-    weight: '16',
-    price_from: '7 990',
-    image: '/images/sykkel/sk-02.png',
-    images: '',
-    body: 'Ikonisk halo-frontlykt, robuste hjul og skivebrems. Lett å folde, passar i bagasjerommet. NIU-app for statistikk og låsing.',
-  },
+const placeholderBikes: SykkelProduct[] = [
   {
     slug: 'merida-e-crossway',
     name: 'Merida eSPRESSO CROSS',
@@ -83,7 +34,7 @@ const placeholderProducts: SykkelProduct[] = [
     price_from: 'Kontakt oss',
     image: '/images/sykkel/sk-03.png',
     images: '',
-    body: 'Merida el-sykkel for terreng og asfalt — lett aluminiumsramme, Shimano driv og Lithium-ion-batteri. Opptil 150 km rekkevidde.',
+    body: 'El-sykkel for terreng og asfalt — lett aluminiumsramme, Shimano driv og Lithium-ion-batteri. Opptil 150 km rekkevidde.',
   },
   {
     slug: 'merida-e-speeder',
@@ -95,28 +46,22 @@ const placeholderProducts: SykkelProduct[] = [
     price_from: 'Kontakt oss',
     image: '/images/sykkel/sk-04.png',
     images: '',
-    body: 'Rask og elegant Merida el-sykkel for dagleg pendling — aerodynamisk design og integrert batteri. Perfekt for bykøyring i Sogn.',
+    body: 'Rask og elegant el-sykkel for dagleg pendling — aerodynamisk design og integrert batteri. Perfekt for bykøyring i Sogn.',
   },
 ];
 
-const categories = [
-  { key: 'scooter',      label: 'NIU Moped' },
-  { key: 'sparkesykkel', label: 'Sparkesykkel' },
-  { key: 'sykkel',       label: 'Merida El-sykkel' },
-];
-
 const valueProps = [
-  { icon: 'leaf'        as const, title: 'Null utslepp', desc: 'Elektrisk drift — bra for lommeboka og naturen.' },
-  { icon: 'clock'       as const, title: 'Spar tid',     desc: 'Slepp kø og parkering. Kom deg dit du skal raskare.' },
-  { icon: 'trending-up' as const, title: 'Spar pengar',  desc: 'Ladekostnad er ein brøkdel av bensin.' },
-  { icon: 'zap'         as const, title: 'Betre helse',  desc: 'El-sykkel gir mosjon utan for stor innsats.' },
+  { icon: 'leaf'         as const, title: 'Null utslepp',  desc: 'Elektrisk motor — bra for lommeboka og naturen.' },
+  { icon: 'zap'          as const, title: 'Opptil 150 km', desc: 'Kraftig batteri som held deg i salen heile dagen.' },
+  { icon: 'trending-up'  as const, title: 'Spar pengar',   desc: 'Lad for nokre kroner — ikkje 200 kr/liter.' },
+  { icon: 'clock'        as const, title: 'Spar tid',      desc: 'Sykkelsti, ikkje kø. Du kjem fram raskare.' },
 ];
 
-export default async function SykkelPage() {
-  let products: SykkelProduct[] = placeholderProducts;
+export default async function ElSyklarPage() {
+  let products: SykkelProduct[] = placeholderBikes;
   try {
     const f = await sanityFetch<SykkelProduct[]>(
-      `*[_type == "sykkelProduct"] | order(order asc) {
+      `*[_type == "sykkelProduct" && category == "sykkel"] | order(order asc) {
         "slug": slug.current, name, category,
         "range_km": rangeKm, "motor_w": motorW, weight,
         "price_from": priceFrom,
@@ -128,11 +73,6 @@ export default async function SykkelPage() {
     if (f.length > 0) products = f;
   } catch {}
 
-  const grouped = categories.reduce((acc, cat) => {
-    acc[cat.key] = products.filter((p) => p.category === cat.key);
-    return acc;
-  }, {} as Record<string, SykkelProduct[]>);
-
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────── */}
@@ -140,7 +80,7 @@ export default async function SykkelPage() {
         <div className={styles.heroBg}>
           <Image
             src="/images/sykkel-hero.png"
-            alt="Merida el-sykkel — MOVE Sogn"
+            alt="El-sykkel — MOVE Sogn"
             fill
             priority
             sizes="100vw"
@@ -150,37 +90,33 @@ export default async function SykkelPage() {
         </div>
         <div className={`container ${styles.heroContent}`}>
           <FadeUp>
-            <span className={styles.heroLabel}>Mikromobilitet</span>
+            <span className={styles.heroLabel}>El-syklar</span>
             <h1 className={styles.heroH1}>
-              Framtida er elektrisk.<br />Og ho ser bra ut.
+              Kjenn fridom<br />på kvar pedaltak.
             </h1>
             <p className={styles.heroSub}>
-              Merida el-syklar og NIU el-moped — levert frå Kaupanger.
+              Elektriske syklar for fjord og fjell — levert frå Kaupanger.
             </p>
           </FadeUp>
         </div>
       </section>
 
-      {/* ── CATEGORIES ───────────────────────────────────────── */}
-      {categories.map(({ key, label }) =>
-        grouped[key]?.length > 0 ? (
-          <section key={key} className="section">
-            <div className="container">
-              <FadeUp>
-                <span className="label">{label}</span>
-                <h2 className={styles.sectionH2}>{label}</h2>
+      {/* ── PRODUCTS ─────────────────────────────────────────── */}
+      <section className="section">
+        <div className="container">
+          <FadeUp>
+            <span className="label">Sortiment</span>
+            <h2 className={styles.sectionH2}>El-syklar</h2>
+          </FadeUp>
+          <div className={styles.productGrid}>
+            {products.map((product, i) => (
+              <FadeUp key={product.slug} delay={i * 70}>
+                <ProductCard product={product} />
               </FadeUp>
-              <div className={styles.productGrid}>
-                {grouped[key].map((product, i) => (
-                  <FadeUp key={product.slug} delay={i * 70}>
-                    <ProductCard product={product} />
-                  </FadeUp>
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null
-      )}
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── VALUE PROPS ──────────────────────────────────────── */}
       <section className="section bg-surface">
@@ -204,8 +140,8 @@ export default async function SykkelPage() {
         <div className="container">
           <ContactForm
             formType="sykkel"
-            heading="Kom innom eller kontakt oss"
-            subheading="Spør om test-køyring, tilbod eller lager. Me svarer raskt."
+            heading="Prøvekøyr ein el-sykkel"
+            subheading="Ta kontakt for test-køyring, prisførespurnad eller leveringstid."
           />
         </div>
       </section>
