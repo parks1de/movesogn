@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
     label: 'Bil',
     dropdown: [
       { href: 'https://www.toyotasogn.no',       label: 'Toyota Sogn',        external: true },
-      { href: 'https://www.bilhusetforde.no',       label: 'Bihuset Førde',      external: true },
+      { href: 'https://www.bilhusetforde.no',     label: 'Bihuset Førde',      external: true },
       { href: 'https://www.skadesenteretsogn.no', label: 'Skadesenteret Sogn', external: true },
       { href: '/bil/hertz',                       label: 'Hertz Bilutleige' },
     ],
@@ -25,18 +25,18 @@ const navItems: NavItem[] = [
     href: '/marine',
     label: 'Marine',
     dropdown: [
-      { href: '/marine/summerfun',    label: 'Summerfun (Hasle)' },
-      { href: '/marine/silver-boats', label: 'Silver Boats' },
-      { href: '/marine/suzuki',       label: 'Suzuki Båtmotor' },
+      { href: '/marine/summerfun',       label: 'Summerfun (Hasle)' },
+      { href: '/marine/silver-boats',    label: 'Silver Boats' },
+      { href: '/marine/suzuki-batmotor', label: 'Suzuki Båtmotor' },
     ],
   },
   {
-    href: '/sykkel',
+    href: '/elmoped',
     label: 'El-mobilitet',
     dropdown: [
-      { href: '/sykkel/merida',  label: 'El-syklar' },
-      { href: '/elmoped',        label: 'El-moped' },
-      { href: '/sparkesykkel',   label: 'Sparkesykkel' },
+      { href: '/sykkel/merida', label: 'El-syklar' },
+      { href: '/elmoped',       label: 'El-moped' },
+      { href: '/sparkesykkel',  label: 'Sparkesykkel' },
     ],
   },
   {
@@ -47,7 +47,15 @@ const navItems: NavItem[] = [
       { href: '/eigedom/casa-banderas',   label: 'Casa Banderas' },
     ],
   },
-  { href: '/om-oss', label: 'Om oss' },
+  {
+    href: '/om-oss',
+    label: 'MOVE',
+    dropdown: [
+      { href: '/om-oss',        label: 'Om oss' },
+      { href: '/visjon',        label: 'Visjon' },
+      { href: '/apenhetsloven', label: 'Åpenhetsloven' },
+    ],
+  },
 ];
 
 export default function NavBar() {
@@ -57,20 +65,17 @@ export default function NavBar() {
   const router                  = useRouter();
   const headerRef               = useRef<HTMLElement>(null);
 
-  const heroPages = ['/', '/bil', '/marine', '/sykkel', '/eigedom', '/om-oss'];
-  const isHeroPage = heroPages.some(p => pathname === p);
+  const isHeroPage = pathname === '/'
+    || ['/marine', '/sykkel', '/elmoped', '/sparkesykkel', '/eigedom', '/om-oss', '/visjon', '/apenhetsloven']
+       .some(p => pathname === p || pathname.startsWith(p + '/'));
+
   const transparent = isHeroPage && !scrolled;
 
-  // Close any open desktop dropdown by blurring the focused nav element
   const closeDropdowns = () => {
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   };
 
   useEffect(() => {
-    // Desktop homepage: stay ghost through full 510vh animation (~4.2× vh past hero)
-    // Mobile homepage: hero is 100dvh, reveal once Toyota cards are in view
     const threshold = pathname === '/'
       ? (window.innerWidth < 768 ? window.innerHeight * 1.05 : window.innerHeight * 4.2)
       : 48;
@@ -88,12 +93,9 @@ export default function NavBar() {
 
   useEffect(() => { setOpen(false); }, [pathname]);
 
-  // Close desktop dropdown when clicking outside the nav
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
-        closeDropdowns();
-      }
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) closeDropdowns();
     };
     document.addEventListener('click', handleOutsideClick);
     return () => document.removeEventListener('click', handleOutsideClick);
@@ -101,6 +103,10 @@ export default function NavBar() {
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/');
+
+  const isItemActive = (item: NavItem) =>
+    isActive(item.href) ||
+    (item.dropdown?.some(sub => !sub.external && isActive(sub.href)) ?? false);
 
   return (
     <header ref={headerRef} className={`${styles.nav} ${transparent ? styles.transparent : styles.scrolled}`}>
@@ -123,9 +129,8 @@ export default function NavBar() {
           {navItems.map((item) =>
             item.dropdown ? (
               <div key={item.href} className={styles.dropdownTrigger}>
-                {/* Dropdown-only trigger — no navigation on click */}
                 <button
-                  className={`${styles.link} ${styles.linkBtn} ${isActive(item.href) ? styles.linkActive : ''}`}
+                  className={`${styles.link} ${styles.linkBtn} ${isItemActive(item) ? styles.linkActive : ''}`}
                   aria-haspopup="true"
                 >
                   {item.label}
@@ -169,7 +174,6 @@ export default function NavBar() {
             )
           )}
 
-          {/* ── Language toggle (EN) ── */}
           <button
             className={styles.langToggle}
             onClick={() => router.push('?lang=en')}
@@ -178,7 +182,6 @@ export default function NavBar() {
             EN
           </button>
 
-          {/* ── Orange CTA ──────────────────────────────────── */}
           <Link href="/kontakt" className={styles.ctaLink}>
             Kontakt
           </Link>
@@ -205,7 +208,7 @@ export default function NavBar() {
               {item.dropdown ? (
                 <span
                   className={styles.drawerLink}
-                  style={isActive(item.href) ? { color: 'var(--color-orange)', fontWeight: 600 } : undefined}
+                  style={isItemActive(item) ? { color: 'var(--color-orange)', fontWeight: 600 } : undefined}
                 >
                   {item.label}
                 </span>
@@ -249,11 +252,7 @@ export default function NavBar() {
               )}
             </div>
           ))}
-          <Link
-            href="/kontakt"
-            className={`btn btn--primary ${styles.drawerCta}`}
-            onClick={() => setOpen(false)}
-          >
+          <Link href="/kontakt" className={`btn btn--primary ${styles.drawerCta}`} onClick={() => setOpen(false)}>
             Kontakt
           </Link>
         </nav>
@@ -264,18 +263,8 @@ export default function NavBar() {
 
 function ChevronIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
+    <svg className={className} width="10" height="10" viewBox="0 0 10 10" fill="none"
+      stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M2 3.5l3 3 3-3" />
     </svg>
   );
@@ -283,18 +272,9 @@ function ChevronIcon({ className }: { className?: string }) {
 
 function ExternalIcon() {
   return (
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ opacity: 0.45, flexShrink: 0 }}
-      aria-hidden="true"
-    >
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+      style={{ opacity: 0.45, flexShrink: 0 }} aria-hidden="true">
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
       <polyline points="15,3 21,3 21,9" />
       <line x1="10" y1="14" x2="21" y2="3" />

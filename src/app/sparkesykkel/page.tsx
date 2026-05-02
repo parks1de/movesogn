@@ -139,7 +139,7 @@ export default async function SparkesykkelPage() {
 
 function ProductCard({ product }: { product: SykkelProduct }) {
   return (
-    <Link href={`/sykkel/${product.slug}`} className={`card ${styles.productCard}`}>
+    <Link href={`/sparkesykkel/${product.slug}`} className={`card ${styles.productCard}`}>
       <div className={`img-fill ${styles.productImg}`}>
         <Image
           src={product.image}

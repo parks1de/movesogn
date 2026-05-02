@@ -5,6 +5,8 @@ import { sparkesykkelSpecs }  from './objects/sparkesykkelSpecs.js';
 import { sykkelProduct }      from './documents/sykkelProduct.js';
 import { marineBoat }         from './documents/marineBoat.js';
 import { suzukiEngine }       from './documents/suzukiEngine.js';
+import { apenhetsloven }      from './documents/apenhetsloven.js';
+import { visjon }             from './documents/visjon.js';
 
 // Object types must come BEFORE document types that reference them
 export const schemaTypes = [
@@ -15,4 +17,6 @@ export const schemaTypes = [
   sykkelProduct,
   marineBoat,
   suzukiEngine,
+  apenhetsloven,
+  visjon,
 ];

@@ -1,94 +1,77 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { sanityFetch } from '@/lib/sanity';
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/ui/ContactForm';
 import Icon from '@/components/ui/Icon';
-import styles from './detail.module.css';
+import styles from '../../sykkel/[slug]/detail.module.css';
 
 interface Spec { label: string; value: string }
 
-interface SykkelSpecs {
-  rekkevidde?: string; motor?: string; driv?: string; batteri?: string;
-  vekt?: string; ramme?: string; hjulstorleik?: string; brems?: string;
+interface SparkesykkelSpecs {
+  rekkevidde?: string; motor?: string; toppfart?: string; ladetid?: string;
+  vekt?: string; hjulstorleik?: string; brems?: string; foldbar?: boolean;
 }
 
 interface SykkelProduct {
   slug: string;
   name: string;
   tagline: string;
-  category: 'sykkel' | 'scooter' | 'sparkesykkel';
+  category: 'sparkesykkel';
   body: string;
   price_from: string;
   image: string;
   gallery: string[];
   specs: Spec[];
-  sykkelSpecs?: SykkelSpecs;
+  sparkesykkelSpecs?: SparkesykkelSpecs;
 }
 
 export const revalidate = 300;
 
 const placeholderProducts: SykkelProduct[] = [
   {
-    slug: 'merida-e-crossway',
-    name: 'Merida eSPRESSO CROSS',
-    tagline: 'Terreng og asfalt — éin sykkel for alt.',
-    category: 'sykkel',
-    body: 'Merida eSPRESSO CROSS er allroundarens sykkel — like heime på grusvegar i Sogndal som på asfalt langs fjorden. Lett aluminiumsramme og Shimano Altus 8-gir gjer turen behageleg uansett underlag.\n\nIntegrert Lithium-ion-batteri gir opptil 150 km rekkevidde avhengig av terrenget. Perfekt for deg som syklar til jobb, men ikkje vil gi slepp på helgeeventyret.',
-    price_from: 'Kontakt oss',
-    image: '/images/sykkel/sk-03.png',
+    slug: 'niu-kqi3-pro',
+    name: 'NIU KQi3 Pro',
+    tagline: 'Lett å folde. Alltid klar. Rull heilt til døra.',
+    category: 'sparkesykkel',
+    body: 'NIU KQi3 Pro er sparkesykkelen for deg som vil ha fridom utan bagasje. Berre 16 kg, enkel å folde og passar i bagasjerommet eller under pulten.\n\nIkonisk halo-frontlykt og robuste 10-tommars hjul gjev god stabilitet. Skivebrems på begge hjul. NIU-appen gir deg statistikk, reiseoversikt og fjernlåsing.',
+    price_from: '7 990',
+    image: '/images/sykkel/sk-02.png',
     gallery: [],
     specs: [
-      { label: 'Rekkevidde',  value: 'Opptil 150 km' },
-      { label: 'Motor',       value: '250 W (Shimano)' },
-      { label: 'Driv',        value: 'Shimano Altus 8-gir' },
-      { label: 'Batteri',     value: '418 Wh Li-Ion' },
-      { label: 'Vekt',        value: '22 kg' },
-      { label: 'Ramme',       value: 'Aluminium' },
-    ],
-  },
-  {
-    slug: 'merida-e-speeder',
-    name: 'Merida eSPEEDER',
-    tagline: 'Kjapp. Elegant. Skapt for dagleg pendling.',
-    category: 'sykkel',
-    body: 'Merida eSPEEDER er el-sykkelen for deg som verdset design like mykje som funksjon. Det integrerte batteriet og den aerodynamiske ramma gjer det nærast umogleg å sjå at dette er ein el-sykkel.\n\nShimano 8-gir og 250 W motor gjev god ytelse i alle fart. Opptil 130 km rekkevidde — meir enn nok for ein full arbeidsdag med pendling.',
-    price_from: 'Kontakt oss',
-    image: '/images/sykkel/sk-04.png',
-    gallery: [],
-    specs: [
-      { label: 'Rekkevidde',  value: 'Opptil 130 km' },
-      { label: 'Motor',       value: '250 W integrert' },
-      { label: 'Driv',        value: 'Shimano 8-gir' },
-      { label: 'Batteri',     value: '378 Wh integrert' },
-      { label: 'Vekt',        value: '20 kg' },
-      { label: 'Ramme',       value: 'Aluminium' },
+      { label: 'Rekkevidde',   value: '50 km' },
+      { label: 'Motor',        value: '300 W' },
+      { label: 'Toppfart',     value: '25 km/t' },
+      { label: 'Ladetid',      value: '5–6 t' },
+      { label: 'Vekt',         value: '16 kg' },
+      { label: 'Hjulstorleik', value: '10"' },
     ],
   },
 ];
 
-const QUERY = `*[_type=="sykkelProduct"] | order(order asc) {
+const QUERY = `*[_type=="sykkelProduct" && category=="sparkesykkel"] | order(order asc) {
   "slug": slug.current, name, tagline, category,
   "price_from": priceFrom,
   "image": image.asset->url,
   "gallery": gallery[].asset->url,
   body,
-  sykkelSpecs { rekkevidde, motor, driv, batteri, vekt, ramme, hjulstorleik, brems }
+  sparkesykkelSpecs { rekkevidde, motor, toppfart, ladetid, vekt, hjulstorleik, brems, foldbar }
 }`;
 
 function buildSpecs(p: SykkelProduct): Spec[] {
   if (p.specs?.length) return p.specs;
-  if (!p.sykkelSpecs) return [];
-  const s = p.sykkelSpecs;
-  const add = (label: string, value?: string): Spec | null =>
-    value ? { label, value } : null;
+  if (!p.sparkesykkelSpecs) return [];
+  const s = p.sparkesykkelSpecs;
+  const add = (label: string, value?: string | boolean): Spec | null =>
+    value !== undefined && value !== '' ? { label, value: String(value) } : null;
   return [
     add('Rekkevidde', s.rekkevidde), add('Motor', s.motor),
-    add('Driv', s.driv),            add('Batteri', s.batteri),
-    add('Vekt', s.vekt),            add('Ramme', s.ramme),
-    add('Hjulstorleik', s.hjulstorleik), add('Brems', s.brems),
+    add('Toppfart', s.toppfart),    add('Ladetid', s.ladetid),
+    add('Vekt', s.vekt),            add('Hjulstorleik', s.hjulstorleik),
+    add('Brems', s.brems),
+    s.foldbar !== undefined ? { label: 'Foldbar', value: s.foldbar ? 'Ja' : 'Nei' } : null,
   ].filter((x): x is Spec => x !== null);
 }
 
@@ -97,11 +80,11 @@ interface Props { params: { slug: string } }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let products = placeholderProducts;
   try { const f = await sanityFetch<SykkelProduct[]>(QUERY); if (f.length) products = f; } catch {}
-  const p = products.find((x) => x.slug === params.slug && x.category === 'sykkel')
-         ?? placeholderProducts.find((x) => x.slug === params.slug && x.category === 'sykkel');
+  const p = products.find((x) => x.slug === params.slug)
+         ?? placeholderProducts.find((x) => x.slug === params.slug);
   if (!p) return { title: 'Produkt ikkje funnen' };
   return {
-    title: `${p.name} — El-sykkel | MOVE Sogn`,
+    title: `${p.name} — Sparkesykkel | MOVE Sogn`,
     description: p.tagline ?? `${p.name} hos MOVE Sogn på Kaupanger.`,
   };
 }
@@ -109,39 +92,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export async function generateStaticParams() {
   let products = placeholderProducts;
   try { const f = await sanityFetch<SykkelProduct[]>(QUERY); if (f.length) products = f; } catch {}
-  return products.filter(p => p.category === 'sykkel').map((p) => ({ slug: p.slug }));
+  return products.map((p) => ({ slug: p.slug }));
 }
 
-export default async function SykkelDetailPage({ params }: Props) {
+export default async function SparkesykkelDetailPage({ params }: Props) {
   let products = placeholderProducts;
   try { const f = await sanityFetch<SykkelProduct[]>(QUERY); if (f.length) products = f; } catch {}
 
-  const allProducts = [...products, ...placeholderProducts];
-  const anyMatch = allProducts.find(p => p.slug === params.slug);
-
-  if (anyMatch?.category === 'scooter') redirect(`/elmoped/${params.slug}`);
-  if (anyMatch?.category === 'sparkesykkel') redirect(`/sparkesykkel/${params.slug}`);
-
-  const product = products.find((p) => p.slug === params.slug && p.category === 'sykkel')
-               ?? placeholderProducts.find((p) => p.slug === params.slug && p.category === 'sykkel');
+  const product = products.find((p) => p.slug === params.slug)
+               ?? placeholderProducts.find((p) => p.slug === params.slug);
   if (!product) notFound();
 
   const specs      = buildSpecs(product);
   const paragraphs = (product.body ?? '').split(/\n\n+/).filter(Boolean);
   const isContact  = product.price_from === 'Kontakt oss';
   const gallery    = (product.gallery ?? []).filter(Boolean);
-  const imgSrc     = product.image || '/images/sykkel/sk-03.png';
+  const imgSrc     = product.image || '/images/sykkel/sk-02.png';
 
   return (
     <>
       <section className={styles.hero}>
         <div className={`container ${styles.heroContent}`}>
           <FadeUp>
-            <Link href="/sykkel/merida" className={styles.back}>
+            <Link href="/sparkesykkel" className={styles.back}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              El-syklar
+              Sparkesykkel
             </Link>
             <h1 className={styles.heroH1}>{product.name}</h1>
             {product.tagline && <p className={styles.heroTagline}>{product.tagline}</p>}
@@ -171,7 +148,7 @@ export default async function SykkelDetailPage({ params }: Props) {
             </FadeUp>
 
             <FadeUp delay={100} className={styles.specsPanel}>
-              <span className={styles.categoryLabel}>El-sykkel</span>
+              <span className={styles.categoryLabel}>Sparkesykkel</span>
 
               {specs.length > 0 && (
                 <div className={styles.specsBox}>
@@ -241,7 +218,7 @@ export default async function SykkelDetailPage({ params }: Props) {
               formType="sykkel"
               prefilledModel={product.name}
               heading={`Interessert i ${product.name}?`}
-              subheading="Kontakt oss for test-køyring, tilbod eller lagerstatus."
+              subheading="Kontakt oss for spørsmål om pris, lager eller demo."
             />
           </div>
         </div>
