@@ -12,12 +12,6 @@ export const metadata: Metadata = {
   description: 'Me flyttar deg — gjennom livet. Toyota, Summerfun-båtar, el-syklar og eigedom i Sogn. 40 år med lokal mobilitet.',
 };
 
-const marineProps = [
-  { icon: 'anchor'  as const, title: 'Enkel å bruka',      desc: 'Designa for alle — frå nybyrjar til erfaren båteigar.' },
-  { icon: 'shield'  as const, title: 'Trygg konstruksjon', desc: 'CE-godkjent og bygd for norske farvatn.' },
-  { icon: 'compass' as const, title: 'Skapt for fjorden',  desc: 'Kvar modell er valt for Sognefjorden.' },
-];
-
 const toyotaCards = [
   {
     href: 'https://www.toyotasogn.no',
@@ -116,45 +110,6 @@ export default function HeimsidePage() {
               sizes="(max-width: 768px) 0px, 500px"
               style={{ objectFit: 'cover', borderRadius: 3, width: '100%', height: 380 }}
             />
-          </FadeUp>
-        </div>
-      </section>
-
-
-      {/* ── MARINE TEASER ───────────────────────────────────── */}
-      {/* TODO: [SANITY] Fetch image, headline, body text, props list from CMS (type: marineSectionBlock) */}
-      <section className={`section bg-mist ${styles.marineSection}`}>
-        <div className={`container ${styles.marineSplit}`}>
-          <FadeUp className={styles.marineImgWrap}>
-            <Image
-              src="/images/marine-hero.jpg"
-              alt="Silver-båt på Sognefjorden"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              quality={80}
-              style={{ objectFit: 'cover' }}
-            />
-          </FadeUp>
-          <FadeUp delay={120} className={styles.marineText}>
-            <span className="label">Marine</span>
-            <h2>Livet er best på sjøen.</h2>
-            <p>
-              Frå ungdomsbåten Hasle Summerfun til dei solide Silver Boats frå Finland —
-              me har det du treng for å oppdage Sognefjorden. Autorisert Suzuki-service
-              på Kaupanger.
-            </p>
-            <div className={styles.marineProps}>
-              {marineProps.map((p) => (
-                <div key={p.title} className={styles.marineProp}>
-                  <Icon name={p.icon} size={18} />
-                  <span>{p.title}</span>
-                </div>
-              ))}
-            </div>
-            <Link href="/marine" className="btn btn--outline-blue">
-              Sjå båtar
-              <Icon name="arrow-right" size={16} />
-            </Link>
           </FadeUp>
         </div>
       </section>

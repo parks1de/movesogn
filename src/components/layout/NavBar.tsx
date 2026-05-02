@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import styles from './NavBar.module.css';
 
 type SubItem = { href: string; label: string; external?: boolean };
@@ -62,7 +62,6 @@ export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
   const pathname                = usePathname();
-  const router                  = useRouter();
   const headerRef               = useRef<HTMLElement>(null);
 
   const isHeroPage = pathname === '/'
@@ -173,14 +172,6 @@ export default function NavBar() {
               </Link>
             )
           )}
-
-          <button
-            className={styles.langToggle}
-            onClick={() => router.push('?lang=en')}
-            aria-label="Switch to English"
-          >
-            EN
-          </button>
 
           <Link href="/kontakt" className={styles.ctaLink}>
             Kontakt

@@ -213,23 +213,6 @@
 }
 
 
-/* ── Language toggle pill ───────────────────────────────── */
-.langToggle {
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--ink-light);
-  border: 1px solid var(--stone);
-  border-radius: 100px;
-  padding: 4px 12px;
-  background: transparent;
-  cursor: pointer;
-  margin-left: 0.25rem;
-  transition: color var(--transition-base), border-color var(--transition-base);
-}
-.langToggle:hover { color: var(--ink); border-color: var(--ink); }
-.transparent .langToggle { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.35); }
-.transparent .langToggle:hover { color: white; border-color: rgba(255,255,255,0.7); }
-
 /* ── Orange CTA button ──────────────────────────────────── */
 .ctaLink {
   display: inline-flex;
