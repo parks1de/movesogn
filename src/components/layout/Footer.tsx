@@ -14,7 +14,7 @@ const footerLinks = {
     { label: 'Toyota Sogn',        href: 'https://www.toyotasogn.no',       external: true  },
     { label: 'Bihuset Førde',      href: 'https://www.bilhusetforde.no',    external: true  },
     { label: 'Skadesenteret Sogn', href: 'https://www.skadesenteretsogn.no',external: true  },
-    { label: 'Hertz Bilutleige',   href: '/bil/hertz',                      external: false },
+    { label: 'Hertz Bilutleige',   href: '/hertz',                          external: false },
     { label: 'Silver Boats',       href: 'https://www.silverboats.no',      external: true  },
   ],
   om: [

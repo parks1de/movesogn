@@ -9,7 +9,7 @@ const structure: StructureResolver = (S) =>
     .title('MOVE Sogn')
     .items([
 
-      // ── Produkt ───────────────────────────────────────────────
+      // ── Marine ───────────────────────────────────────────────
       S.listItem()
         .title('Marine — Båtar')
         .icon(() => '⛵')
@@ -20,7 +20,19 @@ const structure: StructureResolver = (S) =>
         ),
 
       S.listItem()
-        .title('El-syklar (Merida)')
+        .title('Suzuki Båtmotorar')
+        .icon(() => '🔧')
+        .child(
+          S.documentTypeList('suzukiEngine')
+            .title('Suzuki motorar')
+            .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
+
+      S.divider(),
+
+      // ── El-mobilitet ─────────────────────────────────────────
+      S.listItem()
+        .title('El-syklar')
         .icon(() => '🚴')
         .child(
           S.documentTypeList('sykkelProduct')
@@ -30,7 +42,7 @@ const structure: StructureResolver = (S) =>
         ),
 
       S.listItem()
-        .title('El-moped / Scooter (NIU)')
+        .title('El-moped / Scooter')
         .icon(() => '🛵')
         .child(
           S.documentTypeList('sykkelProduct')
@@ -40,7 +52,7 @@ const structure: StructureResolver = (S) =>
         ),
 
       S.listItem()
-        .title('Sparkesykkel (NIU)')
+        .title('Sparkesykkel')
         .icon(() => '🛴')
         .child(
           S.documentTypeList('sykkelProduct')
@@ -51,7 +63,7 @@ const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // ── Om oss ────────────────────────────────────────────────
+      // ── MOVE ─────────────────────────────────────────────────
       S.listItem()
         .title('Historikk / Tidslinje')
         .icon(() => '📅')
@@ -59,6 +71,24 @@ const structure: StructureResolver = (S) =>
           S.documentTypeList('timelineEntry')
             .title('Tidslinje — Om oss')
             .defaultOrdering([{ field: 'order', direction: 'asc' }])
+        ),
+
+      S.listItem()
+        .title('Visjon')
+        .icon(() => '🎯')
+        .child(
+          S.editor()
+            .schemaType('visjon')
+            .documentId('visjon')
+        ),
+
+      S.listItem()
+        .title('Åpenhetsloven')
+        .icon(() => '📋')
+        .child(
+          S.editor()
+            .schemaType('apenhetsloven')
+            .documentId('apenhetsloven')
         ),
 
       S.divider(),
