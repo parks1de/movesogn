@@ -230,7 +230,7 @@ function ProductCard({ product }: { product: SykkelProduct }) {
         <div className={styles.productMeta}>
           {product.range_km && <span>Rekkevidde {product.range_km} km</span>}
         </div>
-        <p className={styles.productDesc}>{product.body.slice(0, 100)}…</p>
+        <p className={styles.productDesc}>{(product.body ?? '').slice(0, 100)}…</p>
         <div className={styles.productFooter}>
           <strong className={styles.productPrice}>
             {product.price_from.startsWith('k') || product.price_from === 'Kontakt oss'
