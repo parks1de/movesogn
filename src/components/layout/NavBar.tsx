@@ -68,7 +68,11 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    const threshold = pathname === '/' ? window.innerHeight * 2.8 : 48;
+    // Desktop homepage: stay ghost through full 510vh animation (~4.2× vh past hero)
+    // Mobile homepage: hero is 100dvh, reveal once Toyota cards are in view
+    const threshold = pathname === '/'
+      ? (window.innerWidth < 768 ? window.innerHeight * 1.05 : window.innerHeight * 4.2)
+      : 48;
     const onScroll = () => setScrolled(window.scrollY > threshold);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
