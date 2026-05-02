@@ -208,7 +208,7 @@ export default function HeimsidePage() {
         <div className={styles.fortyBg} aria-hidden="true">40</div>
         <div className="container text-center">
           <FadeUp>
-            <span className="label">Sidan 1984</span>
+            <span className="label">Sidan 1982</span>
             <h2 className={styles.fortyH2}>40 år med rørsle i Sogn.</h2>
           </FadeUp>
           <StatCounter items={[

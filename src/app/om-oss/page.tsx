@@ -10,7 +10,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Om oss — 40 år med rørsle i Sogn',
   description:
-    'MOVE Sogn har røter heilt tilbake til 1984. Les historia om ANI Bil, Toyota Sogn og reisa til dagens MOVE-konsern med 60 medarbeidarar.',
+    'MOVE Sogn har røter heilt tilbake til 1982. Les historia om ANI Bil, Toyota Sogn og reisa til dagens MOVE-konsern med 60 medarbeidarar.',
   openGraph: {
     images: [{ url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80', width: 1200, height: 630, alt: 'Sognefjorden — MOVE Sogn' }],
   },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const placeholderTimeline: TimelineEntry[] = [
-  { order: '1', year: '1984', headline: 'ANI Bil startar opp', description: 'Grunnlaget for det som skulle bli MOVE Sogn vert lagt på Kaupanger i Sogn.' },
+  { order: '1', year: '1982', headline: 'ANI Bil startar opp', description: 'Grunnlaget for det som skulle bli MOVE Sogn vert lagt på Kaupanger i Sogn.' },
   { order: '2', year: '2008', headline: 'Toyota Sogn AS', description: 'Selskapet skiftar namn til Toyota Sogn AS og forsterkar merkevaresatsinga.' },
   { order: '3', year: '2011', headline: 'Vekst og ekspansjon', description: 'MOVE utvider porteføljen og bygger eit sterkare konsern — fleire merke, fleire stader, meir til kundane.' },
   { order: '4', year: '2021', headline: 'Rekordår', description: 'Historisk høge tal for Sogn: over 900 leverte bilar. Hertz-utleige, marine og eigedom under same tak.' },

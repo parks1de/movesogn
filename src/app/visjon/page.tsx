@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const milestones = [
-  { year: '1984', text: 'ANI Bil startar opp på Kaupanger i Sogn.' },
+  { year: '1982', text: 'ANI Bil startar opp på Kaupanger i Sogn.' },
   { year: '2008', text: 'Selskapet skiftar namn til Toyota Sogn AS.' },
   { year: '2011', text: 'Investering i Bilhuset Førde AS — utvida portefølje.' },
   { year: '2021', text: 'Historisk rekordår: over 900 leverte bilar. Nye moderne lokale på Øyrane i Førde.' },
