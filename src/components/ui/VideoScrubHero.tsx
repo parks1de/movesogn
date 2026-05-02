@@ -22,11 +22,10 @@ const phases = [
   },
 ];
 
-// [videoTimeSeconds, scale] for each mobile swipe slide
+// [videoTimeFraction (0–1 of duration), scale] — 2 slides only, no zoom on mobile
 const MOB_SLIDES: [number, number][] = [
-  [0, 1.0],  // slide 0: boat side view
-  [3, 1.0],  // slide 1: boat turns to front (0–3 s of clip)
-  [3, 2.2],  // slide 2: dramatic zoom
+  [0.0, 1.0],  // slide 0: boat side view
+  [1.0, 1.0],  // slide 1: full rotation to front
 ];
 
 export default function VideoScrubHero() {
@@ -95,8 +94,8 @@ export default function VideoScrubHero() {
           // Only scrub through first 50% of clip → boat turns slower
           video.currentTime = clamped * video.duration * 0.5;
         }
-        // Zoom 1× → 3× as scroll progresses
-        video.style.transform = `scale(${(1.0 + clamped * 2.0).toFixed(4)})`;
+        // Zoom 1× → 1.9× as scroll progresses
+        video.style.transform = `scale(${(1.0 + clamped * 0.9).toFixed(4)})`;
         desktopRaf = null;
       });
 
@@ -115,16 +114,19 @@ export default function VideoScrubHero() {
 
     const animateTo = (target: number) => {
       if (target < 0 || target >= MOB_SLIDES.length) return;
-      const [fromT, fromS] = MOB_SLIDES[mobSlide];
-      const [toT,   toS  ] = MOB_SLIDES[target];
+      const vd = (video.duration && video.duration > 0) ? video.duration : 10;
+      const [fromFrac, fromS] = MOB_SLIDES[mobSlide];
+      const [toFrac,   toS  ] = MOB_SLIDES[target];
+      const fromT = fromFrac * vd;
+      const toT   = toFrac   * vd;
       mobSlide = target;
       setMobileSlide(target);
       setPhase(target);
 
       if (mobRaf !== null) cancelAnimationFrame(mobRaf);
-      const dur = 700, t0 = performance.now();
+      const animDur = 900, t0 = performance.now();
       const step = (now: number) => {
-        const raw  = Math.min((now - t0) / dur, 1);
+        const raw  = Math.min((now - t0) / animDur, 1);
         const ease = 1 - (1 - raw) ** 3;
         if (video.readyState >= 2) video.currentTime = fromT + (toT - fromT) * ease;
         video.style.transform = `scale(${(fromS + (toS - fromS) * ease).toFixed(4)})`;
