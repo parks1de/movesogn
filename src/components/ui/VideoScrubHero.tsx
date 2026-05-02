@@ -34,7 +34,7 @@ export default function VideoScrubHero() {
     const sticky    = stickyRef.current;
     if (!video || !container || !sticky) return;
 
-    video.style.transform = "translate(-50%, -50%) scale(0.80)";
+    video.style.transform = "scale(1.0)";
 
     const update = () => {
       const scrollY      = window.scrollY;
@@ -72,8 +72,8 @@ export default function VideoScrubHero() {
       // video scrub + zoom
       if (video.duration) {
         video.currentTime     = clamped * video.duration;
-        const scale           = 0.80 + clamped * 0.28;
-        video.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(4)})`;
+        const scale           = 1.0 + clamped * 0.60;
+        video.style.transform = `scale(${scale.toFixed(4)})`;
       }
 
       // fade out the whole panel in the last 20% of scroll
