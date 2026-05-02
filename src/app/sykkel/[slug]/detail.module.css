@@ -1,49 +1,33 @@
 /* ============================================================
    Product detail — standard template
-   Hero: dark bg + contained product img right + gradient left
-   Detail: left description / right specs+price
+   Hero: dark slate, name/tagline/price
+   Body: 1:1 image LEFT  |  specs box RIGHT  (same viewport)
+   Description: full-width below
    ============================================================ */
 
-/* ── Hero ────────────────────────────────────────────────── */
+/* ── Hero — name + price only, no image repetition ──────── */
 .hero {
   padding-top: var(--nav-height, 68px);
-  position: relative;
-  min-height: 420px;
-  display: flex;
-  align-items: flex-end;
+  padding-bottom: 3.5rem;
   background: var(--slate);
+  position: relative;
   overflow: hidden;
 }
 
-/* Product image: contained, floating to the right */
-.heroImg {
+/* Subtle noise / depth behind hero text */
+.hero::before {
+  content: '';
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center right;
-}
-
-/* Gradient: heavy dark left → transparent right */
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(13,14,15,0.90) 28%,
-    rgba(13,14,15,0.55) 60%,
-    rgba(13,14,15,0.30) 100%
-  );
-  z-index: 1;
+  background:
+    radial-gradient(ellipse 70% 80% at 80% 50%, rgba(255,132,33,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 20% 80%, rgba(4,95,208,0.04) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .heroContent {
   position: relative;
-  z-index: 2;
-  width: 100%;
-  padding-bottom: 4rem;
-  max-width: 560px;
+  z-index: 1;
 }
 
 .back {
@@ -54,34 +38,34 @@
   font-weight: 600;
   color: rgba(250,250,248,0.45);
   letter-spacing: 0.04em;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   transition: color var(--transition-base, 0.25s ease);
 }
 .back svg { width: 14px; height: 14px; flex-shrink: 0; }
 .back:hover { color: rgba(250,250,248,0.85); }
 
 .heroH1 {
-  font-size: clamp(2.25rem, 6vw, 5rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 800;
   color: var(--color-white);
   letter-spacing: -0.04em;
-  line-height: 0.95;
+  line-height: 0.96;
+  margin-bottom: 0.625rem;
 }
 
 .heroTagline {
-  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
-  color: rgba(250,250,248,0.6);
-  margin-top: 0.625rem;
+  font-size: 1.0625rem;
+  color: rgba(250,250,248,0.58);
   font-weight: 300;
   line-height: 1.5;
-  max-width: 46ch;
+  margin-bottom: 1rem;
+  max-width: 52ch;
 }
 
 .heroPrice {
-  font-size: clamp(1.125rem, 2.5vw, 1.625rem);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 700;
   color: var(--color-orange);
-  margin-top: 0.75rem;
   letter-spacing: -0.01em;
 }
 
@@ -91,21 +75,35 @@
   background: linear-gradient(90deg, var(--color-orange), var(--color-blue));
 }
 
-/* ── Product detail ──────────────────────────────────────── */
-.detail {
-  padding: 4rem 0 0;
+/* ── Product body — image LEFT + specs RIGHT ─────────────── */
+.productBody {
   background: var(--color-white);
+  padding: 4rem 0 0;
 }
 
-.detailGrid {
+.productBodyGrid {
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 4vw, 4.5rem);
   align-items: start;
 }
 
-/* Left — description */
-.detailLeft {}
+/* 1:1 product image */
+.productImgWrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+/* Specs panel */
+.specsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.25rem;
+}
 
 .categoryLabel {
   display: block;
@@ -114,63 +112,38 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-orange);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.375rem;
 }
 
-.detailH2 {
-  font-size: clamp(1.625rem, 3.5vw, 2.625rem);
-  font-weight: 800;
-  color: var(--ink-deep, var(--color-body));
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
-}
-
-.detailTagline {
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--color-muted);
-  line-height: 1.55;
-  margin-bottom: 1.5rem;
-}
-
-.descText {
-  font-size: 1rem;
-  color: var(--color-body);
-  line-height: 1.75;
-  font-weight: 300;
-}
-.descText p + p { margin-top: 1rem; }
-
-/* Right — specs + price */
-.detailRight {}
-
-/* ── Specs box ───────────────────────────────────────────── */
+/* ── Specs box — white bg, orange row underlines ─────────── */
 .specsBox {
-  background: var(--color-surface);
-  border-radius: var(--r-lg);
+  background: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: var(--r-md);
   overflow: hidden;
-  margin-bottom: 1rem;
 }
 
 .specsBoxHdr {
-  padding: 0.875rem 1.25rem 0.625rem;
+  padding: 0.75rem 1rem 0.625rem;
   font-family: var(--f-mono);
   font-size: 0.625rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-muted);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background: var(--color-surface);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
 .specRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6875rem 1.25rem;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid rgba(255,132,33,0.18);
 }
-.specRow:last-child { border-bottom: none; }
+.specRow:last-child {
+  border-bottom: none;
+}
 
 .specKey {
   font-size: 0.8125rem;
@@ -189,19 +162,19 @@
 /* ── Price box ───────────────────────────────────────────── */
 .priceBox {
   background: rgba(255,132,33,0.06);
-  border: 1px solid rgba(255,132,33,0.18);
-  border-radius: var(--r-lg);
+  border: 1px solid rgba(255,132,33,0.22);
+  border-radius: var(--r-md);
   padding: 1.25rem;
 }
 
 .priceAmount {
   display: block;
   font-family: var(--f-display);
-  font-size: 1.75rem;
+  font-size: 1.625rem;
   font-weight: 800;
   color: var(--color-body);
   letter-spacing: -0.02em;
-  margin-bottom: 0.375rem;
+  margin-bottom: 0.25rem;
 }
 
 .priceNote {
@@ -210,15 +183,28 @@
   line-height: 1.55;
 }
 
-/* Inherits .btn .btn--primary from globals */
 .priceBtn {
   margin-top: 0.875rem;
   width: 100%;
   justify-content: center;
 }
 
+/* ── Description ─────────────────────────────────────────── */
+.descSection {
+  background: var(--color-surface);
+}
+
+.descText {
+  max-width: 72ch;
+  font-size: 1rem;
+  color: var(--color-body);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.descText p + p { margin-top: 1.125em; }
+
 /* ── Gallery ─────────────────────────────────────────────── */
-.gallerySection { background: var(--color-surface); }
+.gallerySection { background: var(--color-white); }
 
 .galleryLabel {
   font-size: 0.6875rem;
@@ -232,17 +218,17 @@
 .galleryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 260px;
-  gap: 0.625rem;
+  grid-auto-rows: 240px;
+  gap: 0.5rem;
 }
 
 .galleryItem {
   position: relative;
   border-radius: var(--r-md);
   overflow: hidden;
-  background: var(--color-surface-warm);
+  background: var(--color-surface);
 }
-.galleryItem img { transition: transform 0.55s var(--ease-out-expo, ease); }
+.galleryItem img { transition: transform 0.55s ease; }
 .galleryItem:hover img { transform: scale(1.05); }
 
 .galleryItem:first-child { grid-column: span 2; grid-row: span 2; }
@@ -264,7 +250,7 @@
 /* ── Contact form ────────────────────────────────────────── */
 .formSection {
   background: var(--color-surface);
-  margin-top: 4rem;
+  margin-top: 0;
 }
 
 .formWrap {
@@ -278,19 +264,16 @@
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 860px) {
-  .detailGrid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .heroImg { object-position: center; opacity: 0.4; }
-  .heroOverlay {
-    background: rgba(13,14,15,0.7);
-  }
+  .productBodyGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .productImgWrap { max-width: 420px; }
 }
 
 @media (max-width: 600px) {
   .galleryGrid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 180px;
   }
   .galleryItem:first-child { grid-column: span 2; grid-row: span 1; }
-  .galleryItemTall  { grid-row: span 1; }
+  .galleryItemTall { grid-row: span 1; }
   .formWrap { padding: 2rem 1.25rem; }
 }

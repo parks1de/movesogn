@@ -3,237 +3,255 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { sanityFetch } from '@/lib/sanity';
-
-interface MarineBoat {
-  slug: string; model_name: string; length: string; persons: string;
-  motor_options: string; price_from: string; image: string;
-  images: string; body: string; specs_table: string;
-}
 import FadeUp from '@/components/ui/FadeUp';
 import ContactForm from '@/components/ui/ContactForm';
-import styles from './detail.module.css';
+import Icon from '@/components/ui/Icon';
+import styles from '../product.module.css';
+
+interface Spec { label: string; value: string }
+
+interface BatSpecs {
+  lengde?: string; breidde?: string; djupgang?: string;
+  vektUtenMotor?: string; maxPersonar?: string; tilraaddMotor?: string;
+  maxMotor?: string; skrog?: string; ceKlasse?: string; serie?: string;
+}
+
+interface MarineBoat {
+  slug: string;
+  model_name: string;
+  brand: string;
+  tagline?: string;
+  price_from: string;
+  image: string;
+  gallery: string[];
+  body: string;
+  batSpecs?: BatSpecs;
+  specs_table?: string;
+}
 
 export const revalidate = 300;
 
 const placeholderBoats: MarineBoat[] = [
   {
-    slug: 'hasle-summerfun',
-    model_name: 'Hasle Summerfun',
-    length: '3,65 m',
-    persons: '3',
-    motor_options: 'Suzuki 9,9 hk EFI elektrisk start',
-    price_from: '65 900',
-    image: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1600&q=85',
-    images: [
-      'https://images.unsplash.com/photo-1622542796254-5b9c46ab0d2f?w=1200&q=80',
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80',
-      'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&q=80',
-      'https://images.unsplash.com/photo-1516189526-cccff1a78b9a?w=1200&q=80',
-      'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80',
-    ].join(','),
-    body: `Hasle Summerfun er ein rotasjonsstøpt ungdomsbåt i polyetylen. Med 27 års erfaring i båtbransjen og 22 år med rotasjonsstøping har Hasle AS klart å kombinere det beste frå design og tekniske løysingar.
-
-Båten er CE-sertifisert og tilfredsstiller alle tekniske krav til stabilitet, styrke og køyreeigenskapar. Sjølvlensande slik at du slepp å tenkje på lensing etter kraftige regnskyll.
-
-Leveres med Suzuki 9,9 hk med EFI og elektrisk start — mange fargekombinasjonar tilgjengelege, spør oss om lagerstatus!`,
-    specs_table: JSON.stringify({
-      'Lengde': '3,65 m',
-      'Breidde': '1,55 m',
-      'Vekt (utan motor)': 'ca. 80 kg',
-      'Maks personar': '3',
-      'Maks motor': '15 hk',
-      'CE-klasse': 'D',
-      'Material': 'Polyetylen (rotasjonsstøpt)',
-      'Pris inkl. motor': 'kr 65 900,-',
-    }),
-  },
-  {
     slug: 'silver-beaver-br',
     model_name: 'Silver Beaver BR',
-    length: '4,8 m',
-    persons: '6',
-    motor_options: 'Suzuki 50 hk',
+    brand: 'silver',
+    tagline: 'Smidig og romsleg — perfekt for nybyrjar og erfaren båteigar.',
     price_from: '239 000',
-    image: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1600&q=85',
-    images: [
-      'https://images.unsplash.com/photo-1516189526-cccff1a78b9a?w=1200&q=80',
-      'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1200&q=80',
-      'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80',
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80',
-      'https://images.unsplash.com/photo-1622542796254-5b9c46ab0d2f?w=1200&q=80',
-      'https://images.unsplash.com/photo-1587160803091-96d7cffbe95c?w=1200&q=80',
-    ].join(','),
-    body: `Silvers minste båtmodell — 4,8 meter som passar alle. Med sin storleik, smidigheit og omfattande utrustning er Beaver perfekt for nybyrjarar, men passar like godt for erfarne båteigarar.
-
-Solid aluminiumsskrog produsert i Finland av lidenskapelege båtbyggjarar. Alle Silver-båtar er designa for nordiske tilhøve — robuste, stabile og enkle å vedlikehalde.
-
-Beaver BR leveras standard med vindskjerm, styrekonsoll og sitjebenk. Kan utrustast med kabintopp og anna tilleggsutrustning etter ønske.`,
-    specs_table: JSON.stringify({
-      'Lengde': '4,80 m',
-      'Breidde': '1,90 m',
-      'Maks personar': '6',
-      'Motor': 'Suzuki 50 hk',
-      'Skrogmaterial': 'Aluminium',
-      'Serie': 'X — Aluminium',
-      'Pris m/motor': 'kr 239 000,-',
-    }),
+    image: '/images/silver/sv-01.jpg',
+    gallery: ['/images/silver/sv-02.jpg', '/images/silver/sv-04.jpg', '/images/silver/sv-05.jpg'],
+    body: 'Silvers minste båtmodell — 4,8 meter som passar alle. Med sin storleik, smidigheit og omfattande utrustning er Beaver perfekt for nybyrjarar, men passar like godt for erfarne båteigarar.\n\nSolid aluminiumsskrog produsert i Finland. Alle Silver-båtar er designa for nordiske tilhøve — robuste, stabile og enkle å vedlikehalde.\n\nBeaver BR leverast standard med vindskjerm, styrekonsoll og sitjebenk. Kan utrustast med kabintopp og anna tilleggsutrustning etter ønske.',
+    batSpecs: {
+      lengde: '4,80 m', breidde: '1,90 m', maxPersonar: '6',
+      tilraaddMotor: 'Suzuki 50 hk', skrog: 'Aluminium', serie: 'X — Aluminium',
+    },
   },
   {
     slug: 'silver-hawk-br',
     model_name: 'Silver Hawk BR',
-    length: '5,3 m',
-    persons: '7',
-    motor_options: 'Suzuki 90 hk',
+    brand: 'silver',
+    tagline: 'Familiebåten for Sognefjorden — trygg, rask og komfortabel.',
     price_from: '379 000',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=85',
-    images: [
-      'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&q=80',
-      'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=1200&q=80',
-      'https://images.unsplash.com/photo-1516189526-cccff1a78b9a?w=1200&q=80',
-      'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80',
-    ].join(','),
-    body: `Silvers populære storfavoritt i ny versjon frå 2019. Heilt nytt skrog, nytt interiør og heilt nye konsollar gjer Hawk BR til eit nytt kapittel i Silver-historia.
-
-Spesielt eigna for utflukter i skjærgarden, som landstedsbåt og for fornøyelses-køyring. Romsleg akterdekk og god stabilitert gjer Hawk til eit trygt val for heile familien.
-
-Hawk BR er tilgjengeleg med eit bredt utval av motorar og utstyrspakkar. Autorisert Suzuki-service på Kaupanger.`,
-    specs_table: JSON.stringify({
-      'Lengde': '5,30 m',
-      'Breidde': '2,05 m',
-      'Maks personar': '7',
-      'Motor': 'Suzuki 90 hk',
-      'Skrogmaterial': 'Aluminium',
-      'Serie': 'X — Aluminium',
-      'Pris m/motor': 'kr 379 000,-',
-    }),
+    image: '/images/silver/sv-03.jpg',
+    gallery: ['/images/silver/sv-04.jpg', '/images/silver/sv-05.jpg', '/images/silver/sv-06.jpg'],
+    body: 'Silvers populære storfavoritt i ny versjon frå 2019. Heilt nytt skrog, nytt interiør og heilt nye konsollar gjer Hawk BR til eit nytt kapittel i Silver-historia.\n\nSpesielt eigna for utflukter i skjærgarden, som landstedsbåt og for fornøyelses-køyring. Romsleg akterdekk og god stabilitet gjer Hawk til eit trygt val for heile familien.\n\nHawk BR er tilgjengeleg med eit bredt utval av motorar og utstyrspakkar. Autorisert Suzuki-service på Kaupanger.',
+    batSpecs: {
+      lengde: '5,30 m', breidde: '2,05 m', maxPersonar: '7',
+      tilraaddMotor: 'Suzuki 90 hk', skrog: 'Aluminium', serie: 'X — Aluminium',
+    },
   },
 ];
 
-interface Props { params: { slug: string }; }
+const QUERY = `*[_type=="marineBoat" && brand in ["silver", "other"]] | order(order asc) {
+  "slug": slug.current, "model_name": modelName, brand, tagline,
+  "price_from": priceFrom,
+  "image": image.asset->url,
+  "gallery": gallery[].asset->url,
+  body,
+  batSpecs { lengde, breidde, djupgang, vektUtenMotor, maxPersonar, tilraaddMotor, maxMotor, skrog, ceKlasse, serie }
+}`;
+
+function buildSpecs(boat: MarineBoat): Spec[] {
+  if (boat.batSpecs) {
+    const s = boat.batSpecs;
+    return [
+      s.lengde         && { label: 'Lengde',            value: s.lengde },
+      s.breidde        && { label: 'Breidde',           value: s.breidde },
+      s.djupgang       && { label: 'Djupgang',          value: s.djupgang },
+      s.vektUtenMotor  && { label: 'Vekt (utan motor)', value: s.vektUtenMotor },
+      s.maxPersonar    && { label: 'Maks personar',     value: s.maxPersonar },
+      s.tilraaddMotor  && { label: 'Tilrådd motor',     value: s.tilraaddMotor },
+      s.maxMotor       && { label: 'Maks motor',        value: s.maxMotor },
+      s.skrog          && { label: 'Skrog',             value: s.skrog },
+      s.ceKlasse       && { label: 'CE-klasse',         value: s.ceKlasse },
+      s.serie          && { label: 'Serie',             value: s.serie },
+    ].filter((x): x is Spec => Boolean(x));
+  }
+  try {
+    const table = boat.specs_table ? JSON.parse(boat.specs_table) : {};
+    return Object.entries(table).map(([label, value]) => ({ label, value: String(value) }));
+  } catch {
+    return [];
+  }
+}
+
+interface Props { params: { slug: string } }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let boats = placeholderBoats;
-  try { const f = await sanityFetch<MarineBoat[]>(`*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body,"specs_table":specsTable}`); if (f.length) boats = f; } catch {}
-  const boat = boats.find((b) => b.slug === params.slug);
+  try { const f = await sanityFetch<MarineBoat[]>(QUERY); if (f.length) boats = f; } catch {}
+  const boat = boats.find((b) => b.slug === params.slug)
+            ?? placeholderBoats.find((b) => b.slug === params.slug);
   if (!boat) return { title: 'Båt ikkje funnen' };
   return {
-    title: `${boat.model_name} — Marine`,
-    description: `${boat.model_name} — ${boat.length}, opptil ${boat.persons} personar. Frå kr ${boat.price_from}. Kjøp hos MOVE Sogn på Kaupanger.`,
+    title: `${boat.model_name} — Marine | MOVE Sogn`,
+    description: boat.tagline ?? `${boat.model_name} frå MOVE Sogn. Frå kr ${boat.price_from},-`,
   };
 }
 
 export async function generateStaticParams() {
   let boats = placeholderBoats;
-  try { const f = await sanityFetch<MarineBoat[]>(`*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body,"specs_table":specsTable}`); if (f.length) boats = f; } catch {}
+  try { const f = await sanityFetch<MarineBoat[]>(QUERY); if (f.length) boats = f; } catch {}
   return boats.map((b) => ({ slug: b.slug }));
 }
 
 export default async function BoatDetailPage({ params }: Props) {
   let boats = placeholderBoats;
-  try { const f = await sanityFetch<MarineBoat[]>(`*[_type=="marineBoat"]|order(order asc){"slug":slug.current,"model_name":modelName,length,persons,"motor_options":motorOptions,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body,"specs_table":specsTable}`); if (f.length) boats = f; } catch {}
+  try { const f = await sanityFetch<MarineBoat[]>(QUERY); if (f.length) boats = f; } catch {}
 
-  const boat = boats.find((b) => b.slug === params.slug);
+  const boat = boats.find((b) => b.slug === params.slug)
+            ?? placeholderBoats.find((b) => b.slug === params.slug);
   if (!boat) notFound();
 
-  // All images: hero first, then extras
-  const allImages = [
-    boat.image,
-    ...(boat.images ? boat.images.split(',').map(s => s.trim()).filter(Boolean) : []),
-  ];
-
-  let specs: Record<string, string> = {};
-  try { specs = boat.specs_table ? JSON.parse(boat.specs_table) : {}; } catch {}
-
-  // Gallery items after the hero image (index 1+)
-  const galleryImages = allImages.slice(1);
+  const specs      = buildSpecs(boat);
+  const paragraphs = (boat.body ?? '').split(/\n\n+/).filter(Boolean);
+  const gallery    = (boat.gallery ?? []).filter(Boolean);
+  const imgSrc     = boat.image || '/images/silver/sv-01.jpg';
+  const isContact  = boat.price_from === 'Kontakt oss';
+  const backHref   = boat.brand === 'silver' ? '/marine/silver-boats' : '/marine';
+  const backLabel  = boat.brand === 'silver' ? 'Silver Boats' : 'Marine';
 
   return (
     <>
-      {/* ── HERO ───────────────────────────────────────────── */}
+      {/* ── Hero ──────────────────────────────────────────── */}
       <section className={styles.hero}>
-        <Image
-          src={allImages[0]}
-          alt={`${boat.model_name} — MOVE Sogn`}
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: 'cover', objectPosition: 'center 50%' }}
-        />
-        <div className={styles.heroOverlay} />
         <div className={`container ${styles.heroContent}`}>
           <FadeUp>
-            <Link href="/marine" className={styles.back}>
-              ← Alle båtar
+            <Link href={backHref} className={styles.back}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              {backLabel}
             </Link>
             <h1 className={styles.heroH1}>{boat.model_name}</h1>
-            {boat.price_from && (
-              <p className={styles.heroPrice}>Frå kr {boat.price_from},-</p>
+            {boat.tagline && (
+              <p className={styles.heroTagline}>{boat.tagline}</p>
             )}
+            <p className={styles.heroPrice}>
+              {isContact ? 'Kontakt oss for pris' : `Frå kr ${boat.price_from},-`}
+            </p>
           </FadeUp>
         </div>
       </section>
 
-      {/* ── BODY + SPECS ───────────────────────────────────── */}
-      <section className="section">
-        <div className={`container ${styles.contentGrid}`}>
-          <FadeUp className={styles.bodyCol}>
-            <span className="label">Om modellen</span>
-            <h2>{boat.model_name}</h2>
-            <p className={styles.bodyText}>{boat.body}</p>
-          </FadeUp>
+      {/* Blue→orange divider */}
+      <div className={styles.divider} />
 
-          {Object.keys(specs).length > 0 && (
-            <FadeUp delay={100} className={styles.specsCol}>
-              <h3 className={styles.specsTitle}>Spesifikasjonar</h3>
-              <table className={styles.specsTable}>
-                <tbody>
-                  {Object.entries(specs).map(([k, v]) => (
-                    <tr key={k}>
-                      <th>{k}</th>
-                      <td>{v}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+      {/* ── Product body — image LEFT + specs RIGHT ────────── */}
+      <section className={styles.productBody}>
+        <div className="container">
+          <div className={styles.productBodyGrid}>
+
+            <FadeUp>
+              <div className={styles.productImgWrap}>
+                <Image
+                  src={imgSrc}
+                  alt={boat.model_name}
+                  fill
+                  priority
+                  sizes="(max-width: 860px) 80vw, 45vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
             </FadeUp>
-          )}
+
+            <FadeUp delay={100} className={styles.specsPanel}>
+              <span className={styles.categoryLabel}>
+                {boat.brand === 'silver' ? 'Silver Boats' : 'Marine'}
+              </span>
+
+              {specs.length > 0 && (
+                <div className={styles.specsBox}>
+                  <div className={styles.specsBoxHdr}>Spesifikasjonar</div>
+                  {specs.map((s) => (
+                    <div key={s.label} className={styles.specRow}>
+                      <span className={styles.specKey}>{s.label}</span>
+                      <span className={styles.specVal}>{s.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className={styles.priceBox}>
+                <span className={styles.priceAmount}>
+                  {isContact ? 'Kontakt oss for pris' : `Frå kr ${boat.price_from},-`}
+                </span>
+                <p className={styles.priceNote}>
+                  Inkl. Suzuki-motor. Kontakt oss for tilbod, utstyrspakkar og leveringstid.
+                </p>
+                <a href="#kontakt-form" className={`btn btn--primary ${styles.priceBtn}`}>
+                  Spør om pris
+                  <Icon name="arrow-right" size={14} />
+                </a>
+              </div>
+            </FadeUp>
+
+          </div>
         </div>
       </section>
 
-      {/* ── GALLERY — 5-15 images, masonry grid ────────────── */}
-      {galleryImages.length > 0 && (
+      {/* ── Description ──────────────────────────────────── */}
+      {paragraphs.length > 0 && (
+        <section className={`section ${styles.descSection}`}>
+          <div className="container">
+            <FadeUp>
+              <div className={styles.descText}>
+                {paragraphs.map((para, i) => <p key={i}>{para}</p>)}
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+      )}
+
+      {/* ── Gallery ──────────────────────────────────────── */}
+      {gallery.length > 0 && (
         <section className={`section ${styles.gallerySection}`}>
           <div className="container">
             <FadeUp>
-              <p className={styles.galleryHeading}>
-                Galleri — {galleryImages.length + 1} bilete
-              </p>
+              <p className={styles.galleryLabel}>Galleri — {gallery.length} bilete</p>
             </FadeUp>
             <div className={styles.galleryGrid}>
-              {galleryImages.map((src, i) => {
-                // Layout logic: first item wide, every 4th item tall
-                const isFirst = i === 0;
-                const isTall  = !isFirst && (i % 4 === 2);
-                const className = [
-                  styles.galleryItem,
-                  isFirst  ? styles.galleryItemWide : '',
-                  isTall   ? styles.galleryItemTall : '',
-                ].filter(Boolean).join(' ');
-
+              {gallery.map((src, i) => {
+                const isTall = i > 0 && i % 4 === 2;
                 return (
-                  <FadeUp key={i} delay={Math.min(i * 50, 300)} className={className}>
+                  <FadeUp
+                    key={i}
+                    delay={Math.min(i * 50, 300)}
+                    className={[
+                      styles.galleryItem,
+                      i === 0 ? styles.galleryItemWide : '',
+                      isTall  ? styles.galleryItemTall : '',
+                    ].filter(Boolean).join(' ')}
+                  >
                     <Image
                       src={src}
-                      alt={`${boat.model_name} — bilete ${i + 2}`}
+                      alt={`${boat.model_name} — bilete ${i + 1}`}
                       fill
-                      sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw"
+                      sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
                       style={{ objectFit: 'cover' }}
                     />
-                    {/* Show total count badge on last visible item */}
-                    {i === galleryImages.length - 1 && galleryImages.length >= 8 && (
-                      <span className={styles.galleryCount}>
-                        {allImages.length} bilete
-                      </span>
+                    {i === gallery.length - 1 && gallery.length >= 6 && (
+                      <span className={styles.galleryCount}>{gallery.length} bilete</span>
                     )}
                   </FadeUp>
                 );
@@ -243,8 +261,8 @@ export default async function BoatDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* ── CONTACT FORM — centred, full focus ─────────────── */}
-      <section className={`section ${styles.formSection}`}>
+      {/* ── Contact form ─────────────────────────────────── */}
+      <section className={`section ${styles.formSection}`} id="kontakt-form">
         <div className="container">
           <div className={styles.formWrap}>
             <ContactForm

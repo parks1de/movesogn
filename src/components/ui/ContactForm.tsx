@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './ContactForm.module.css';
 
 interface ContactFormProps {
-  formType?: 'contact' | 'marine' | 'sykkel';
+  formType?: 'contact' | 'marine' | 'sykkel' | 'maintenance';
   prefilledModel?: string;
   heading?: string;
   subheading?: string;
@@ -22,35 +22,28 @@ export default function ContactForm({
     phone: '',
     message: '',
     model: prefilledModel,
+    motorBrand: 'Suzuki',
+    motorModel: '',
+    motorYear: '',
+    serviceType: 'Årsservice',
+    preferredDate: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setFields((f) => ({ ...f, [key]: e.target.value }));
+  const set = (key: string) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => setFields((f) => ({ ...f, [key]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
-
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name:     fields.firstname,
-          email:    fields.email,
-          phone:    fields.phone,
-          message:  fields.message,
-          model:    fields.model,
-          formType,
-        }),
+        body: JSON.stringify({ ...fields, formType }),
       });
-
-      if (res.ok) {
-        setStatus('success');
-      } else {
-        setStatus('error');
-      }
+      setStatus(res.ok ? 'success' : 'error');
     } catch {
       setStatus('error');
     }
@@ -68,70 +61,109 @@ export default function ContactForm({
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.header}>
-        <span className="label">Kontakt</span>
-        <h2>{heading}</h2>
-        <p>{subheading}</p>
-      </div>
+      {(heading || subheading) && (
+        <div className={styles.header}>
+          <span className="label">Kontakt</span>
+          {heading   && <h2>{heading}</h2>}
+          {subheading && <p>{subheading}</p>}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className={styles.form} noValidate>
+
+        {/* Name + Email */}
         <div className={styles.row}>
           <label className={styles.field}>
             <span className={styles.fieldLabel}>Namn *</span>
-            <input
-              type="text"
-              value={fields.firstname}
-              onChange={set('firstname')}
-              required
-              placeholder="Ola Nordmann"
-              className={styles.input}
-            />
+            <input type="text" value={fields.firstname} onChange={set('firstname')}
+              required placeholder="Ola Nordmann" className={styles.input} />
           </label>
           <label className={styles.field}>
             <span className={styles.fieldLabel}>E-post *</span>
-            <input
-              type="email"
-              value={fields.email}
-              onChange={set('email')}
-              required
-              placeholder="ola@eksempel.no"
-              className={styles.input}
-            />
+            <input type="email" value={fields.email} onChange={set('email')}
+              required placeholder="ola@eksempel.no" className={styles.input} />
           </label>
         </div>
 
+        {/* Phone */}
         <label className={styles.field}>
           <span className={styles.fieldLabel}>Telefon</span>
-          <input
-            type="tel"
-            value={fields.phone}
-            onChange={set('phone')}
-            placeholder="+47 000 00 000"
-            className={styles.input}
-          />
+          <input type="tel" value={fields.phone} onChange={set('phone')}
+            placeholder="+47 000 00 000" className={styles.input} />
         </label>
 
+        {/* Marine / sykkel: model field */}
         {(formType === 'marine' || formType === 'sykkel') && (
           <label className={styles.field}>
             <span className={styles.fieldLabel}>Modell / interesse</span>
-            <input
-              type="text"
-              value={fields.model}
-              onChange={set('model')}
+            <input type="text" value={fields.model} onChange={set('model')}
               placeholder={formType === 'marine' ? 'T.d. Silver Beaver BR' : 'T.d. NIU NQi Sport'}
-              className={styles.input}
-            />
+              className={styles.input} />
           </label>
         )}
 
+        {/* Maintenance-specific fields */}
+        {formType === 'maintenance' && (
+          <>
+            <div className={styles.row}>
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>Motor merke</span>
+                <select value={fields.motorBrand} onChange={set('motorBrand')} className={styles.input}>
+                  <option>Suzuki</option>
+                  <option>Yamaha</option>
+                  <option>Mercury</option>
+                  <option>Honda</option>
+                  <option>Evinrude</option>
+                  <option>Annan</option>
+                </select>
+              </label>
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>Motormodell</span>
+                <input type="text" value={fields.motorModel} onChange={set('motorModel')}
+                  placeholder="T.d. DF90" className={styles.input} />
+              </label>
+            </div>
+
+            <div className={styles.row}>
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>Årsmodell</span>
+                <input type="text" value={fields.motorYear} onChange={set('motorYear')}
+                  placeholder="T.d. 2019" className={styles.input} />
+              </label>
+              <label className={styles.field}>
+                <span className={styles.fieldLabel}>Ønskt dato</span>
+                <input type="date" value={fields.preferredDate} onChange={set('preferredDate')}
+                  className={styles.input} />
+              </label>
+            </div>
+
+            <label className={styles.field}>
+              <span className={styles.fieldLabel}>Serviceomfang</span>
+              <select value={fields.serviceType} onChange={set('serviceType')} className={styles.input}>
+                <option>Årsservice</option>
+                <option>Feil / problem</option>
+                <option>Motoroverhaleing</option>
+                <option>Vinterlagring</option>
+                <option>Avrigging</option>
+                <option>Annan service</option>
+              </select>
+            </label>
+          </>
+        )}
+
+        {/* Message */}
         <label className={styles.field}>
-          <span className={styles.fieldLabel}>Melding *</span>
+          <span className={styles.fieldLabel}>
+            {formType === 'maintenance' ? 'Beskriving av problem / ønskjer' : 'Melding *'}
+          </span>
           <textarea
             value={fields.message}
             onChange={set('message')}
-            required
+            required={formType !== 'maintenance'}
             rows={5}
-            placeholder="Skriv meldinga di her…"
+            placeholder={formType === 'maintenance'
+              ? 'Beskriv problemet eller kva service du ønskjer…'
+              : 'Skriv meldinga di her…'}
             className={styles.textarea}
           />
         </label>
@@ -143,11 +175,7 @@ export default function ContactForm({
           </p>
         )}
 
-        <button
-          type="submit"
-          className="btn btn--primary"
-          disabled={status === 'loading'}
-        >
+        <button type="submit" className="btn btn--primary" disabled={status === 'loading'}>
           {status === 'loading' ? 'Sender…' : 'Send melding →'}
         </button>
       </form>

@@ -1,0 +1,10 @@
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .infoGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
