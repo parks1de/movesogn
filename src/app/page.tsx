@@ -49,7 +49,7 @@ export default function HeimsidePage() {
       <VideoScrubHero />
 
       {/* ── TOYOTA CARDS — pulled up 100vh so it sits behind the fading hero ── */}
-      <section className="section bg-surface" style={{ marginTop: '-100vh', position: 'relative', zIndex: 0 }}>
+      <section className={`section bg-surface ${styles.toyotaSection}`}>
         <div className="container">
           <FadeUp className={styles.sectionIntro}>
             <span className="label">Bil</span>

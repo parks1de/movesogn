@@ -22,11 +22,19 @@ const phases = [
   },
 ];
 
+// [videoTimeSeconds, scale] for each mobile swipe slide
+const MOB_SLIDES: [number, number][] = [
+  [0, 1.0],  // slide 0: boat side view
+  [3, 1.0],  // slide 1: boat turns to front (0–3 s of clip)
+  [3, 2.2],  // slide 2: dramatic zoom
+];
+
 export default function VideoScrubHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef    = useRef<HTMLDivElement>(null);
   const videoRef     = useRef<HTMLVideoElement>(null);
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase]             = useState(0);
+  const [mobileSlide, setMobileSlide] = useState(0);
 
   useEffect(() => {
     const video     = videoRef.current;
@@ -34,9 +42,21 @@ export default function VideoScrubHero() {
     const sticky    = stickyRef.current;
     if (!video || !container || !sticky) return;
 
-    video.style.transform = "scale(1.0)";
+    const mob = () => window.innerWidth < 768;
 
-    const update = () => {
+    const initVideo = () => {
+      video.pause();
+      video.currentTime = 0;
+      video.style.transform = "scale(1.0)";
+    };
+    if (video.readyState >= 1) initVideo();
+    else video.addEventListener("loadedmetadata", initVideo, { once: true });
+
+    /* ── DESKTOP: scroll-scrub ──────────────────────────────────── */
+    let desktopRaf: number | null = null;
+
+    const onScroll = () => {
+      if (mob()) return;
       const scrollY      = window.scrollY;
       const rect         = container.getBoundingClientRect();
       const containerTop = scrollY + rect.top;
@@ -48,10 +68,10 @@ export default function VideoScrubHero() {
         sticky.style.bottom   = "";
         sticky.style.width    = "";
         sticky.style.opacity  = "1";
+        video.style.transform = "scale(1.0)";
         setPhase(0);
         return;
       }
-
       if (scrollY >= containerTop + scrollRange) {
         sticky.style.position = "absolute";
         sticky.style.top      = "";
@@ -69,14 +89,17 @@ export default function VideoScrubHero() {
 
       const clamped = (scrollY - containerTop) / scrollRange;
 
-      // video scrub + zoom
-      if (video.duration) {
-        video.currentTime     = clamped * video.duration;
-        const scale           = 1.0 + clamped * 0.60;
-        video.style.transform = `scale(${scale.toFixed(4)})`;
-      }
+      if (desktopRaf !== null) cancelAnimationFrame(desktopRaf);
+      desktopRaf = requestAnimationFrame(() => {
+        if (video.duration && video.readyState >= 2) {
+          // Only scrub through first 50% of clip → boat turns slower
+          video.currentTime = clamped * video.duration * 0.5;
+        }
+        // Zoom 1× → 3× as scroll progresses
+        video.style.transform = `scale(${(1.0 + clamped * 2.0).toFixed(4)})`;
+        desktopRaf = null;
+      });
 
-      // fade out the whole panel in the last 20% of scroll
       const fadeStart = 0.78;
       sticky.style.opacity = clamped >= fadeStart
         ? String((1 - (clamped - fadeStart) / (1 - fadeStart)).toFixed(3))
@@ -85,12 +108,84 @@ export default function VideoScrubHero() {
       setPhase(clamped < 0.34 ? 0 : clamped < 0.67 ? 1 : 2);
     };
 
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
+    /* ── MOBILE: horizontal swipe slides ───────────────────────── */
+    let mobSlide = 0;
+    let mobRaf: number | null = null;
+    let tx0 = 0, ty0 = 0;
+
+    const animateTo = (target: number) => {
+      if (target < 0 || target >= MOB_SLIDES.length) return;
+      const [fromT, fromS] = MOB_SLIDES[mobSlide];
+      const [toT,   toS  ] = MOB_SLIDES[target];
+      mobSlide = target;
+      setMobileSlide(target);
+      setPhase(target);
+
+      if (mobRaf !== null) cancelAnimationFrame(mobRaf);
+      const dur = 700, t0 = performance.now();
+      const step = (now: number) => {
+        const raw  = Math.min((now - t0) / dur, 1);
+        const ease = 1 - (1 - raw) ** 3;
+        if (video.readyState >= 2) video.currentTime = fromT + (toT - fromT) * ease;
+        video.style.transform = `scale(${(fromS + (toS - fromS) * ease).toFixed(4)})`;
+        mobRaf = raw < 1 ? requestAnimationFrame(step) : null;
+      };
+      mobRaf = requestAnimationFrame(step);
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (!mob()) return;
+      tx0 = e.touches[0].clientX;
+      ty0 = e.touches[0].clientY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!mob()) return;
+      const dx = e.touches[0].clientX - tx0;
+      const dy = e.touches[0].clientY - ty0;
+      if (Math.abs(dx) > Math.abs(dy) * 1.2 && Math.abs(dx) > 10) e.preventDefault();
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!mob()) return;
+      const dx = e.changedTouches[0].clientX - tx0;
+      const dy = e.changedTouches[0].clientY - ty0;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        if (mobSlide === MOB_SLIDES.length - 1) {
+          // Last slide: scroll past hero into Toyota cards
+          window.scrollTo({ top: container.offsetTop + container.offsetHeight, behavior: "smooth" });
+        } else {
+          animateTo(mobSlide + 1);
+        }
+      } else {
+        animateTo(mobSlide - 1);
+      }
+    };
+
+    /* ── Resize: reset on breakpoint change ─────────────────────── */
+    const onResize = () => {
+      if (mob()) {
+        if (desktopRaf !== null) { cancelAnimationFrame(desktopRaf); desktopRaf = null; }
+        sticky.style.cssText = "";
+      } else {
+        onScroll();
+      }
+    };
+
+    onResize();
+    window.addEventListener("scroll",     onScroll,      { passive: true  });
+    window.addEventListener("resize",     onResize,      { passive: true  });
+    sticky.addEventListener("touchstart", onTouchStart,  { passive: true  });
+    sticky.addEventListener("touchmove",  onTouchMove,   { passive: false });
+    sticky.addEventListener("touchend",   onTouchEnd,    { passive: true  });
+
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      if (desktopRaf !== null) cancelAnimationFrame(desktopRaf);
+      if (mobRaf     !== null) cancelAnimationFrame(mobRaf);
+      window.removeEventListener("scroll",     onScroll);
+      window.removeEventListener("resize",     onResize);
+      sticky.removeEventListener("touchstart", onTouchStart);
+      sticky.removeEventListener("touchmove",  onTouchMove);
+      sticky.removeEventListener("touchend",   onTouchEnd);
     };
   }, []);
 
@@ -133,7 +228,23 @@ export default function VideoScrubHero() {
           </div>
         </div>
 
+        {/* Desktop: vertical scroll line */}
         <div className={styles.scrollHint} aria-hidden="true"><span /></div>
+
+        {/* Mobile: swipe dots + label */}
+        <div className={styles.swipeHint} aria-label="Sveip til sida for å utforska">
+          <div className={styles.swipeDots}>
+            {MOB_SLIDES.map((_, i) => (
+              <span
+                key={i}
+                className={`${styles.dot} ${mobileSlide === i ? styles.dotActive : ""}`}
+              />
+            ))}
+          </div>
+          <span className={styles.swipeLabel}>
+            {mobileSlide < MOB_SLIDES.length - 1 ? "← sveip →" : "scroll ned ↓"}
+          </span>
+        </div>
       </div>
     </div>
   );

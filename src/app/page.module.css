@@ -99,6 +99,13 @@
 }
 
 
+/* ── Toyota section — pulls up behind fading hero on desktop ── */
+.toyotaSection {
+  margin-top: -100vh;
+  position: relative;
+  z-index: 0;
+}
+
 /* ── Toyota cards ───────────────────────────────────────── */
 .toyotaCards {
   display: grid;
@@ -542,6 +549,9 @@
 }
 
 @media (max-width: 768px) {
+  /* Hero is single-screen on mobile — no pull-up needed */
+  .toyotaSection { margin-top: 0; }
+
   .toyotaCards   { grid-template-columns: 1fr; }
   .mobilitetGrid { grid-template-columns: 1fr; }
   .marineSplit   { grid-template-columns: 1fr; }
