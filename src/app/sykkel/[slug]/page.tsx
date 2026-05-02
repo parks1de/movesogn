@@ -47,7 +47,8 @@ export default async function SykkelDetailPage({ params }: Props) {
   let products = placeholderProducts;
   try { const f = await sanityFetch<SykkelProduct[]>(`*[_type=="sykkelProduct"]|order(order asc){"slug":slug.current,name,category,"range_km":rangeKm,"motor_w":motorW,weight,"price_from":priceFrom,"image":image,"images":array::join(gallery,","),body}`); if (f.length) products = f; } catch {}
 
-  const product = products.find((p) => p.slug === params.slug);
+  const product = products.find((p) => p.slug === params.slug)
+    ?? placeholderProducts.find((p) => p.slug === params.slug);
   if (!product) notFound();
 
   const allImages = [

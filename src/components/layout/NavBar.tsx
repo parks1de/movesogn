@@ -15,9 +15,10 @@ const navItems: NavItem[] = [
     href: '/bil',
     label: 'Bil',
     dropdown: [
-      { href: 'https://www.toyotasogn.no', label: 'Toyota Sogn',    external: true },
-      { href: 'https://toyotasogn.no/bruktbil', label: 'Bruktbilar', external: true },
-      { href: '/bil/hertz',                label: 'Hertz Bilutleige' },
+      { href: 'https://www.toyotasogn.no',       label: 'Toyota Sogn',        external: true },
+      { href: 'https://www.bihuset.no',           label: 'Bihuset Førde',      external: true },
+      { href: 'https://www.skadesenteretsogn.no', label: 'Skadesenteret Sogn', external: true },
+      { href: '/bil/hertz',                       label: 'Hertz Bilutleige' },
     ],
   },
   {
@@ -31,7 +32,7 @@ const navItems: NavItem[] = [
   },
   {
     href: '/sykkel',
-    label: 'Sykkel',
+    label: 'El-mobilitet',
     dropdown: [
       { href: '/sykkel/merida',  label: 'El-syklar' },
       { href: '/elmoped',        label: 'El-moped' },
