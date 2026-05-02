@@ -32,12 +32,15 @@ export default function VideoScrubHero() {
     const container = containerRef.current;
     if (!video || !container) return;
 
+    video.style.transform = "scale(0.68)";
+
     const onScroll = () => {
       if (!video.duration) return;
       const rect = container.getBoundingClientRect();
       const progress = -rect.top / (rect.height - window.innerHeight);
       const clamped = Math.max(0, Math.min(1, progress));
       video.currentTime = clamped * video.duration;
+      video.style.transform = `scale(${(0.68 + clamped * 0.42).toFixed(4)})`;
       setPhase(clamped < 0.34 ? 0 : clamped < 0.67 ? 1 : 2);
     };
 

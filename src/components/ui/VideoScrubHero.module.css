@@ -9,6 +9,7 @@
   height: 100svh;
   min-height: 600px;
   overflow: hidden;
+  background: #000;
 }
 
 .video {
@@ -16,8 +17,10 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  object-fit: contain;
+  transform: scale(0.68);
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .overlay {
@@ -25,9 +28,9 @@
   inset: 0;
   background: linear-gradient(
     105deg,
-    rgba(0,0,0,0.62) 0%,
-    rgba(0,0,0,0.28) 55%,
-    rgba(0,0,0,0.06) 100%
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0.10) 55%,
+    transparent 100%
   );
   z-index: 1;
 }
