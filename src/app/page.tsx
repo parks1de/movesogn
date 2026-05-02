@@ -4,6 +4,7 @@ import Link from 'next/link';
 import FadeUp from '@/components/ui/FadeUp';
 import Icon from '@/components/ui/Icon';
 import StatCounter from '@/components/ui/StatCounter';
+import VideoScrubHero from '@/components/ui/VideoScrubHero';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -20,45 +21,8 @@ const marineProps = [
 export default function HeimsidePage() {
   return (
     <>
-      {/* ── HERO ────────────────────────────────────────────── */}
-      <section className={styles.hero}>
-        <div className={styles.heroBg}>
-          <Image
-            src="/images/hero-kaupanger.jpg"
-            alt="Kaupanger og Sognefjorden — drone"
-            fill
-            priority
-            sizes="100vw"
-            quality={85}
-            style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
-          />
-          <div className={styles.heroOverlay} />
-          <div className={styles.heroTint} aria-hidden="true" />
-        </div>
-        <div className={styles.heroGhost} aria-hidden="true">MOVE</div>
-        <div className={`container ${styles.heroContent}`}>
-          <FadeUp>
-            <span className={styles.heroEyebrow}>MOVE Sogn</span>
-          </FadeUp>
-          <FadeUp delay={80}>
-            <h1 className={styles.heroH1}>
-              Me flyttar deg.<br />Gjennom livet.
-            </h1>
-          </FadeUp>
-          <FadeUp delay={180}>
-            <p className={styles.heroSub}>
-              Bil, båt, sykkel og heim — alt du treng for å leva godt i Sogn.
-            </p>
-          </FadeUp>
-          <FadeUp delay={280}>
-            <Link href="/bil" className="btn btn--primary">
-              Utforsk MOVE
-              <Icon name="arrow-right" size={16} />
-            </Link>
-          </FadeUp>
-        </div>
-        <div className={styles.heroScroll} aria-hidden="true"><span /></div>
-      </section>
+      {/* ── HERO — scroll-scrub video ────────────────────── */}
+      <VideoScrubHero />
 
 
       <div className="page-break-accent" />

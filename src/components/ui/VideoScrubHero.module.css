@@ -1,0 +1,123 @@
+/* ── Scroll-scrub video hero ──────────────────────────── */
+.container {
+  height: 300vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(0,0,0,0.65) 0%,
+    rgba(0,0,0,0.3) 55%,
+    rgba(0,0,0,0.08) 100%
+  );
+  z-index: 1;
+}
+
+.tint {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 55% 75% at 12% 68%, rgba(255,132,33,0.055) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 55% at 85% 28%, rgba(4,95,208,0.065) 0%, transparent 52%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ghost {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(200px, 28vw, 420px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,132,33,0.10);
+  pointer-events: none;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  z-index: 2;
+  user-select: none;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--nav-height);
+  max-width: 660px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 1.25rem;
+}
+
+.h1 {
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 32px rgba(0,0,0,0.15);
+}
+
+.sub {
+  color: rgba(255,255,255,0.78);
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  max-width: 46ch;
+  margin-bottom: 2.5rem;
+}
+
+/* Scroll hint line */
+.scrollHint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+.scrollHint span {
+  display: block;
+  width: 1px;
+  height: 52px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 100%);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Mobile: reduce container height so it doesn't dominate too much */
+@media (max-width: 768px) {
+  .container { height: 220vh; }
+  .ghost { display: none; }
+}
