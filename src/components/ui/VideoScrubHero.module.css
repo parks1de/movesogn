@@ -13,37 +13,39 @@
   min-height: 600px;
   overflow: hidden;
   background: #000;
+  will-change: opacity;
 }
 
+/* Video — centered with translate so scale stays centred */
 .video {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(0.68);
+  transform: translate(-50%, -50%) scale(0.80);
   transform-origin: center center;
   will-change: transform;
 }
 
+/* Gradient lives at the bottom — keeps text readable without killing the boat */
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    105deg,
-    rgba(0,0,0,0.45) 0%,
-    rgba(0,0,0,0.10) 55%,
-    transparent 100%
-  );
+  background:
+    linear-gradient(to top,  rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 28%, transparent 52%),
+    linear-gradient(to right, rgba(0,0,0,0.18) 0%, transparent 40%);
   z-index: 1;
+  pointer-events: none;
 }
 
 .tint {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(ellipse 55% 75% at 12% 68%, rgba(255,132,33,0.05) 0%, transparent 58%),
-    radial-gradient(ellipse 45% 55% at 85% 28%, rgba(4,95,208,0.06) 0%, transparent 52%);
+    radial-gradient(ellipse 55% 40% at 12% 88%, rgba(255,132,33,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 85% 20%, rgba(4,95,208,0.05) 0%, transparent 55%);
   pointer-events: none;
   z-index: 2;
 }
@@ -57,7 +59,7 @@
   font-weight: 800;
   font-size: clamp(200px, 28vw, 420px);
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,132,33,0.08);
+  -webkit-text-stroke: 1px rgba(255,132,33,0.06);
   pointer-events: none;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -65,33 +67,31 @@
   user-select: none;
 }
 
-/* Content wrapper — fills the sticky area, vertically centers text */
+/* Content sits at the bottom-left — text supports the boat, doesn't fight it */
 .contentWrap {
   position: absolute;
   inset: 0;
   z-index: 3;
   display: flex;
-  align-items: center;
-  padding-top: var(--nav-height);
+  align-items: flex-end;
+  padding-bottom: clamp(3rem, 6vh, 5rem);
 }
 
-/* Phases container — fixed size so absolute children have a reference */
 .phasesContainer {
   position: relative;
   width: 100%;
-  max-width: 660px;
-  min-height: 320px;
+  max-width: 480px;
+  min-height: 220px;
 }
 
-/* Individual phase — all stacked at same position, only one visible */
 .phase {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
   pointer-events: none;
 }
 
@@ -101,17 +101,17 @@
   pointer-events: auto;
 }
 
-/* Heading — stacked words */
+/* Heading — stacked, refined size so it complements rather than dominates */
 .h1 {
   display: flex;
   flex-direction: column;
   color: var(--color-white);
-  font-size: clamp(3.25rem, 7.5vw, 6.5rem);
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
   font-weight: 800;
-  line-height: 0.9;
+  line-height: 0.92;
   letter-spacing: -0.03em;
-  text-shadow: 0 2px 40px rgba(0,0,0,0.18);
-  margin-bottom: 1.75rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  margin-bottom: 1rem;
 }
 
 .h1Word {
@@ -119,26 +119,25 @@
 }
 
 .sub {
-  color: rgba(255,255,255,0.76);
-  font-size: var(--text-body-lg);
-  line-height: 1.65;
-  max-width: 46ch;
-  margin-bottom: 2.25rem;
+  color: rgba(255,255,255,0.72);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  max-width: 42ch;
+  margin-bottom: 1.5rem;
 }
 
 /* Scroll hint line */
 .scrollHint {
   position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 2rem;
+  right: clamp(1.25rem, 5vw, 3rem);
   z-index: 3;
 }
 .scrollHint span {
   display: block;
   width: 1px;
-  height: 52px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 100%);
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
   animation: scrollLine 2s ease-in-out infinite;
 }
 @keyframes scrollLine {
@@ -151,5 +150,6 @@
 @media (max-width: 768px) {
   .container { height: 240vh; }
   .ghost { display: none; }
-  .phasesContainer { min-height: 280px; }
+  .phasesContainer { min-height: 200px; max-width: 100%; }
+  .h1 { font-size: clamp(1.75rem, 7vw, 2.75rem); }
 }

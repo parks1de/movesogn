@@ -48,9 +48,6 @@ export default function HeimsidePage() {
       {/* ── HERO — scroll-scrub video ────────────────────── */}
       <VideoScrubHero />
 
-
-      <div className="page-break-accent" />
-
       {/* ── TOYOTA CARDS ────────────────────────────────────── */}
       <section className="section bg-surface">
         <div className="container">

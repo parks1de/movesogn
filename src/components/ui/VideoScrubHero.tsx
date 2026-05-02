@@ -24,8 +24,8 @@ const phases = [
 
 export default function VideoScrubHero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const stickyRef   = useRef<HTMLDivElement>(null);
-  const videoRef    = useRef<HTMLVideoElement>(null);
+  const stickyRef    = useRef<HTMLDivElement>(null);
+  const videoRef     = useRef<HTMLVideoElement>(null);
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function VideoScrubHero() {
     const sticky    = stickyRef.current;
     if (!video || !container || !sticky) return;
 
-    video.style.transform = "scale(0.68)";
+    video.style.transform = "translate(-50%, -50%) scale(0.80)";
 
     const update = () => {
       const scrollY      = window.scrollY;
@@ -43,34 +43,46 @@ export default function VideoScrubHero() {
       const scrollRange  = container.offsetHeight - window.innerHeight;
 
       if (scrollY <= containerTop) {
-        // before hero
         sticky.style.position = "absolute";
         sticky.style.top      = "0";
         sticky.style.bottom   = "";
         sticky.style.width    = "";
+        sticky.style.opacity  = "1";
         setPhase(0);
-      } else if (scrollY >= containerTop + scrollRange) {
-        // after hero
+        return;
+      }
+
+      if (scrollY >= containerTop + scrollRange) {
         sticky.style.position = "absolute";
         sticky.style.top      = "";
         sticky.style.bottom   = "0";
         sticky.style.width    = "";
+        sticky.style.opacity  = "0";
         setPhase(2);
-      } else {
-        // inside hero — pin to viewport
-        sticky.style.position = "fixed";
-        sticky.style.top      = "0";
-        sticky.style.bottom   = "";
-        sticky.style.width    = "100%";
-
-        const clamped = (scrollY - containerTop) / scrollRange;
-
-        if (video.duration) {
-          video.currentTime     = clamped * video.duration;
-          video.style.transform = `scale(${(0.68 + clamped * 0.42).toFixed(4)})`;
-        }
-        setPhase(clamped < 0.34 ? 0 : clamped < 0.67 ? 1 : 2);
+        return;
       }
+
+      sticky.style.position = "fixed";
+      sticky.style.top      = "0";
+      sticky.style.bottom   = "";
+      sticky.style.width    = "100%";
+
+      const clamped = (scrollY - containerTop) / scrollRange;
+
+      // video scrub + zoom
+      if (video.duration) {
+        video.currentTime     = clamped * video.duration;
+        const scale           = 0.80 + clamped * 0.28;
+        video.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(4)})`;
+      }
+
+      // fade out the whole panel in the last 20% of scroll
+      const fadeStart = 0.78;
+      sticky.style.opacity = clamped >= fadeStart
+        ? String((1 - (clamped - fadeStart) / (1 - fadeStart)).toFixed(3))
+        : "1";
+
+      setPhase(clamped < 0.34 ? 0 : clamped < 0.67 ? 1 : 2);
     };
 
     update();
@@ -111,9 +123,9 @@ export default function VideoScrubHero() {
                 </h1>
                 <p className={styles.sub}>{p.sub}</p>
                 {p.cta && (
-                  <Link href={p.cta.href} className="btn btn--primary">
+                  <Link href={p.cta.href} className="btn btn--primary btn--sm">
                     {p.cta.label}
-                    <Icon name="arrow-right" size={16} />
+                    <Icon name="arrow-right" size={14} />
                   </Link>
                 )}
               </div>
