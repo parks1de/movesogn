@@ -115,6 +115,48 @@ export default function HeimsidePage() {
       </section>
 
 
+      {/* ── HERTZ BILUTLEIGE ─────────────────────────────────── */}
+      <section className={`section ${styles.hertzSection}`}>
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div className={styles.hertzInner}>
+
+            <FadeUp className={styles.hertzText}>
+              <span className="label">Bilutleige</span>
+              <h2 className={styles.hertzH2}>Hertz ANI<br />Utleige.</h2>
+              <p className={styles.hertzSub}>
+                Fem stasjonar i Sogn og Sunnfjord — alltid nær deg.
+                Personbilar, varebilar og bussar på kort varsel.
+              </p>
+              <Link href="/hertz" className="btn btn--primary" style={{ marginTop: '2rem' }}>
+                Sjå stasjonar
+                <Icon name="arrow-right" size={16} />
+              </Link>
+            </FadeUp>
+
+            <FadeUp delay={80} className={styles.hertzLocations}>
+              {[
+                { name: 'Kaupanger sentrum',  note: 'Skarpeteigvegen 1, 6854 Kaupanger' },
+                { name: 'Kaupanger lufthamn', note: 'Sogndal lufthamn, Haukåsen' },
+                { name: 'Sogndal sentrum',    note: 'Sogndal' },
+                { name: 'Førde sentrum',      note: 'Førde' },
+                { name: 'Førde flyplass',     note: 'Bringeland lufthamn' },
+              ].map((loc, i) => (
+                <div key={loc.name} className={styles.hertzLocRow}>
+                  <span className={styles.hertzLocNum}>0{i + 1}</span>
+                  <div className={styles.hertzLocInfo}>
+                    <p className={styles.hertzLocName}>{loc.name}</p>
+                    <p className={styles.hertzLocNote}>{loc.note}</p>
+                  </div>
+                </div>
+              ))}
+            </FadeUp>
+
+          </div>
+        </div>
+        <div className={styles.hertzGhost} aria-hidden="true">5</div>
+      </section>
+
+
       <div className="page-break-accent" />
 
       {/* ── CASA BANDERAS TEASER ─────────────────────────────── */}
