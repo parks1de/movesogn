@@ -162,65 +162,45 @@ export default function HeimsidePage() {
 
       <div className="page-break-accent" />
 
-      {/* ── EIGEDOM TEASER ──────────────────────────────────── */}
-      {/* TODO: [SANITY] Fetch eigedom cards from CMS (type: eigedomCard) */}
-      <section className="section bg-canvas">
-        <div className="container">
-          <FadeUp className={styles.sectionIntro}>
-            <span className="label">Eigedom</span>
-            <h2>Eigedom for livet du vil leva.</h2>
+      {/* ── CASA BANDERAS TEASER ─────────────────────────────── */}
+      <section className={`section ${styles.casaSection}`}>
+        <div className={`container ${styles.casaSplit}`}>
+          <FadeUp className={styles.casaImgWrap}>
+            <Image
+              src="/images/casa-banderas/cb-01.jpg"
+              alt="Casa Banderas — terrasse med panoramautsikt over Middelhavet"
+              fill
+              sizes="(max-width: 768px) 100vw, 58vw"
+              quality={85}
+              style={{ objectFit: 'cover', objectPosition: 'center 55%' }}
+            />
+            <div className={styles.casaImgOverlay} />
+            <span className={styles.casaLocationBadge}>Costa del Sol · Spania</span>
           </FadeUp>
-          <div className={styles.eigedomGrid}>
-
-            <FadeUp className={styles.eigedomCardWrap}>
-              <Link href="/eigedom/naringseigendom" className={`${styles.eigedomCard} ${styles.eigedomSogn}`}>
-                <div className={styles.eigedomImgWrap}>
-                  <Image
-                    src="/images/eigedom-hero.png"
-                    alt="Næringslokale i Kaupanger, Sogn"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={75}
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className={styles.eigedomImgOverlay} />
-                </div>
-                <div className={styles.eigedomCardBody}>
-                  <span className="label">Sogn</span>
-                  <h3>Næringslokale i veksande Sogn</h3>
-                  <p>Kontor og lager på Kaupanger — sjå ledige areal og showroom.</p>
-                  <span className={styles.eigedomCta}>
-                    Les meir <Icon name="arrow-right" size={14} />
-                  </span>
-                </div>
-              </Link>
-            </FadeUp>
-
-            <FadeUp delay={100} className={styles.eigedomCardWrap}>
-              <Link href="/eigedom/casa-banderas" className={`${styles.eigedomCard} ${styles.eigedomSpain}`}>
-                <div className={styles.eigedomImgWrap}>
-                  <Image
-                    src="/images/casa-banderas/cb-01.jpg"
-                    alt="Terrasse med havutsikt — Casa Banderas, Spania"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={75}
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className={styles.eigedomImgOverlaySpain} />
-                </div>
-                <div className={styles.eigedomCardBody}>
-                  <span className={`label ${styles.eigedomLabel}`}>Spania</span>
-                  <h3>Meir sol. Meir liv.</h3>
-                  <p>Middelhavsidyll for dei som ønsker noko ekstra.</p>
-                  <span className={styles.eigedomCta}>
-                    Les meir <Icon name="arrow-right" size={14} />
-                  </span>
-                </div>
-              </Link>
-            </FadeUp>
-
-          </div>
+          <FadeUp delay={120} className={styles.casaText}>
+            <span className="label">Eigedom</span>
+            <h2>Casa Banderas.</h2>
+            <p className={styles.casaSub}>
+              Privat feriebolig på Costa del Sol — eige basseng, panoramaterrasse mot Middelhavet og 5 minutt til stranda. Tilgjengeleg for eksklusiv korttidsleige.
+            </p>
+            <ul className={styles.casaHighlights}>
+              {[
+                '3 soverom med kingsize-senger',
+                'Privat oppvarma basseng 10×5 m',
+                '80 m² terrasse mot Middelhavet',
+                '5 min til privat strand',
+              ].map((item) => (
+                <li key={item}>
+                  <span className={styles.casaDot} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Link href="/eigedom/casa-banderas" className="btn btn--primary">
+              Sjå Casa Banderas
+              <Icon name="arrow-right" size={16} />
+            </Link>
+          </FadeUp>
         </div>
       </section>
 

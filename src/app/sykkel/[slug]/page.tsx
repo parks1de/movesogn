@@ -1,18 +1,3 @@
-/*
-  Sanity schema — sykkelProduct — expected fields:
-  ─────────────────────────────────────────────────
-  slug        slug           → route key
-  name        string         → product name
-  tagline     string         → one-line slogan (shown in hero + below H2)
-  category    string         → 'sykkel' | 'scooter' | 'sparkesykkel'
-  body        text           → description (double newline = new paragraph)
-  image       image          → hero/card image (product on transparent/white bg)
-  gallery     array<image>   → additional photos
-  priceFrom   string         → "24 990" or "Kontakt oss"
-  specs       array          → [{ label: string, value: string }]
-  ─────────────────────────────────────────────────
-*/
-
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,19 +10,32 @@ import styles from './detail.module.css';
 
 interface Spec { label: string; value: string }
 
+interface ScooterSpecs {
+  rekkevidde?: string; motor?: string; toppfart?: string; ladetid?: string;
+  vekt?: string; maxLast?: string; batteri?: string; sertifikat?: string;
+}
+interface SykkelSpecs {
+  rekkevidde?: string; motor?: string; driv?: string; batteri?: string;
+  vekt?: string; ramme?: string; hjulstorleik?: string; brems?: string;
+}
+interface SparkesykkelSpecs {
+  rekkevidde?: string; motor?: string; toppfart?: string; ladetid?: string;
+  vekt?: string; hjulstorleik?: string; brems?: string; foldbar?: boolean;
+}
+
 interface SykkelProduct {
   slug: string;
   name: string;
   tagline: string;
-  category: string;
+  category: 'scooter' | 'sykkel' | 'sparkesykkel';
   body: string;
   price_from: string;
   image: string;
-  images: string;
+  gallery: string[];
   specs: Spec[];
-  range_km: string;
-  motor_w: string;
-  weight: string;
+  scooterSpecs?: ScooterSpecs;
+  sykkelSpecs?: SykkelSpecs;
+  sparkesykkelSpecs?: SparkesykkelSpecs;
 }
 
 export const revalidate = 300;
@@ -51,16 +49,15 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'NIU NQi Sport er vår mestselgande elektriske scooter. Med 70 km rekkevidde, stilig design og minimal vedlikehald er den eit naturleg val for pendlarar og unge i Sogn.\n\nLadar frå vanleg stikkontakt på 4–5 timar. Inkluderer NIU-appen med GPS-sporing, statistikk og smarte låsefunksjonar. Serviceavtale er inkludert i prisen.',
     price_from: '24 990',
     image: '/images/sykkel/sk-01.png',
-    images: '',
+    gallery: [],
     specs: [
-      { label: 'Rekkevidde',    value: '70 km' },
-      { label: 'Motor',         value: '1 500 W' },
-      { label: 'Toppfart',      value: '45 km/t' },
-      { label: 'Ladetid',       value: '4–5 t' },
-      { label: 'Vekt',          value: '70 kg' },
-      { label: 'Max last',      value: '100 kg' },
+      { label: 'Rekkevidde', value: '70 km' },
+      { label: 'Motor',      value: '1 500 W' },
+      { label: 'Toppfart',   value: '45 km/t' },
+      { label: 'Ladetid',    value: '4–5 t' },
+      { label: 'Vekt',       value: '70 kg' },
+      { label: 'Max last',   value: '100 kg' },
     ],
-    range_km: '70', motor_w: '1500', weight: '70',
   },
   {
     slug: 'niu-uqi-gt-sport',
@@ -70,16 +67,15 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'NIU UQi GT Sport kombinerer eit ikonisk retrodesign med moderne elektrisk teknologi. Lett og smidig — perfekt for ungdommar og pendlarar som vil ha noko annleis.\n\nLav vekt gjer den enkel å handtere. Ladar på vanleg stikkontakt. God NIU-appintegrasjon med statistikk, rekkevidde og fjernlåsing.',
     price_from: '19 990',
     image: '/images/sykkel/sk-01.png',
-    images: '',
+    gallery: [],
     specs: [
-      { label: 'Rekkevidde',    value: '50 km' },
-      { label: 'Motor',         value: '1 200 W' },
-      { label: 'Toppfart',      value: '45 km/t' },
-      { label: 'Ladetid',       value: '6–8 t' },
-      { label: 'Vekt',          value: '62 kg' },
-      { label: 'Batteri',       value: '60V Li-ion' },
+      { label: 'Rekkevidde', value: '50 km' },
+      { label: 'Motor',      value: '1 200 W' },
+      { label: 'Toppfart',   value: '45 km/t' },
+      { label: 'Ladetid',    value: '6–8 t' },
+      { label: 'Vekt',       value: '62 kg' },
+      { label: 'Batteri',    value: '60V Li-ion' },
     ],
-    range_km: '50', motor_w: '1200', weight: '62',
   },
   {
     slug: 'niu-mqi-sport',
@@ -89,16 +85,15 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'Med imponerande 100 km rekkevidde er NIU MQi+ Sport den best eigna scooteren for lengre turar og daglege pendlarar i distrikta. Kraftig 2 000 W-motor gjev god akselerasjon og kjøyreglede.\n\nRobust konstruksjon og stor bagasjerom under setet. Kjem med full NIU-appintegrasjon og serviceavtale.',
     price_from: '22 990',
     image: '/images/sykkel/sk-01.png',
-    images: '',
+    gallery: [],
     specs: [
-      { label: 'Rekkevidde',    value: '100 km' },
-      { label: 'Motor',         value: '2 000 W' },
-      { label: 'Toppfart',      value: '45 km/t' },
-      { label: 'Ladetid',       value: '5–6 t' },
-      { label: 'Vekt',          value: '72 kg' },
-      { label: 'Max last',      value: '100 kg' },
+      { label: 'Rekkevidde', value: '100 km' },
+      { label: 'Motor',      value: '2 000 W' },
+      { label: 'Toppfart',   value: '45 km/t' },
+      { label: 'Ladetid',    value: '5–6 t' },
+      { label: 'Vekt',       value: '72 kg' },
+      { label: 'Max last',   value: '100 kg' },
     ],
-    range_km: '100', motor_w: '2000', weight: '72',
   },
   {
     slug: 'niu-kqi3-pro',
@@ -108,16 +103,15 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'NIU KQi3 Pro er sparkesykkelen for deg som vil ha fridom utan bagasje. Berre 16 kg, enkel å folde og passar i bagasjerommet eller under pulten.\n\nIkonisk halo-frontlykt og robuste 10-tommars hjul gjev god stabilitet. Skivebrems på begge hjul. NIU-appen gir deg statistikk, reiseoversikt og fjernlåsing.',
     price_from: '7 990',
     image: '/images/sykkel/sk-02.png',
-    images: '',
+    gallery: [],
     specs: [
-      { label: 'Rekkevidde',    value: '50 km' },
-      { label: 'Motor',         value: '300 W' },
-      { label: 'Toppfart',      value: '25 km/t' },
-      { label: 'Ladetid',       value: '5–6 t' },
-      { label: 'Vekt',          value: '16 kg' },
-      { label: 'Hjulstorleik',  value: '10"' },
+      { label: 'Rekkevidde',   value: '50 km' },
+      { label: 'Motor',        value: '300 W' },
+      { label: 'Toppfart',     value: '25 km/t' },
+      { label: 'Ladetid',      value: '5–6 t' },
+      { label: 'Vekt',         value: '16 kg' },
+      { label: 'Hjulstorleik', value: '10"' },
     ],
-    range_km: '50', motor_w: '300', weight: '16',
   },
   {
     slug: 'merida-e-crossway',
@@ -127,16 +121,15 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'Merida eSPRESSO CROSS er allroundarens sykkel — like heime på grusvegar i Sogndal som på asfalt langs fjorden. Lett aluminiumsramme og Shimano Altus 8-gir gjer turen behageleg uansett underlag.\n\nIntegrert Lithium-ion-batteri gir opptil 150 km rekkevidde avhengig av terrenget. Perfekt for deg som syklar til jobb, men ikkje vil gi slepp på helgeeventyret.',
     price_from: 'Kontakt oss',
     image: '/images/sykkel/sk-03.png',
-    images: '',
+    gallery: [],
     specs: [
-      { label: 'Rekkevidde',   value: 'Opptil 150 km' },
-      { label: 'Motor',        value: '250 W (Shimano)' },
-      { label: 'Driv',         value: 'Shimano Altus 8-gir' },
-      { label: 'Batteri',      value: '418 Wh Li-Ion' },
-      { label: 'Vekt',         value: '22 kg' },
-      { label: 'Ramme',        value: 'Aluminium' },
+      { label: 'Rekkevidde',  value: 'Opptil 150 km' },
+      { label: 'Motor',       value: '250 W (Shimano)' },
+      { label: 'Driv',        value: 'Shimano Altus 8-gir' },
+      { label: 'Batteri',     value: '418 Wh Li-Ion' },
+      { label: 'Vekt',        value: '22 kg' },
+      { label: 'Ramme',       value: 'Aluminium' },
     ],
-    range_km: '150', motor_w: '250', weight: '22',
   },
   {
     slug: 'merida-e-speeder',
@@ -146,28 +139,65 @@ const placeholderProducts: SykkelProduct[] = [
     body: 'Merida eSPEEDER er el-sykkelen for deg som verdset design like mykje som funksjon. Det integrerte batteriet og den aerodynamiske ramma gjer det nærast umogleg å sjå at dette er ein el-sykkel.\n\nShimano 8-gir og 250 W motor gjev god ytelse i alle fart. Opptil 130 km rekkevidde — meir enn nok for ein full arbeidsdag med pendling.',
     price_from: 'Kontakt oss',
     image: '/images/sykkel/sk-04.png',
-    images: '',
+    gallery: [],
     specs: [
-      { label: 'Rekkevidde',   value: 'Opptil 130 km' },
-      { label: 'Motor',        value: '250 W integrert' },
-      { label: 'Driv',         value: 'Shimano 8-gir' },
-      { label: 'Batteri',      value: '378 Wh integrert' },
-      { label: 'Vekt',         value: '20 kg' },
-      { label: 'Ramme',        value: 'Aluminium' },
+      { label: 'Rekkevidde',  value: 'Opptil 130 km' },
+      { label: 'Motor',       value: '250 W integrert' },
+      { label: 'Driv',        value: 'Shimano 8-gir' },
+      { label: 'Batteri',     value: '378 Wh integrert' },
+      { label: 'Vekt',        value: '20 kg' },
+      { label: 'Ramme',       value: 'Aluminium' },
     ],
-    range_km: '130', motor_w: '250', weight: '20',
   },
 ];
 
 const QUERY = `*[_type=="sykkelProduct"] | order(order asc) {
   "slug": slug.current, name, tagline, category,
-  "range_km": rangeKm, "motor_w": motorW, weight,
   "price_from": priceFrom,
-  "image": image,
-  "images": array::join(gallery, ","),
+  "image": image.asset->url,
+  "gallery": gallery[].asset->url,
   body,
-  specs[]{ label, value }
+  scooterSpecs { rekkevidde, motor, toppfart, ladetid, vekt, maxLast, batteri, sertifikat },
+  sykkelSpecs { rekkevidde, motor, driv, batteri, vekt, ramme, hjulstorleik, brems },
+  sparkesykkelSpecs { rekkevidde, motor, toppfart, ladetid, vekt, hjulstorleik, brems, foldbar }
 }`;
+
+function buildSpecs(p: SykkelProduct): Spec[] {
+  if (p.specs?.length) return p.specs;
+
+  const add = (label: string, value?: string | boolean): Spec | null =>
+    value !== undefined && value !== '' ? { label, value: String(value) } : null;
+
+  if (p.category === 'scooter' && p.scooterSpecs) {
+    const s = p.scooterSpecs;
+    return [
+      add('Rekkevidde', s.rekkevidde), add('Motor', s.motor),
+      add('Toppfart', s.toppfart),    add('Ladetid', s.ladetid),
+      add('Vekt', s.vekt),            add('Max last', s.maxLast),
+      add('Batteri', s.batteri),      add('Sertifikat', s.sertifikat),
+    ].filter((x): x is Spec => x !== null);
+  }
+  if (p.category === 'sykkel' && p.sykkelSpecs) {
+    const s = p.sykkelSpecs;
+    return [
+      add('Rekkevidde', s.rekkevidde), add('Motor', s.motor),
+      add('Driv', s.driv),            add('Batteri', s.batteri),
+      add('Vekt', s.vekt),            add('Ramme', s.ramme),
+      add('Hjulstorleik', s.hjulstorleik), add('Brems', s.brems),
+    ].filter((x): x is Spec => x !== null);
+  }
+  if (p.category === 'sparkesykkel' && p.sparkesykkelSpecs) {
+    const s = p.sparkesykkelSpecs;
+    return [
+      add('Rekkevidde', s.rekkevidde), add('Motor', s.motor),
+      add('Toppfart', s.toppfart),    add('Ladetid', s.ladetid),
+      add('Vekt', s.vekt),            add('Hjulstorleik', s.hjulstorleik),
+      add('Brems', s.brems),
+      s.foldbar !== undefined ? { label: 'Foldbar', value: s.foldbar ? 'Ja' : 'Nei' } : null,
+    ].filter((x): x is Spec => x !== null);
+  }
+  return [];
+}
 
 const categoryLabel: Record<string, string> = {
   sykkel:       'El-sykkel',
@@ -209,37 +239,18 @@ export default async function ProductDetailPage({ params }: Props) {
                ?? placeholderProducts.find((p) => p.slug === params.slug);
   if (!product) notFound();
 
-  const galleryImages: string[] = product.images
-    ? product.images.split(',').map((s) => s.trim()).filter(Boolean)
-    : [];
-
-  const specs: Spec[] = product.specs?.length
-    ? product.specs
-    : ([
-        product.range_km && { label: 'Rekkevidde', value: `${product.range_km} km` },
-        product.motor_w  && { label: 'Motor',      value: `${product.motor_w} W` },
-        product.weight   && { label: 'Vekt',       value: `${product.weight} kg` },
-      ].filter(Boolean) as Spec[]);
-
+  const specs      = buildSpecs(product);
   const paragraphs = (product.body ?? '').split(/\n\n+/).filter(Boolean);
   const catLabel   = categoryLabel[product.category] ?? 'Produkt';
   const backHref   = categoryBack[product.category]  ?? '/sykkel';
   const isContact  = product.price_from === 'Kontakt oss';
+  const gallery    = (product.gallery ?? []).filter(Boolean);
+  const imgSrc     = product.image || '/images/sykkel/sk-01.png';
 
   return (
     <>
-      {/* ── Hero — dark bg, product image contained right ─── */}
+      {/* ── Hero — dark slate, name + tagline + price ─────── */}
       <section className={styles.hero}>
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          priority
-          sizes="100vw"
-          className={styles.heroImg}
-          style={{ objectFit: 'contain', objectPosition: 'center right' }}
-        />
-        <div className={styles.heroOverlay} />
         <div className={`container ${styles.heroContent}`}>
           <FadeUp>
             <Link href={backHref} className={styles.back}>
@@ -259,28 +270,30 @@ export default async function ProductDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Orange→blue divider */}
+      {/* Orange→blue brand divider */}
       <div className={styles.divider} />
 
-      {/* ── Detail — description left + specs/price right ─── */}
-      <section className={styles.detail}>
+      {/* ── Product body — 1:1 image LEFT + specs RIGHT ────── */}
+      <section className={styles.productBody}>
         <div className="container">
-          <div className={styles.detailGrid}>
+          <div className={styles.productBodyGrid}>
 
-            {/* Left: description */}
-            <FadeUp className={styles.detailLeft}>
-              <span className={styles.categoryLabel}>{catLabel}</span>
-              <h2 className={styles.detailH2}>{product.name}</h2>
-              {product.tagline && (
-                <p className={styles.detailTagline}>{product.tagline}</p>
-              )}
-              <div className={styles.descText}>
-                {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+            <FadeUp>
+              <div className={styles.productImgWrap}>
+                <Image
+                  src={imgSrc}
+                  alt={product.name}
+                  fill
+                  priority
+                  sizes="(max-width: 860px) 80vw, 45vw"
+                  style={{ objectFit: 'contain', objectPosition: 'center' }}
+                />
               </div>
             </FadeUp>
 
-            {/* Right: specs + price */}
-            <FadeUp delay={100} className={styles.detailRight}>
+            <FadeUp delay={100} className={styles.specsPanel}>
+              <span className={styles.categoryLabel}>{catLabel}</span>
+
               {specs.length > 0 && (
                 <div className={styles.specsBox}>
                   <div className={styles.specsBoxHdr}>Spesifikasjonar</div>
@@ -311,17 +324,28 @@ export default async function ProductDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Gallery ─────────────────────────────────────────── */}
-      {galleryImages.length > 0 && (
+      {/* ── Description — full width ─────────────────────── */}
+      {paragraphs.length > 0 && (
+        <section className={`section ${styles.descSection}`}>
+          <div className="container">
+            <FadeUp>
+              <div className={styles.descText}>
+                {paragraphs.map((para, i) => <p key={i}>{para}</p>)}
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+      )}
+
+      {/* ── Gallery ─────────────────────────────────────── */}
+      {gallery.length > 0 && (
         <section className={`section ${styles.gallerySection}`}>
           <div className="container">
             <FadeUp>
-              <p className={styles.galleryLabel}>
-                Galleri — {galleryImages.length} bilete
-              </p>
+              <p className={styles.galleryLabel}>Galleri — {gallery.length} bilete</p>
             </FadeUp>
             <div className={styles.galleryGrid}>
-              {galleryImages.map((src, i) => {
+              {gallery.map((src, i) => {
                 const isTall = i > 0 && i % 4 === 2;
                 return (
                   <FadeUp
@@ -329,8 +353,8 @@ export default async function ProductDetailPage({ params }: Props) {
                     delay={Math.min(i * 50, 300)}
                     className={[
                       styles.galleryItem,
-                      i === 0        ? styles.galleryItemWide : '',
-                      isTall         ? styles.galleryItemTall : '',
+                      i === 0 ? styles.galleryItemWide : '',
+                      isTall  ? styles.galleryItemTall : '',
                     ].filter(Boolean).join(' ')}
                   >
                     <Image
@@ -340,8 +364,8 @@ export default async function ProductDetailPage({ params }: Props) {
                       sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
                       style={{ objectFit: 'cover' }}
                     />
-                    {i === galleryImages.length - 1 && galleryImages.length >= 6 && (
-                      <span className={styles.galleryCount}>{galleryImages.length} bilete</span>
+                    {i === gallery.length - 1 && gallery.length >= 6 && (
+                      <span className={styles.galleryCount}>{gallery.length} bilete</span>
                     )}
                   </FadeUp>
                 );
@@ -351,7 +375,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* ── Contact form ────────────────────────────────────── */}
+      {/* ── Contact form ────────────────────────────────── */}
       <section className={`section ${styles.formSection}`} id="kontakt-form">
         <div className="container">
           <div className={styles.formWrap}>

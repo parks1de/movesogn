@@ -508,6 +508,102 @@
 }
 
 
+/* ── Casa Banderas teaser ───────────────────────────────── */
+.casaSection { background: var(--color-bg); }
+
+.casaSplit {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.casaImgWrap {
+  position: relative;
+  height: 580px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow:
+    0 8px 40px rgba(160,80,15,0.16),
+    0 2px 8px rgba(0,0,0,0.10);
+  transition: box-shadow var(--transition-hover), transform var(--transition-hover);
+}
+
+.casaImgWrap:hover {
+  box-shadow:
+    0 16px 56px rgba(160,80,15,0.22),
+    0 4px 12px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+
+.casaImgWrap img { transition: transform 0.6s var(--ease-out-expo); }
+.casaImgWrap:hover img { transform: scale(1.04); }
+
+.casaImgOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(140,60,10,0.32) 0%,
+    rgba(160,90,20,0.08) 45%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.casaLocationBadge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  background: rgba(0,0,0,0.52);
+  color: rgba(255,255,255,0.92);
+  font-family: var(--f-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.875rem;
+  border-radius: 99px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.casaText { max-width: 42ch; }
+.casaText h2 { margin-bottom: 1rem; color: var(--color-body); }
+
+.casaSub {
+  color: var(--color-muted);
+  font-size: var(--text-body-lg);
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+}
+
+.casaHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.casaHighlights li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-body);
+}
+
+.casaDot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  flex-shrink: 0;
+}
+
+
 /* ── 40 år ─────────────────────────────────────────────── */
 .fortySection {
   position: relative;
@@ -546,6 +642,7 @@
 @media (max-width: 1024px) {
   .marineSplit { gap: 4rem; }
   .sykkelInner { gap: 3rem; }
+  .casaSplit   { gap: 3.5rem; }
 }
 
 @media (max-width: 768px) {
@@ -559,6 +656,8 @@
   .sykkelInner   { grid-template-columns: 1fr; }
   .sykkelImgWrap { display: none; }
   .eigedomGrid   { grid-template-columns: 1fr; }
+  .casaSplit     { grid-template-columns: 1fr; gap: 2.5rem; }
+  .casaImgWrap   { height: 340px; }
 }
 
 /* Spain image overlay — warm amber tint vs neutral grey of Sogn */
