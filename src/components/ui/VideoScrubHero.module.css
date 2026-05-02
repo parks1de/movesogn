@@ -18,7 +18,7 @@
   z-index: 10;
 }
 
-/* Video — covers full viewport, zoom driven by JS */
+/* Video — covers full viewport, zoom driven by JS lerp loop */
 .video {
   position: absolute;
   inset: 0;
@@ -68,7 +68,7 @@
   user-select: none;
 }
 
-/* Content at the bottom-left */
+/* Content at bottom-left */
 .contentWrap {
   position: absolute;
   inset: 0;
@@ -126,7 +126,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* ── Desktop scroll hint (vertical line) ─────────────── */
+/* Scroll hint — vertical animated line */
 .scrollHint {
   position: absolute;
   bottom: 2rem;
@@ -147,54 +147,9 @@
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* ── Mobile swipe hint (dots + label) ────────────────── */
-.swipeHint {
-  display: none; /* shown only on mobile */
-  position: absolute;
-  bottom: 1.75rem;
-  right: clamp(1.25rem, 5vw, 2rem);
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
-  z-index: 4;
-}
-
-.swipeDots {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  transition: background 0.35s ease, transform 0.35s ease;
-  flex-shrink: 0;
-}
-
-.dotActive {
-  background: rgba(255,255,255,0.92);
-  transform: scale(1.35);
-}
-
-.swipeLabel {
-  color: rgba(255,255,255,0.48);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  animation: swipePulse 2.2s ease-in-out infinite;
-}
-
-@keyframes swipePulse {
-  0%, 100% { opacity: 0.48; }
-  50%       { opacity: 1;    }
-}
-
 /* ── Mobile overrides ─────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Single-screen: swipe replaces scroll-scrub */
+  /* Single-screen static hero — video loops, no scroll-scrub */
   .container {
     height: 100vh;
     height: 100dvh;
@@ -204,11 +159,7 @@
     height: 100dvh;
     min-height: unset;
   }
-
-  .ghost      { display: none; }
-  .scrollHint { display: none; }
-  .swipeHint  { display: flex; }
-
+  .ghost { display: none; }
   .phasesContainer {
     min-height: 200px;
     max-width: 100%;
