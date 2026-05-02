@@ -116,6 +116,7 @@
 
 .h1Word {
   display: block;
+  white-space: nowrap;
 }
 
 .sub {
