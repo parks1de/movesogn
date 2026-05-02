@@ -106,9 +106,9 @@ export default function ContactForm({
         {formType === 'maintenance' && (
           <>
             <div className={styles.row}>
-              <label className={styles.field}>
-                <span className={styles.fieldLabel}>Motor merke</span>
-                <select value={fields.motorBrand} onChange={set('motorBrand')} className={styles.input}>
+              <div className={styles.field}>
+                <label htmlFor="motorBrand" className={styles.fieldLabel}>Motor merke</label>
+                <select id="motorBrand" value={fields.motorBrand} onChange={set('motorBrand')} className={styles.input}>
                   <option>Suzuki</option>
                   <option>Yamaha</option>
                   <option>Mercury</option>
@@ -116,7 +116,7 @@ export default function ContactForm({
                   <option>Evinrude</option>
                   <option>Annan</option>
                 </select>
-              </label>
+              </div>
               <label className={styles.field}>
                 <span className={styles.fieldLabel}>Motormodell</span>
                 <input type="text" value={fields.motorModel} onChange={set('motorModel')}
@@ -137,9 +137,9 @@ export default function ContactForm({
               </label>
             </div>
 
-            <label className={styles.field}>
-              <span className={styles.fieldLabel}>Serviceomfang</span>
-              <select value={fields.serviceType} onChange={set('serviceType')} className={styles.input}>
+            <div className={styles.field}>
+              <label htmlFor="serviceType" className={styles.fieldLabel}>Serviceomfang</label>
+              <select id="serviceType" value={fields.serviceType} onChange={set('serviceType')} className={styles.input}>
                 <option>Årsservice</option>
                 <option>Feil / problem</option>
                 <option>Motoroverhaleing</option>
@@ -147,7 +147,7 @@ export default function ContactForm({
                 <option>Avrigging</option>
                 <option>Annan service</option>
               </select>
-            </label>
+            </div>
           </>
         )}
 
