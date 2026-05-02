@@ -549,9 +549,8 @@
 }
 
 @media (max-width: 768px) {
-  /* Pull Toyota up into hero's 40dvh fade zone; strip top padding so cards
-     are immediately visible once the hero fades — not buried under 7rem gap */
-  .toyotaSection { margin-top: -40vh; padding-top: 2rem; }
+  /* No fade on mobile — hero scrolls away normally, Toyota follows */
+  .toyotaSection { margin-top: 0; padding-top: 2rem; }
 
   .toyotaCards   { grid-template-columns: 1fr; }
   .mobilitetGrid { grid-template-columns: 1fr; }

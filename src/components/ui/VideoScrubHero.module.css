@@ -194,12 +194,11 @@
 
 /* ── Mobile overrides ─────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Extra 40vh lets the hero fade out over the incoming section */
+  /* Single-screen — no fade zone, hero scrolls away normally */
   .container {
-    height: 140vh;
-    height: 140dvh;
+    height: 100vh;
+    height: 100dvh;
   }
-  /* Sticky panel only fills the first 100vh — extra space is the fade zone */
   .sticky {
     height: 100vh;
     height: 100dvh;

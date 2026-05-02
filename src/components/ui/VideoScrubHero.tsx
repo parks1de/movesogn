@@ -151,17 +151,8 @@ export default function VideoScrubHero() {
       const containerTop = scrollY + rect.top;
       const scrollRange  = container.offsetHeight - window.innerHeight;
 
-      /* ── Mobile: stay fully visible then fade in the second half ── */
-      if (mob()) {
-        if (scrollY <= containerTop || scrollRange <= 0) {
-          sticky.style.opacity = "1";
-        } else {
-          const p    = Math.min(1, (scrollY - containerTop) / scrollRange);
-          const fade = Math.max(0, (p - 0.5) / 0.5); // only fades in last 50% of zone
-          sticky.style.opacity = String((1 - fade).toFixed(3));
-        }
-        return;
-      }
+      /* ── Mobile: no fade — hero scrolls away as a normal section ── */
+      if (mob()) return;
 
       /* ── Desktop: full scroll-scrub ──────────────────────────── */
       if (scrollY <= containerTop) {
