@@ -1,6 +1,6 @@
 /* ── Scroll-scrub video hero ──────────────────────────── */
 .container {
-  height: 300vh;
+  height: 380vh;
   position: relative;
   background-color: var(--color-surface);
 }
@@ -205,10 +205,10 @@
     min-height: unset;
   }
 
-  /* contain = full boat visible; 1.15 fills black bars without cropping boat */
+  /* cover = fills screen edge-to-edge in width, crops top/bottom minimally */
   .video {
-    object-fit: contain;
-    transform: scale(1.15);
+    object-fit: cover;
+    transform: scale(1.0);
   }
 
   .ghost      { display: none; }

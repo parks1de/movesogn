@@ -184,12 +184,13 @@ export default function VideoScrubHero() {
       const clamped = (scrollY - containerTop) / scrollRange;
       target = clamped;
 
-      const fadeStart = 0.78;
+      const fadeStart = 0.88;
       sticky.style.opacity = clamped >= fadeStart
         ? String((1 - (clamped - fadeStart) / (1 - fadeStart)).toFixed(3))
         : "1";
 
-      setPhase(clamped < 0.34 ? 0 : clamped < 0.67 ? 1 : 2);
+      // Phase 2 ("Born to move") starts at 0.55 and holds until 0.88 before fade
+      setPhase(clamped < 0.28 ? 0 : clamped < 0.55 ? 1 : 2);
     };
 
     /* ── RESIZE: switch between mobile loop and desktop scrub ─────── */
