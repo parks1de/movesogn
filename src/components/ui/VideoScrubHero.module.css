@@ -25,9 +25,9 @@
   inset: 0;
   background: linear-gradient(
     105deg,
-    rgba(0,0,0,0.65) 0%,
-    rgba(0,0,0,0.3) 55%,
-    rgba(0,0,0,0.08) 100%
+    rgba(0,0,0,0.62) 0%,
+    rgba(0,0,0,0.28) 55%,
+    rgba(0,0,0,0.06) 100%
   );
   z-index: 1;
 }
@@ -36,8 +36,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(ellipse 55% 75% at 12% 68%, rgba(255,132,33,0.055) 0%, transparent 58%),
-    radial-gradient(ellipse 45% 55% at 85% 28%, rgba(4,95,208,0.065) 0%, transparent 52%);
+    radial-gradient(ellipse 55% 75% at 12% 68%, rgba(255,132,33,0.05) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 55% at 85% 28%, rgba(4,95,208,0.06) 0%, transparent 52%);
   pointer-events: none;
   z-index: 2;
 }
@@ -51,7 +51,7 @@
   font-weight: 800;
   font-size: clamp(200px, 28vw, 420px);
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255,132,33,0.10);
+  -webkit-text-stroke: 1px rgba(255,132,33,0.08);
   pointer-events: none;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -59,39 +59,65 @@
   user-select: none;
 }
 
-.content {
-  position: relative;
+/* Content wrapper — fills the sticky area, vertically centers text */
+.contentWrap {
+  position: absolute;
+  inset: 0;
   z-index: 3;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-height);
+}
+
+/* Phases container — fixed size so absolute children have a reference */
+.phasesContainer {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  min-height: 320px;
+}
+
+/* Individual phase — all stacked at same position, only one visible */
+.phase {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.phaseVisible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Heading — stacked words */
+.h1 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-top: var(--nav-height);
-  max-width: 660px;
-}
-
-.eyebrow {
-  display: inline-block;
-  font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-orange);
-  margin-bottom: 1.25rem;
-}
-
-.h1 {
   color: var(--color-white);
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 32px rgba(0,0,0,0.15);
+  font-size: clamp(3.25rem, 7.5vw, 6.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.18);
+  margin-bottom: 1.75rem;
+}
+
+.h1Word {
+  display: block;
 }
 
 .sub {
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.76);
   font-size: var(--text-body-lg);
   line-height: 1.65;
   max-width: 46ch;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.25rem;
 }
 
 /* Scroll hint line */
@@ -106,7 +132,7 @@
   display: block;
   width: 1px;
   height: 52px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 100%);
   animation: scrollLine 2s ease-in-out infinite;
 }
 @keyframes scrollLine {
@@ -116,8 +142,8 @@
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* Mobile: reduce container height so it doesn't dominate too much */
 @media (max-width: 768px) {
-  .container { height: 220vh; }
+  .container { height: 240vh; }
   .ghost { display: none; }
+  .phasesContainer { min-height: 280px; }
 }

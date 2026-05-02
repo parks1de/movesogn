@@ -68,11 +68,12 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    const threshold = pathname === '/' ? window.innerHeight * 2.8 : 48;
+    const onScroll = () => setScrolled(window.scrollY > threshold);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const onResize = () => { if (window.innerWidth >= 768) setOpen(false); };

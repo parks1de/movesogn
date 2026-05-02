@@ -18,9 +18,19 @@
     backdrop-filter 0.32s ease;
 }
 
-/* ── State: transparent over hero ──────────────────────── */
+/* ── State: transparent over hero — ghost until hovered ── */
 .transparent {
   background-color: transparent;
+  opacity: 0.18;
+  transition:
+    opacity 0.35s ease,
+    background-color 0.32s ease,
+    box-shadow 0.32s ease,
+    backdrop-filter 0.32s ease;
+}
+.transparent:hover,
+.transparent:focus-within {
+  opacity: 1;
 }
 
 /* ── State: scrolled — frosted glass ───────────────────── */

@@ -18,6 +18,30 @@ const marineProps = [
   { icon: 'compass' as const, title: 'Skapt for fjorden',  desc: 'Kvar modell er valt for Sognefjorden.' },
 ];
 
+const toyotaCards = [
+  {
+    href: 'https://www.toyotasogn.no',
+    label: 'Nye bilar',
+    title: 'Ferske modellar',
+    desc: 'Utforsk heile Toyota-sortimentet — hybrid, elektrisk og bensin. Prøvekøyr på Kaupanger.',
+    pos: 'center 25%',
+  },
+  {
+    href: 'https://www.toyotasogn.no/bruktbil',
+    label: 'Brukt',
+    title: 'Brukte bilar',
+    desc: 'Godkjende bruktbilar med historikk og tryggleik. Frå Toyota og fleire merke.',
+    pos: 'center 50%',
+  },
+  {
+    href: 'https://www.toyotasogn.no/verkstedtjenester/bestill-service',
+    label: 'Verkstad',
+    title: 'Bestill service',
+    desc: 'Autorisert for Toyota, Lexus og Mercedes — men me tek alle merke. Kaupanger, Sogn.',
+    pos: 'center 70%',
+  },
+];
+
 export default function HeimsidePage() {
   return (
     <>
@@ -27,44 +51,45 @@ export default function HeimsidePage() {
 
       <div className="page-break-accent" />
 
-      {/* ── TOYOTA SOGN — #1 PUSH ───────────────────────────── */}
-      {/* TODO: [SANITY] Fetch hero image, headline, subtext, CTA from CMS (type: toyotaBlock) */}
-      <section className={styles.toyotaSection}>
-        <div className={styles.toyotaBg}>
-          <Image
-            src="/images/toyota-sogn-hero.jpg"
-            alt="Toyota Sogn — ny og brukt Toyota på Kaupanger"
-            fill
-            sizes="100vw"
-            quality={85}
-            style={{ objectFit: 'cover', objectPosition: 'center 45%' }}
-          />
-          <div className={styles.toyotaOverlay} />
-        </div>
-        <div className={`container ${styles.toyotaContent}`}>
-          <FadeUp>
-            <span className={styles.toyotaEyebrow}>Bil</span>
+      {/* ── TOYOTA CARDS ────────────────────────────────────── */}
+      <section className="section bg-surface">
+        <div className="container">
+          <FadeUp className={styles.sectionIntro}>
+            <span className="label">Bil</span>
+            <h2>Toyota Sogn.</h2>
           </FadeUp>
-          <FadeUp delay={80}>
-            <h2 className={styles.toyotaH2}>Toyota Sogn.</h2>
-          </FadeUp>
-          <FadeUp delay={160}>
-            <p className={styles.toyotaSub}>
-              Verdskjend kvalitet og lokal kunnskap —<br />
-              nye og brukte Toyota på Kaupanger.
-            </p>
-          </FadeUp>
-          <FadeUp delay={240}>
-            <a
-              href="https://www.toyotasogn.no"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--primary"
-            >
-              Besøk Toyota Sogn
-              <Icon name="external-link" size={16} />
-            </a>
-          </FadeUp>
+          <div className={styles.toyotaCards}>
+            {toyotaCards.map((card, i) => (
+              <FadeUp key={card.href} delay={i * 80}>
+                <a
+                  href={card.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.toyotaCard}
+                >
+                  <div className={styles.toyotaCardImg}>
+                    <Image
+                      src="/images/toyota-sogn-hero.jpg"
+                      alt={card.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      quality={80}
+                      style={{ objectFit: 'cover', objectPosition: card.pos }}
+                    />
+                    <div className={styles.toyotaCardOverlay} />
+                  </div>
+                  <div className={styles.toyotaCardBody}>
+                    <span className="label">{card.label}</span>
+                    <h3 className={styles.toyotaCardTitle}>{card.title}</h3>
+                    <p className={styles.toyotaCardDesc}>{card.desc}</p>
+                    <span className={styles.toyotaCardCta}>
+                      Gå til nettstad <Icon name="external-link" size={13} />
+                    </span>
+                  </div>
+                </a>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </section>
 
