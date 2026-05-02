@@ -140,7 +140,7 @@ export default function VideoScrubHero() {
         if (video.duration && video.readyState >= 2) {
           // Map 0→FREEZE_AT of `current` to the full first-half of the clip
           // so rotation completes exactly when phase 2 kicks in
-          const progress = Math.min(current / 0.55, 1);
+          const progress = Math.min(current / 0.65, 1);
           video.currentTime = progress * video.duration * 0.5;
         }
         video.style.transform = `scale(${(1.0 + current * 0.9).toFixed(4)})`;
@@ -187,7 +187,7 @@ export default function VideoScrubHero() {
       const clamped = (scrollY - containerTop) / scrollRange;
 
       // Freeze video scrub once rotation is done — boat holds still for phase 2
-      const FREEZE_AT = 0.55;
+      const FREEZE_AT = 0.65;
       target = Math.min(clamped, FREEZE_AT);
 
       const fadeStart = 0.92;
@@ -195,7 +195,8 @@ export default function VideoScrubHero() {
         ? String((1 - (clamped - fadeStart) / (1 - fadeStart)).toFixed(3))
         : "1";
 
-      setPhase(clamped < 0.28 ? 0 : clamped < FREEZE_AT ? 1 : 2);
+      // Phase durations over 200vh: 0→44vh, 1→86vh, 2→54vh, fade→16vh
+      setPhase(clamped < 0.22 ? 0 : clamped < FREEZE_AT ? 1 : 2);
     };
 
     /* ── RESIZE: switch between mobile loop and desktop scrub ─────── */
