@@ -146,12 +146,21 @@ export default function VideoScrubHero() {
     };
 
     const onScroll = () => {
-      if (mob()) return;
       const scrollY      = window.scrollY;
       const rect         = container.getBoundingClientRect();
       const containerTop = scrollY + rect.top;
       const scrollRange  = container.offsetHeight - window.innerHeight;
 
+      /* ── Mobile: fade out as the extra 25dvh zone scrolls past ─── */
+      if (mob()) {
+        const p = scrollRange > 0
+          ? Math.max(0, Math.min(1, (scrollY - containerTop) / scrollRange))
+          : 0;
+        sticky.style.opacity = scrollY <= containerTop ? "1" : String((1 - p).toFixed(3));
+        return;
+      }
+
+      /* ── Desktop: full scroll-scrub ──────────────────────────── */
       if (scrollY <= containerTop) {
         sticky.style.position = "absolute";
         sticky.style.top      = "0";
@@ -193,8 +202,13 @@ export default function VideoScrubHero() {
     const onResize = () => {
       if (mob()) {
         if (tickRaf !== null) { cancelAnimationFrame(tickRaf); tickRaf = null; }
-        sticky.style.cssText = "";
+        // Clear only positioning — scroll handler manages opacity
+        sticky.style.position = "";
+        sticky.style.top      = "";
+        sticky.style.bottom   = "";
+        sticky.style.width    = "";
         if (video.paused && revRaf === null) video.play().catch(() => {});
+        onScroll();
       } else {
         if (revRaf !== null) { cancelAnimationFrame(revRaf); revRaf = null; }
         video.pause();

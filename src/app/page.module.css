@@ -549,8 +549,8 @@
 }
 
 @media (max-width: 768px) {
-  /* Hero is single-screen on mobile — no pull-up needed */
-  .toyotaSection { margin-top: 0; }
+  /* Pull Toyota up into the hero's 25dvh fade zone so they cross-fade */
+  .toyotaSection { margin-top: -25vh; }
 
   .toyotaCards   { grid-template-columns: 1fr; }
   .mobilitetGrid { grid-template-columns: 1fr; }
