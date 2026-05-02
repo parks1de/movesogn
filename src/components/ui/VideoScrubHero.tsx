@@ -22,11 +22,14 @@ const phases = [
   },
 ];
 
+const MOB_PHASE_COUNT = phases.length;
+
 export default function VideoScrubHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stickyRef    = useRef<HTMLDivElement>(null);
-  const videoRef     = useRef<HTMLVideoElement>(null);
-  const [phase, setPhase] = useState(0);
+  const containerRef  = useRef<HTMLDivElement>(null);
+  const stickyRef     = useRef<HTMLDivElement>(null);
+  const videoRef      = useRef<HTMLVideoElement>(null);
+  const [phase, setPhase]             = useState(0);
+  const [mobileSlide, setMobileSlide] = useState(0);
 
   useEffect(() => {
     const video     = videoRef.current;
@@ -36,26 +39,95 @@ export default function VideoScrubHero() {
 
     const mob = () => window.innerWidth < 768;
 
-    /* ── VIDEO INIT ───────────────────────────────────────────────
-       Desktop: pause immediately so manual scrubbing takes over.
-       Mobile: autoPlay + loop attributes handle playback.
+    /* ── VIDEO INIT ──────────────────────────────────────────────────
+       Desktop: pause immediately so scroll-scrub takes over.
+       Mobile:  autoPlay handles initial start; reverse loop manages
+                subsequent cycles — no `loop` attribute needed.
     ─────────────────────────────────────────────────────────────── */
     const pauseForScrub = () => {
       video.pause();
       video.currentTime = 0;
       video.style.transform = "scale(1.0)";
     };
-
     if (!mob()) {
       if (video.readyState >= 1) pauseForScrub();
       else video.addEventListener("loadedmetadata", pauseForScrub, { once: true });
     }
 
-    /* ── DESKTOP: lerp scroll-scrub ───────────────────────────────
-       `target`  = scroll progress 0–1, updated every scroll event.
-       `current` = lerped progress, drives video.currentTime + scale.
-       Lerping here means each RAF frame moves 15% closer to target,
-       which smooths out the discrete seek jumps and scroll jitter.
+    /* ── MOBILE: forward → reverse → forward loop ───────────────────
+       When the clip ends, play it backward at real-time speed using
+       delta-time RAF. When it reaches 0, call play() again.
+    ─────────────────────────────────────────────────────────────── */
+    let revRaf: number | null = null;
+
+    const startReverse = () => {
+      video.pause();
+      if (revRaf !== null) cancelAnimationFrame(revRaf);
+      let prev = performance.now();
+      const rev = (now: number) => {
+        const dt = (now - prev) / 1000;
+        prev = now;
+        video.currentTime = Math.max(0, video.currentTime - dt);
+        if (video.currentTime <= 0.02) {
+          revRaf = null;
+          video.play().catch(() => {});
+        } else {
+          revRaf = requestAnimationFrame(rev);
+        }
+      };
+      revRaf = requestAnimationFrame(rev);
+    };
+
+    const onVideoEnded = () => { if (mob()) startReverse(); };
+    video.addEventListener("ended", onVideoEnded);
+
+    /* ── MOBILE: swipe to advance text phase ────────────────────────
+       Video plays its loop independently; swipe only changes the
+       text overlay. Last slide → left-swipe scrolls to next section.
+    ─────────────────────────────────────────────────────────────── */
+    let mobPhase = 0;
+    let tx0 = 0, ty0 = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (!mob()) return;
+      tx0 = e.touches[0].clientX;
+      ty0 = e.touches[0].clientY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!mob()) return;
+      const dx = e.touches[0].clientX - tx0;
+      const dy = e.touches[0].clientY - ty0;
+      if (Math.abs(dx) > Math.abs(dy) * 1.2 && Math.abs(dx) > 10) e.preventDefault();
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!mob()) return;
+      const dx = e.changedTouches[0].clientX - tx0;
+      const dy = e.changedTouches[0].clientY - ty0;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) {
+        if (mobPhase >= MOB_PHASE_COUNT - 1) {
+          window.scrollTo({ top: container.offsetTop + container.offsetHeight, behavior: "smooth" });
+        } else {
+          mobPhase++;
+          setPhase(mobPhase);
+          setMobileSlide(mobPhase);
+        }
+      } else if (mobPhase > 0) {
+        mobPhase--;
+        setPhase(mobPhase);
+        setMobileSlide(mobPhase);
+      }
+    };
+
+    sticky.addEventListener("touchstart", onTouchStart, { passive: true  });
+    sticky.addEventListener("touchmove",  onTouchMove,  { passive: false });
+    sticky.addEventListener("touchend",   onTouchEnd,   { passive: true  });
+
+    /* ── DESKTOP: lerp scroll-scrub ─────────────────────────────────
+       `target`  = raw scroll progress 0–1, updated on every scroll.
+       `current` = lerped toward target at 15% per frame — eliminates
+                   seek jitter caused by discrete scroll-event timing.
+       Opacity and phase use `target` directly for instant text response.
     ─────────────────────────────────────────────────────────────── */
     let target  = 0;
     let current = 0;
@@ -109,7 +181,6 @@ export default function VideoScrubHero() {
       const clamped = (scrollY - containerTop) / scrollRange;
       target = clamped;
 
-      // Opacity and phase: use clamped directly (immediate feels right for text)
       const fadeStart = 0.78;
       sticky.style.opacity = clamped >= fadeStart
         ? String((1 - (clamped - fadeStart) / (1 - fadeStart)).toFixed(3))
@@ -118,13 +189,14 @@ export default function VideoScrubHero() {
       setPhase(clamped < 0.34 ? 0 : clamped < 0.67 ? 1 : 2);
     };
 
-    /* ── RESIZE: switch between mobile (loop) and desktop (scrub) ─ */
+    /* ── RESIZE: switch between mobile loop and desktop scrub ─────── */
     const onResize = () => {
       if (mob()) {
         if (tickRaf !== null) { cancelAnimationFrame(tickRaf); tickRaf = null; }
         sticky.style.cssText = "";
-        video.play().catch(() => {});
+        if (video.paused && revRaf === null) video.play().catch(() => {});
       } else {
+        if (revRaf !== null) { cancelAnimationFrame(revRaf); revRaf = null; }
         video.pause();
         if (tickRaf === null) tickRaf = requestAnimationFrame(tick);
         onScroll();
@@ -137,21 +209,25 @@ export default function VideoScrubHero() {
 
     return () => {
       if (tickRaf !== null) cancelAnimationFrame(tickRaf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      if (revRaf  !== null) cancelAnimationFrame(revRaf);
+      video.removeEventListener("ended",      onVideoEnded);
+      window.removeEventListener("scroll",    onScroll);
+      window.removeEventListener("resize",    onResize);
+      sticky.removeEventListener("touchstart", onTouchStart);
+      sticky.removeEventListener("touchmove",  onTouchMove);
+      sticky.removeEventListener("touchend",   onTouchEnd);
     };
   }, []);
 
   return (
     <div ref={containerRef} className={styles.container}>
       <div ref={stickyRef} className={styles.sticky}>
-        {/* autoPlay + loop: plays freely on mobile; paused by JS on desktop */}
+        {/* No `loop` — mobile forward/reverse cycle managed in JS */}
         <video
           ref={videoRef}
           src="/videos/summer-fun.mp4"
           preload="auto"
           autoPlay
-          loop
           muted
           playsInline
           className={styles.video}
@@ -184,7 +260,20 @@ export default function VideoScrubHero() {
           </div>
         </div>
 
+        {/* Desktop: vertical scroll line */}
         <div className={styles.scrollHint} aria-hidden="true"><span /></div>
+
+        {/* Mobile: swipe dots + label */}
+        <div className={styles.swipeHint} aria-label="Sveip til sida for å utforska">
+          <div className={styles.swipeDots}>
+            {phases.map((_, i) => (
+              <span key={i} className={`${styles.dot} ${mobileSlide === i ? styles.dotActive : ""}`} />
+            ))}
+          </div>
+          <span className={styles.swipeLabel}>
+            {mobileSlide < MOB_PHASE_COUNT - 1 ? "← sveip →" : "scroll ned ↓"}
+          </span>
+        </div>
       </div>
     </div>
   );
