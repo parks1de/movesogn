@@ -91,6 +91,36 @@ export default function HeimsidePage() {
       </section>
 
 
+      {/* ── SYKKEL TEASER ───────────────────────────────────── */}
+      {/* TODO: [SANITY] Fetch headline, body, image from CMS (type: sykkelSectionBlock) */}
+      <section className={`section bg-dark ${styles.sykkelSection}`}>
+        <div className={`container ${styles.sykkelInner}`}>
+          <FadeUp className={styles.sykkelText}>
+            <span className="label">Sykkel</span>
+            <h2 className="text-white">Framtida køyrer elektrisk.</h2>
+            <p className={styles.sykkelSub}>
+              Merida el-syklar og NIU el-moped — null utslepp, låge kostnader, fri rørsle i Sogn.
+            </p>
+            <Link href="/sykkel/merida" className="btn btn--primary" style={{ marginTop: '2rem' }}>
+              Sjå el-syklar
+              <Icon name="arrow-right" size={16} />
+            </Link>
+          </FadeUp>
+          <FadeUp delay={140} className={styles.sykkelImgWrap}>
+            <Image
+              src="/images/sykkel-hero.png"
+              alt="Merida el-sykkel — MOVE Sogn"
+              width={500}
+              height={380}
+              quality={80}
+              sizes="(max-width: 768px) 0px, 500px"
+              style={{ objectFit: 'cover', borderRadius: 3, width: '100%', height: 380 }}
+            />
+          </FadeUp>
+        </div>
+      </section>
+
+
       {/* ── MARINE TEASER ───────────────────────────────────── */}
       {/* TODO: [SANITY] Fetch image, headline, body text, props list from CMS (type: marineSectionBlock) */}
       <section className={`section bg-mist ${styles.marineSection}`}>
@@ -125,36 +155,6 @@ export default function HeimsidePage() {
               Sjå båtar
               <Icon name="arrow-right" size={16} />
             </Link>
-          </FadeUp>
-        </div>
-      </section>
-
-
-      {/* ── SYKKEL TEASER ───────────────────────────────────── */}
-      {/* TODO: [SANITY] Fetch headline, body, image from CMS (type: sykkelSectionBlock) */}
-      <section className={`section bg-dark ${styles.sykkelSection}`}>
-        <div className={`container ${styles.sykkelInner}`}>
-          <FadeUp className={styles.sykkelText}>
-            <span className="label">Sykkel</span>
-            <h2 className="text-white">Framtida køyrer elektrisk.</h2>
-            <p className={styles.sykkelSub}>
-              Merida el-syklar og NIU el-moped — null utslepp, låge kostnader, fri rørsle i Sogn.
-            </p>
-            <Link href="/sykkel" className="btn btn--primary" style={{ marginTop: '2rem' }}>
-              Sjå el-syklar
-              <Icon name="arrow-right" size={16} />
-            </Link>
-          </FadeUp>
-          <FadeUp delay={140} className={styles.sykkelImgWrap}>
-            <Image
-              src="/images/sykkel-hero.png"
-              alt="Merida el-sykkel — MOVE Sogn"
-              width={500}
-              height={380}
-              quality={80}
-              sizes="(max-width: 768px) 0px, 500px"
-              style={{ objectFit: 'cover', borderRadius: 3, width: '100%', height: 380 }}
-            />
           </FadeUp>
         </div>
       </section>

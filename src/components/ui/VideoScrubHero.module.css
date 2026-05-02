@@ -60,7 +60,7 @@
   font-weight: 800;
   font-size: clamp(200px, 28vw, 420px);
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255,132,33,0.22);
+  -webkit-text-stroke: 2px rgba(255,132,33,0.15);
   pointer-events: none;
   letter-spacing: -0.04em;
   line-height: 1;
