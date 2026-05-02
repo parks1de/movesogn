@@ -1,6 +1,6 @@
 /* ── Scroll-scrub video hero ──────────────────────────── */
 .container {
-  height: 380vh;
+  height: 300vh;
   position: relative;
   background-color: var(--color-surface);
 }
