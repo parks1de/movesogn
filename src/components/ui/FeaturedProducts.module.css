@@ -1,0 +1,111 @@
+/* ── FeaturedProducts — horizontal scroll carousel ─────── */
+.section {
+  background: var(--color-bg);
+  padding-bottom: 0;
+}
+
+.heading {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+/* Full-bleed scrollable track — bleeds to viewport edge */
+.trackWrap {
+  margin-top: 2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: var(--space-lg);
+}
+.trackWrap::-webkit-scrollbar { display: none; }
+
+.track {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  /* align with container but let cards bleed right */
+  padding-inline: max(1.5rem, calc((100vw - 1200px) / 2 + 1.5rem));
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  padding-block: 0.25rem;
+  scroll-snap-type: x mandatory;
+}
+
+.item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+/* ── Card ───────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-card-rest);
+  text-decoration: none;
+  transition:
+    box-shadow var(--transition-hover),
+    transform var(--transition-hover);
+}
+
+.card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,132,33,0.18);
+  transform: translateY(-3px);
+}
+
+/* ── Card image ─────────────────────────────────────────── */
+.cardImg {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--bg-surface, #f5f5f3);
+}
+
+.card:hover .cardImg img { transform: scale(1.04); }
+.cardImg img { transition: transform 0.5s ease; }
+
+.imgFallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f0f0ed 0%, #e4e4e0 100%);
+}
+
+/* ── Card body ──────────────────────────────────────────── */
+.cardBody {
+  padding: 1.125rem 1.375rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cardLabel {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-body);
+  line-height: 1.3;
+  margin: 0.125rem 0 0;
+}
+
+.cardPrice {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  margin-top: auto;
+  padding-top: 0.75rem;
+}

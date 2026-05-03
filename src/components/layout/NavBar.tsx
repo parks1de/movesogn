@@ -10,7 +10,6 @@ type SubItem = { href: string; label: string; external?: boolean };
 type NavItem = { href: string; label: string; dropdown?: SubItem[] };
 
 const navItems: NavItem[] = [
-  { href: '/', label: 'Heim' },
   {
     href: '/bil',
     label: 'Bil',
@@ -34,18 +33,19 @@ const navItems: NavItem[] = [
     href: '/elmoped',
     label: 'El-mobilitet',
     dropdown: [
-      { href: '/sykkel', label: 'El-syklar' },
-      { href: '/elmoped',       label: 'El-moped' },
-      { href: '/sparkesykkel',  label: 'Sparkesykkel' },
+      { href: '/sykkel',       label: 'El-syklar' },
+      { href: '/elmoped',      label: 'El-moped' },
+      { href: '/sparkesykkel', label: 'Sparkesykkel' },
     ],
   },
   {
     href: '/om-oss',
     label: 'MOVE',
     dropdown: [
-      { href: '/om-oss',        label: 'Om oss' },
-      { href: '/visjon',        label: 'Visjon' },
-      { href: '/apenhetsloven', label: 'Åpenhetsloven' },
+      { href: '/om-oss',          label: 'Om oss' },
+      { href: '/visjon',          label: 'Visjon' },
+      { href: '/casa-banderas',   label: 'Casa Banderas' },
+      { href: '/apenhetsloven',   label: 'Åpenhetsloven' },
     ],
   },
 ];

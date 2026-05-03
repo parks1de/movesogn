@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from '@/components/ui/FadeUp';
+import FeaturedProducts from '@/components/ui/FeaturedProducts';
 import Icon from '@/components/ui/Icon';
 import StatCounter from '@/components/ui/StatCounter';
 import VideoScrubHero from '@/components/ui/VideoScrubHero';
@@ -117,6 +118,9 @@ export default function HeimsidePage() {
         </div>
       </section>
 
+
+      {/* ── FEATURED PRODUCTS ───────────────────────────────── */}
+      <FeaturedProducts />
 
       {/* ── SYKKEL TEASER ───────────────────────────────────── */}
       {/* TODO: [SANITY] Fetch headline, body, image from CMS (type: sykkelSectionBlock) */}

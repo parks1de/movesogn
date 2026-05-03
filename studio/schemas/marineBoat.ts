@@ -22,6 +22,11 @@ export default defineType({
       ]},
     }),
     defineField({ name: 'order',     title: 'Rekkefølgje (lågast = øvst)', type: 'number', group: 'info', initialValue: 10 }),
+    defineField({
+      name: 'featuredOnHomepage', title: 'Vis på framside',
+      type: 'boolean', group: 'info', initialValue: false,
+      description: 'Slå på for å vise båten i "Utvalde produkt" på framsida.',
+    }),
     defineField({ name: 'tagline',   title: 'Slagord',                  type: 'string', group: 'info' }),
     defineField({ name: 'body',      title: 'Beskriving',               type: 'text',   group: 'info', rows: 6 }),
     defineField({ name: 'priceFrom', title: 'Pris frå (kr)',            type: 'string', group: 'info', description: 'T.d. "239 000"' }),

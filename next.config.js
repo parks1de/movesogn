@@ -2,22 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'plus.unsplash.com' },
       { protocol: 'https', hostname: 'picsum.photos' },
       { protocol: 'https', hostname: 'www.toyota.no' },
-    ],
-    formats: ['image/webp', 'image/avif'],
-  },
-  images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'plus.unsplash.com' },
-      { protocol: 'https', hostname: 'picsum.photos' },
-      { protocol: 'https', hostname: 'www.toyota.no' },
+      { protocol: 'https', hostname: 'cdn.sanity.io' },
     ],
     formats: ['image/webp', 'image/avif'],
   },

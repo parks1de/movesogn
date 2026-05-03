@@ -18,6 +18,11 @@ export default defineType({
     defineField({ name: 'description', title: 'Kort beskriving',        type: 'text',   group: 'info', rows: 4 }),
     defineField({ name: 'order',     title: 'Rekkefølgje (lågast = øvst)', type: 'number', group: 'info', initialValue: 10 }),
     defineField({
+      name: 'featuredOnHomepage', title: 'Vis på framside',
+      type: 'boolean', group: 'info', initialValue: false,
+      description: 'Slå på for å vise motoren i "Utvalde produkt" på framsida.',
+    }),
+    defineField({
       name: 'image', title: 'Produktbilete', type: 'image', group: 'media',
       options: { hotspot: true },
       description: 'Bilete av motoren — helst på kvit/transparent bakgrunn.',
