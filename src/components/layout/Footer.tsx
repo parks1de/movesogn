@@ -8,7 +8,7 @@ const footerLinks = {
     { label: 'Bil',       href: '/bil' },
     { label: 'Marine',    href: '/marine' },
     { label: 'Sykkel',    href: '/sykkel' },
-    { label: 'Eigedom',   href: '/eigedom' },
+    { label: 'Casa Banderas', href: '/casa-banderas' },
   ],
   partnarar: [
     { label: 'Toyota Sogn',        href: 'https://www.toyotasogn.no',       external: true  },

@@ -193,7 +193,7 @@ export default function HeimsidePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/eigedom/casa-banderas" className="btn btn--primary">
+            <Link href="/casa-banderas" className="btn btn--primary">
               Sjå Casa Banderas
               <Icon name="arrow-right" size={16} />
             </Link>
