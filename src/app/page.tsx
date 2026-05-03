@@ -29,8 +29,8 @@ const bilCards = [
     label: 'Mercedes · Kia · Peugeot',
     title: 'Bilhuset Førde AS',
     desc: 'Nye og brukte bilar i Førde. Autorisert forhandlar for Mercedes, Kia og Peugeot.',
-    img: '/images/toyota-sogn-hero.jpg',
-    pos: 'center 58%',
+    img: '/images/bilhuset-forde-hero.jpg',
+    pos: 'center 50%',
     cta: 'Besøk Bilhuset Førde',
   },
   {
