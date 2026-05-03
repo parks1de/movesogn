@@ -5,5 +5,5 @@ export default defineCliConfig({
     projectId: 'o76s1gxs',
     dataset: 'production',
   },
-  studioHost: 'movesogn-studio',
+  studioHost: 'movesogn',
 });
