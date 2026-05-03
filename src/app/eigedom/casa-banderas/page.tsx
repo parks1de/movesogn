@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import FadeUp from '@/components/ui/FadeUp';
 import Icon from '@/components/ui/Icon';
 import ContactForm from '@/components/ui/ContactForm';
@@ -51,11 +50,6 @@ export default function CasaBanderasPage() {
           style={{ objectFit: 'cover', objectPosition: 'center 55%' }}
         />
         <div className={styles.heroOverlay} />
-
-        {/* Back breadcrumb */}
-        <Link href="/eigedom" className={styles.heroBreadcrumb}>
-          ← Eigedom
-        </Link>
 
         {/* Centred title block */}
         <div className={styles.heroContent}>

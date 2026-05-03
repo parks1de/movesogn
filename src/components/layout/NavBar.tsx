@@ -40,14 +40,6 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    href: '/eigedom',
-    label: 'Eigedom',
-    dropdown: [
-      { href: '/eigedom/naringseigendom', label: 'Konserneigedommar' },
-      { href: '/eigedom/casa-banderas',   label: 'Casa Banderas' },
-    ],
-  },
-  {
     href: '/om-oss',
     label: 'MOVE',
     dropdown: [
@@ -65,7 +57,7 @@ export default function NavBar() {
   const headerRef               = useRef<HTMLElement>(null);
 
   const isHeroPage = pathname === '/'
-    || ['/marine', '/sykkel', '/elmoped', '/sparkesykkel', '/eigedom', '/om-oss', '/visjon', '/apenhetsloven']
+    || ['/marine', '/sykkel', '/elmoped', '/sparkesykkel', '/om-oss', '/visjon', '/apenhetsloven']
        .some(p => pathname === p || pathname.startsWith(p + '/'));
 
   const transparent = isHeroPage && !scrolled;
