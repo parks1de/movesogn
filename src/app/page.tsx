@@ -178,11 +178,11 @@ export default function HeimsidePage() {
                 'Førde sentrum',
                 'Førde lufthamn Bringeland',
               ].map((name, i, arr) => (
-                <div
-                  key={name}
-                  className={`${styles.hertzLocChip}${i === arr.length - 1 ? ` ${styles.hertzLocChipLast}` : ''}`}
-                >
-                  <span className={styles.hertzLocPin} aria-hidden="true" />
+                <div key={name} className={styles.hertzLocStop}>
+                  <div className={styles.hertzLocTrack} aria-hidden="true">
+                    <span className={styles.hertzLocDot} />
+                    {i < arr.length - 1 && <span className={styles.hertzLocLine} />}
+                  </div>
                   <span className={styles.hertzLocName}>{name}</span>
                 </div>
               ))}
