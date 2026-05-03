@@ -189,8 +189,6 @@ def load_boats() -> list[dict]:
                 'motorDesc':          motor_desc or None,
                 'standardEquipment':  std_equip or None,
                 'specsTable':         specs_json,
-                'image':              image_url or None,
-                'gallery':            gallery or None,
             }
             # strip None values
             doc = {k: v for k, v in doc.items() if v is not None}
@@ -227,9 +225,6 @@ def load_bikes() -> list[dict]:
             body       = strip_html(row.get('Long Description', ''))
             tech       = strip_html(row.get('Teknisk data', ''))
 
-            image_url  = wix_to_url(row.get('Image', ''))
-            gallery    = []  # EL-SYKKEL has no gallery column in this CSV
-
             doc = {
                 '_id':   doc_id,
                 '_type': 'sykkelProduct',
@@ -242,7 +237,6 @@ def load_bikes() -> list[dict]:
                 'shortDesc':  short_desc or None,
                 'body':       body or None,
                 'techSpecs':  tech or None,
-                'image':      image_url or None,
             }
             doc = {k: v for k, v in doc.items() if v is not None}
             docs.append(doc)
@@ -282,9 +276,6 @@ def load_scooters() -> list[dict]:
                     specs_lines.append(f'{label}: {val}')
             tech = '\n'.join(specs_lines) if specs_lines else strip_html(row.get('Teknisk', ''))
 
-            image_url = wix_to_url(row.get('Image', ''))
-            gallery   = parse_wix_gallery(row.get('Galleri', ''))
-
             doc = {
                 '_id':   doc_id,
                 '_type': 'sykkelProduct',
@@ -297,8 +288,6 @@ def load_scooters() -> list[dict]:
                 'shortDesc':  short_desc or None,
                 'body':       body or None,
                 'techSpecs':  tech or None,
-                'image':      image_url or None,
-                'gallery':    gallery or None,
             }
             doc = {k: v for k, v in doc.items() if v is not None}
             docs.append(doc)

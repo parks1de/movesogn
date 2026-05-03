@@ -27,9 +27,12 @@ export default defineType({
       type: 'boolean', group: 'info', initialValue: false,
       description: 'Slå på for å vise produktet i "Utvalde produkt" på framsida.',
     }),
-    defineField({ name: 'tagline',  title: 'Slagord',                  type: 'string', group: 'info',  description: 'Éi setning på produktdetaljsida' }),
-    defineField({ name: 'body',     title: 'Produkttekst',             type: 'text',   group: 'info',  rows: 6, description: 'Bruk tom linje for nytt avsnitt' }),
-    defineField({ name: 'priceFrom', title: 'Pris frå',               type: 'string', group: 'info',  description: 'T.d. "24 990" eller "Kontakt oss"' }),
+    defineField({ name: 'tagline',   title: 'Slagord',                  type: 'string', group: 'info',  description: 'Éi setning på produktdetaljsida' }),
+    defineField({ name: 'shortDesc', title: 'Kort skildring',           type: 'text',   group: 'info',  rows: 3 }),
+    defineField({ name: 'body',      title: 'Produkttekst',             type: 'text',   group: 'info',  rows: 6, description: 'Bruk tom linje for nytt avsnitt' }),
+    defineField({ name: 'priceFrom', title: 'Pris frå',                type: 'string', group: 'info',  description: 'T.d. "24 990" eller "Kontakt oss"' }),
+    defineField({ name: 'priceNote', title: 'Prisnote',                 type: 'string', group: 'info',  description: 'T.d. "inkl. batteri"' }),
+    defineField({ name: 'techSpecs', title: 'Tekniske spesifikasjonar', type: 'text',   group: 'specs', rows: 8, description: 'Fritekst frå import — flytt til strukturerte felt etter kvart' }),
 
     // Specs — shown per category
     defineField({

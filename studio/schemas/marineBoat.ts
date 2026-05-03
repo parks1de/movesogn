@@ -28,9 +28,15 @@ export default defineType({
       description: 'Slå på for å vise båten i "Utvalde produkt" på framsida.',
     }),
     defineField({ name: 'tagline',   title: 'Slagord',                  type: 'string', group: 'info' }),
+    defineField({ name: 'shortDesc', title: 'Kort skildring',           type: 'text',   group: 'info', rows: 3 }),
     defineField({ name: 'body',      title: 'Beskriving',               type: 'text',   group: 'info', rows: 6 }),
     defineField({ name: 'priceFrom', title: 'Pris frå (kr)',            type: 'string', group: 'info', description: 'T.d. "239 000"' }),
     defineField({ name: 'priceFull', title: 'Full pris / berre båt',   type: 'string', group: 'info', description: 'Alternativ pris, t.d. utan motor' }),
+    defineField({ name: 'priceNote', title: 'Prisnote',                 type: 'string', group: 'info', description: 'T.d. "inkl. motor"' }),
+    defineField({ name: 'motorOptions',      title: 'Motoralternativ',        type: 'string', group: 'info' }),
+    defineField({ name: 'motorDesc',         title: 'Motorskildring',         type: 'text',   group: 'info', rows: 5 }),
+    defineField({ name: 'standardEquipment', title: 'Standardutstyr',         type: 'text',   group: 'info', rows: 5 }),
+    defineField({ name: 'specsTable',        title: 'Spesifikasjonar (rå)',   type: 'text',   group: 'specs', description: 'JSON-dump frå import — les berre' }),
 
     defineField({
       name: 'batSpecs', title: 'Spesifikasjonar', type: 'object', group: 'specs',
