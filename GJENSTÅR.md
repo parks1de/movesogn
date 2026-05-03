@@ -15,13 +15,12 @@ _Sist oppdatert: 2026-05-03_
 | 5 | **Logo PNG — kvit** | Footer (mørk bakgrunn) |
 | 6 | **Favicon** | `/public/favicon.ico` + `/public/apple-touch-icon.png` |
 | 7 | **OG-bilete** | `/public/og-default.jpg`, 1200×630 px, sosiale medium |
-| 8 | **Summerfun-bilete** | 3–5 bilete per modell |
-| 9 | **Silver Boats-bilete** | Per modell |
-| 10 | **El-sykkel/-moped-bilete** | Per modell (Merida + NIU) |
-| 11 | **Næringseigendom-bilete** | PV5, Køff, ANI Anlegg m.fl. |
-| 12 | **Org.nr** | Stadfest korrekt nummer til footer |
-| 13 | **Google Maps-lenke** | Riktig Kaupanger-koordinatar til footer-kart |
-| 14 | **Sosiale medium** | Facebook + Instagram URL stadfesta |
+| 8 | **Båt-bilete** | Per modell — Summerfun, Silver Beaver BR, Silver Hawk BR, Silver Shark BRX |
+| 9 | **El-sykkel/-moped-bilete** | Per modell (Merida + NIU) |
+| 10 | **Næringseigendom-bilete** | PV5, Køff, ANI Anlegg m.fl. |
+| 11 | **Org.nr** | Stadfest korrekt nummer til footer |
+| 12 | **Google Maps-lenke** | Riktig Kaupanger-koordinatar til footer-kart |
+| 13 | **Sosiale medium** | Facebook + Instagram URL stadfesta |
 
 ---
 
@@ -47,15 +46,25 @@ _Sist oppdatert: 2026-05-03_
 
 ## 4. Sanity-innhald (Studio)
 
-| # | Kva | Type |
-|---|-----|------|
-| 1 | **Redeploy Studio** — ny auth krevst (`npx sanity@latest mcp configure`) | Dev |
-| 2 | Legg inn båtmodellar — Summerfun, Silver Beaver BR, Silver Hawk BR | `marineBoat` |
-| 3 | Legg inn Suzuki-motorar | `suzukiEngine` |
-| 4 | Legg inn sykkelprodukt — Merida + NIU-modellar | `sykkelProduct` |
-| 5 | Slå på **"Vis på framside"** for ønskte produkt (ny felt, klar) | `featuredOnHomepage` |
-| 6 | Fyll inn `siteSettings` — telefon, epost, adresse, opningstider | `siteSettings` |
-| 7 | Tidslinje-innhald for Om oss | `timelineEntry` |
+| # | Kva | Status | Type |
+|---|-----|--------|------|
+| 1 | Studio redeployert til `movesogn.sanity.studio` | ✅ Ferdig | Dev |
+| 2 | Båtmodellar importert frå CSV — tekst/pris/spesifikasjonar inne | ✅ Ferdig (5 dokument — 2 publisert, 3 kladd) | `marineBoat` |
+| 3 | Sykkelprodukt importert frå CSV — tekst/pris/spesifikasjonar inne | ✅ Ferdig (4 dokument — 3 publisert, 1 kladd) | `sykkelProduct` |
+| 4 | Last opp bilete for båtar og syklar i Studio | ⏳ Avventer bilete frå klient | `image` |
+| 5 | Legg inn **Suzuki-motorar** | ⏳ Gjenstår | `suzukiEngine` |
+| 6 | Slå på **"Vis på framside"** for ønskte produkt | ⏳ Gjenstår | `featuredOnHomepage` |
+| 7 | Fyll inn `siteSettings` — telefon, epost, adresse, opningstider | ⏳ Gjenstår | `siteSettings` |
+| 8 | Tidslinje-innhald for Om oss | ⏳ Gjenstår | `timelineEntry` |
+
+### Båtar i datasettet
+| ID | Modell | Status |
+|----|--------|--------|
+| `marineBoat-hasle-summer-fun` | Hasle Summer Fun | Publisert |
+| `marineBoat-linder-440-fishing` | Linder 440 Fishing | Publisert |
+| `drafts.marineBoat-silver-beaver-br` | Silver Beaver BR | Kladd |
+| `drafts.marineBoat-silver-hawk-br` | Silver Hawk BR | Kladd |
+| `drafts.marineBoat-silver-shark-brx` | Silver Shark BRX | Kladd |
 
 ---
 
