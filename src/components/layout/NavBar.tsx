@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
     label: 'Bil',
     dropdown: [
       { href: 'https://www.toyotasogn.no',       label: 'Toyota Sogn',        external: true },
-      { href: 'https://www.bilhusetforde.no',     label: 'Bihuset Førde',      external: true },
+      { href: 'https://www.bilhusetforde.no',     label: 'Bilhuset Førde',     external: true },
       { href: 'https://www.skadesenteretsogn.no', label: 'Skadesenteret Sogn', external: true },
       { href: '/hertz',                            label: 'Hertz Bilutleige' },
     ],

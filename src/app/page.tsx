@@ -12,27 +12,36 @@ export const metadata: Metadata = {
   description: 'Me flyttar deg — gjennom livet. Toyota, Summerfun-båtar, el-syklar og eigedom i Sogn. 40 år med lokal mobilitet.',
 };
 
-const toyotaCards = [
+const bilCards = [
   {
     href: 'https://www.toyotasogn.no',
-    label: 'Nye bilar',
-    title: 'Ferske modellar',
-    desc: 'Utforsk heile Toyota-sortimentet — hybrid, elektrisk og bensin. Prøvekøyr på Kaupanger.',
-    pos: 'center 25%',
+    external: true,
+    label: 'Toyota · Lexus',
+    title: 'Toyota Sogn AS',
+    desc: 'Din autorisert forhandlar for Toyota og Lexus i Sogn. Opplev verdskjend kvalitet og lokal service i Sogn, hjarta av Norge. Vi hjelper deg med bilkjøp og service.',
+    img: '/images/toyota-sogn-hero.jpg',
+    pos: 'center 30%',
+    cta: 'Besøk Toyota Sogn',
   },
   {
-    href: 'https://www.toyotasogn.no/bruktbil',
-    label: 'Brukt',
-    title: 'Brukte bilar',
-    desc: 'Godkjende bruktbilar med historikk og tryggleik. Frå Toyota og fleire merke.',
+    href: 'https://www.bilhusetforde.no',
+    external: true,
+    label: 'Mercedes · Kia · Peugeot',
+    title: 'Bilhuset Førde AS',
+    desc: 'Nye og brukte bilar i Førde. Autorisert forhandlar for Mercedes, Kia og Peugeot.',
+    img: '/images/toyota-sogn-hero.jpg',
+    pos: 'center 58%',
+    cta: 'Besøk Bilhuset Førde',
+  },
+  {
+    href: '/hertz',
+    external: false,
+    label: 'Bilutleige',
+    title: 'Hertz ANI Bilutleige',
+    desc: 'Våre avdelingar i Sogn og Sunnfjord dekker dei fleste behov, og din leigebil er kun nokre få tastetrykk unna. Hent og lever din bil i våre digitale nøkkelboksar 24/7.',
+    img: '/images/hero-kaupanger.jpg',
     pos: 'center 50%',
-  },
-  {
-    href: 'https://www.toyotasogn.no/verkstedtjenester/bestill-service',
-    label: 'Verkstad',
-    title: 'Bestill service',
-    desc: 'Autorisert for Toyota, Lexus og Mercedes — men me tek alle merke. Kaupanger, Sogn.',
-    pos: 'center 70%',
+    cta: 'Sjå avdelingar',
   },
 ];
 
@@ -42,42 +51,66 @@ export default function HeimsidePage() {
       {/* ── HERO — scroll-scrub video ────────────────────── */}
       <VideoScrubHero />
 
-      {/* ── TOYOTA CARDS — pulled up 100vh so it sits behind the fading hero ── */}
+      {/* ── BIL CARDS — pulled up 100vh so it sits behind the fading hero ── */}
       <section className={`section bg-surface ${styles.toyotaSection}`}>
         <div className="container">
           <FadeUp className={styles.sectionIntro}>
             <span className="label">Bil</span>
-            <h2>Toyota Sogn.</h2>
+            <h2>Bil i Sogn.</h2>
           </FadeUp>
           <div className={styles.toyotaCards}>
-            {toyotaCards.map((card, i) => (
+            {bilCards.map((card, i) => (
               <FadeUp key={card.href} delay={i * 80}>
-                <a
-                  href={card.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.toyotaCard}
-                >
-                  <div className={styles.toyotaCardImg}>
-                    <Image
-                      src="/images/toyota-sogn-hero.jpg"
-                      alt={card.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      quality={80}
-                      style={{ objectFit: 'cover', objectPosition: card.pos }}
-                    />
-                    <div className={styles.toyotaCardOverlay} />
-                  </div>
-                  <div className={styles.toyotaCardBody}>
-                    <span className="label">{card.label}</span>
-                    <h3 className={styles.toyotaCardTitle}>{card.title}</h3>
-                    <p className={styles.toyotaCardDesc}>{card.desc}</p>
-                    <span className={styles.toyotaCardCta}>
-                      Gå til nettstad <Icon name="external-link" size={13} />
-                    </span>
-                  </div>
-                </a>
+                {card.external ? (
+                  <a
+                    href={card.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.toyotaCard}
+                  >
+                    <div className={styles.toyotaCardImg}>
+                      <Image
+                        src={card.img}
+                        alt={card.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        quality={80}
+                        style={{ objectFit: 'cover', objectPosition: card.pos }}
+                      />
+                      <div className={styles.toyotaCardOverlay} />
+                    </div>
+                    <div className={styles.toyotaCardBody}>
+                      <span className="label">{card.label}</span>
+                      <h3 className={styles.toyotaCardTitle}>{card.title}</h3>
+                      <p className={styles.toyotaCardDesc}>{card.desc}</p>
+                      <span className={styles.toyotaCardCta}>
+                        {card.cta} <Icon name="external-link" size={13} />
+                      </span>
+                    </div>
+                  </a>
+                ) : (
+                  <Link href={card.href} className={styles.toyotaCard}>
+                    <div className={styles.toyotaCardImg}>
+                      <Image
+                        src={card.img}
+                        alt={card.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        quality={80}
+                        style={{ objectFit: 'cover', objectPosition: card.pos }}
+                      />
+                      <div className={styles.toyotaCardOverlay} />
+                    </div>
+                    <div className={styles.toyotaCardBody}>
+                      <span className="label">{card.label}</span>
+                      <h3 className={styles.toyotaCardTitle}>{card.title}</h3>
+                      <p className={styles.toyotaCardDesc}>{card.desc}</p>
+                      <span className={styles.toyotaCardCta}>
+                        {card.cta} <Icon name="arrow-right" size={13} />
+                      </span>
+                    </div>
+                  </Link>
+                )}
               </FadeUp>
             ))}
           </div>
@@ -154,51 +187,6 @@ export default function HeimsidePage() {
           </div>
         </div>
         <div className={styles.hertzGhost} aria-hidden="true">5</div>
-      </section>
-
-
-      <div className="page-break-accent" />
-
-      {/* ── CASA BANDERAS TEASER ─────────────────────────────── */}
-      <section className={`section ${styles.casaSection}`}>
-        <div className={`container ${styles.casaSplit}`}>
-          <FadeUp className={styles.casaImgWrap}>
-            <Image
-              src="/images/casa-banderas/cb-01.jpg"
-              alt="Casa Banderas — terrasse med panoramautsikt over Middelhavet"
-              fill
-              sizes="(max-width: 768px) 100vw, 58vw"
-              quality={85}
-              style={{ objectFit: 'cover', objectPosition: 'center 55%' }}
-            />
-            <div className={styles.casaImgOverlay} />
-            <span className={styles.casaLocationBadge}>Costa del Sol · Spania</span>
-          </FadeUp>
-          <FadeUp delay={120} className={styles.casaText}>
-            <span className="label">Eigedom</span>
-            <h2>Casa Banderas.</h2>
-            <p className={styles.casaSub}>
-              Privat feriebolig på Costa del Sol — eige basseng, panoramaterrasse mot Middelhavet og 5 minutt til stranda. Tilgjengeleg for eksklusiv korttidsleige.
-            </p>
-            <ul className={styles.casaHighlights}>
-              {[
-                '3 soverom med kingsize-senger',
-                'Privat oppvarma basseng 10×5 m',
-                '80 m² terrasse mot Middelhavet',
-                '5 min til privat strand',
-              ].map((item) => (
-                <li key={item}>
-                  <span className={styles.casaDot} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Link href="/casa-banderas" className="btn btn--primary">
-              Sjå Casa Banderas
-              <Icon name="arrow-right" size={16} />
-            </Link>
-          </FadeUp>
-        </div>
       </section>
 
 
