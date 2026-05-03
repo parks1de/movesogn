@@ -1,0 +1,55 @@
+MOVE Sogn — Remaining after session 2026-05-03
+===============================================
+
+
+── SANITY (blocked on re-auth) ─────────────────────────────
+
+1. Re-authenticate Sanity MCP
+   Run:  ! npx sanity@latest mcp configure
+   Then: ! cd studio && npm run deploy
+
+2. Fix founding year in Sanity dataset
+   Query: *[_type == "timelineEntry" && year == "1984"]
+   Patch: year → "1982"
+   (Code files already corrected — only live Sanity documents remain)
+
+3. Populate product content (images to be uploaded separately by user)
+   - marineBoat documents (Hasle Summerfun models, Silver Boats)
+   - suzukiEngine documents (DF9.9B, DF20A, DF40A, DF90A + others)
+   - sykkelProduct documents (Merida eSPRESSO CROSS, eSPEEDER, NIU models)
+   - apenhetsloven singleton
+   - visjon singleton (heroTagline, missionHeading, milestones)
+
+
+── LANDING PAGE ─────────────────────────────────────────────
+
+4. "40 år" section is factually off
+   Founded 1982 → 2026 = 44 years.
+   StatCounter shows value: 40, section title says "40 år med rørsle i Sogn."
+   Decide: update to "40+" as a round marketing number, or correct to 44.
+
+
+── NAVIGATION ───────────────────────────────────────────────
+
+5. Casa Banderas has no NavBar entry
+   Currently only reachable via landing page CTA and footer link.
+   Consider adding it to the MOVE or standalone nav item when
+   /eigedom is re-enabled, or give it a direct top-nav spot now.
+
+
+── EIGEDOM (temporarily disabled) ───────────────────────────
+
+6. /eigedom and /eigedom/naringseigendom redirect to /
+   Re-enable when content / photography is ready.
+   All page code is intact — just swap out the redirect() calls.
+
+
+── MISC ─────────────────────────────────────────────────────
+
+7. om-oss page metadata title still says "40 år med rørsle i Sogn"
+   — update when decision on #4 above is made.
+
+8. Review /elmoped and /sparkesykkel pages for content accuracy.
+
+9. Footer "Tenester" list: Eigedom is removed, Casa Banderas added.
+   Revisit when eigedom is re-enabled to restore full list.
