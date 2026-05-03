@@ -177,8 +177,14 @@ export default function HeimsidePage() {
                 'Sogndal sentrum',
                 'Førde sentrum',
                 'Førde lufthamn Bringeland',
-              ].map((name) => (
-                <p key={name} className={styles.hertzLocName}>{name}</p>
+              ].map((name, i, arr) => (
+                <div
+                  key={name}
+                  className={`${styles.hertzLocChip}${i === arr.length - 1 ? ` ${styles.hertzLocChipLast}` : ''}`}
+                >
+                  <span className={styles.hertzLocPin} aria-hidden="true" />
+                  <span className={styles.hertzLocName}>{name}</span>
+                </div>
               ))}
             </FadeUp>
 
