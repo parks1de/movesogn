@@ -171,21 +171,37 @@ export default function HeimsidePage() {
             </FadeUp>
 
             <FadeUp delay={80} className={styles.hertzLocations}>
-              {[
-                'Kaupanger sentrum',
-                'Sogndal lufthamn Haukåsen',
-                'Sogndal sentrum',
-                'Førde sentrum',
-                'Førde lufthamn Bringeland',
-              ].map((name, i, arr) => (
-                <div key={name} className={styles.hertzLocStop}>
-                  <div className={styles.hertzLocTrack} aria-hidden="true">
-                    <span className={styles.hertzLocDot} />
-                    {i < arr.length - 1 && <span className={styles.hertzLocLine} />}
+              {([
+                { kind: 'region', label: 'Sognefjord' },
+                { kind: 'stop',   name:  'Kaupanger sentrum' },
+                { kind: 'stop',   name:  'Sogndal lufthamn Haukåsen' },
+                { kind: 'stop',   name:  'Sogndal sentrum' },
+                { kind: 'region', label: 'Sunnfjord' },
+                { kind: 'stop',   name:  'Førde sentrum' },
+                { kind: 'stop',   name:  'Førde lufthamn Bringeland' },
+              ] as const).map((item, i, arr) => {
+                if (item.kind === 'region') {
+                  const isFirst = i === 0;
+                  return (
+                    <div key={item.label} className={styles.hertzLocDivider}>
+                      <div className={styles.hertzLocTrack} aria-hidden="true">
+                        {!isFirst && <span className={styles.hertzLocLine} />}
+                      </div>
+                      <span className={styles.hertzRegionLabel}>{item.label}</span>
+                    </div>
+                  );
+                }
+                const isLast = i === arr.length - 1;
+                return (
+                  <div key={item.name} className={styles.hertzLocStop}>
+                    <div className={styles.hertzLocTrack} aria-hidden="true">
+                      <span className={styles.hertzLocDot} />
+                      {!isLast && <span className={styles.hertzLocLine} />}
+                    </div>
+                    <span className={styles.hertzLocName}>{item.name}</span>
                   </div>
-                  <span className={styles.hertzLocName}>{name}</span>
-                </div>
-              ))}
+                );
+              })}
             </FadeUp>
 
           </div>

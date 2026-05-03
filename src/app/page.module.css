@@ -667,6 +667,22 @@
   margin: 3px 0 0;
 }
 
+.hertzLocDivider {
+  display: flex;
+  align-items: stretch;
+  gap: 1.125rem;
+}
+
+.hertzRegionLabel {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.2);
+  padding: 0.5rem 0 0.375rem;
+  align-self: center;
+}
+
 .hertzLocName {
   font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
   font-weight: 600;
