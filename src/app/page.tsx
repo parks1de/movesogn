@@ -172,19 +172,13 @@ export default function HeimsidePage() {
 
             <FadeUp delay={80} className={styles.hertzLocations}>
               {[
-                { name: 'Kaupanger sentrum',  note: 'Skarpeteigvegen 1, 6854 Kaupanger' },
-                { name: 'Kaupanger lufthamn', note: 'Sogndal lufthamn, Haukåsen' },
-                { name: 'Sogndal sentrum',    note: 'Sogndal' },
-                { name: 'Førde sentrum',      note: 'Førde' },
-                { name: 'Førde flyplass',     note: 'Bringeland lufthamn' },
-              ].map((loc, i) => (
-                <div key={loc.name} className={styles.hertzLocRow}>
-                  <span className={styles.hertzLocNum}>0{i + 1}</span>
-                  <div className={styles.hertzLocInfo}>
-                    <p className={styles.hertzLocName}>{loc.name}</p>
-                    <p className={styles.hertzLocNote}>{loc.note}</p>
-                  </div>
-                </div>
+                'Kaupanger sentrum',
+                'Sogndal lufthamn Haukåsen',
+                'Sogndal sentrum',
+                'Førde sentrum',
+                'Førde lufthamn Bringeland',
+              ].map((name) => (
+                <p key={name} className={styles.hertzLocName}>{name}</p>
               ))}
             </FadeUp>
 
