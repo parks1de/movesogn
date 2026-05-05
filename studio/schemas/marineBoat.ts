@@ -38,19 +38,77 @@ export default defineType({
     defineField({ name: 'standardEquipment', title: 'Standardutstyr',         type: 'text',   group: 'info', rows: 5 }),
     defineField({ name: 'specsTable',        title: 'Spesifikasjonar (rå)',   type: 'text',   group: 'specs', description: 'JSON-dump frå import — les berre' }),
 
+    // Per-brand specs — each visible only when the matching brand is selected
+
     defineField({
-      name: 'batSpecs', title: 'Spesifikasjonar', type: 'object', group: 'specs',
+      name: 'summerfunSpecs', title: 'Spesifikasjonar — Hasle Summerfun', type: 'object', group: 'specs',
+      hidden: ({ document }) => document?.brand !== 'summerfun',
       fields: [
+        defineField({ name: 'tittel',        title: 'Specs-overskrift', type: 'string', description: 'Overskrift på nettsida, t.d. "Tekniske data"' }),
+        defineField({ name: 'lengde',        title: 'Lengde',           type: 'string' }),
+        defineField({ name: 'breidde',       title: 'Breidde',          type: 'string' }),
+        defineField({ name: 'djupgang',      title: 'Djupgang',         type: 'string' }),
+        defineField({ name: 'vekt',          title: 'Vekt',             type: 'string' }),
+        defineField({ name: 'maxPersonar',   title: 'Maks personar',    type: 'string' }),
+        defineField({ name: 'tilraaddMotor', title: 'Tilrådd motor',    type: 'string' }),
+        defineField({ name: 'maxMotor',      title: 'Maks motor',       type: 'string' }),
+        defineField({ name: 'skrog',         title: 'Skrogmateriale',   type: 'string' }),
+        defineField({ name: 'ceKlasse',      title: 'CE-klasse',        type: 'string' }),
+      ],
+    }),
+
+    defineField({
+      name: 'silverSpecs', title: 'Spesifikasjonar — Silver Boats', type: 'object', group: 'specs',
+      hidden: ({ document }) => document?.brand !== 'silver',
+      fields: [
+        defineField({ name: 'tittel',        title: 'Specs-overskrift', type: 'string', description: 'Overskrift på nettsida, t.d. "Tekniske data"' }),
+        defineField({ name: 'lengde',        title: 'Lengde',           type: 'string' }),
+        defineField({ name: 'breidde',       title: 'Breidde',          type: 'string' }),
+        defineField({ name: 'djupgang',      title: 'Djupgang',         type: 'string' }),
+        defineField({ name: 'vekt',          title: 'Vekt',             type: 'string' }),
+        defineField({ name: 'maxPersonar',   title: 'Maks personar',    type: 'string' }),
+        defineField({ name: 'tilraaddMotor', title: 'Tilrådd motor',    type: 'string' }),
+        defineField({ name: 'maxMotor',      title: 'Maks motor',       type: 'string' }),
+        defineField({ name: 'skrog',         title: 'Skrogmateriale',   type: 'string' }),
+        defineField({ name: 'ceKlasse',      title: 'CE-klasse',        type: 'string' }),
+        defineField({ name: 'serie',         title: 'Modellserie',      type: 'string' }),
+      ],
+    }),
+
+    defineField({
+      name: 'linderSpecs', title: 'Spesifikasjonar — Linder', type: 'object', group: 'specs',
+      hidden: ({ document }) => document?.brand !== 'linder',
+      fields: [
+        defineField({ name: 'tittel',        title: 'Specs-overskrift',   type: 'string', description: 'Overskrift på nettsida, t.d. "Tekniske data"' }),
         defineField({ name: 'lengde',        title: 'Lengde',             type: 'string' }),
         defineField({ name: 'breidde',       title: 'Breidde',            type: 'string' }),
         defineField({ name: 'djupgang',      title: 'Djupgang',           type: 'string' }),
-        defineField({ name: 'vektUtenMotor', title: 'Vekt (utan motor)',  type: 'string' }),
+        defineField({ name: 'vekt',          title: 'Vekt',               type: 'string' }),
         defineField({ name: 'maxPersonar',   title: 'Maks personar',      type: 'string' }),
         defineField({ name: 'tilraaddMotor', title: 'Tilrådd motor',      type: 'string' }),
         defineField({ name: 'maxMotor',      title: 'Maks motor',         type: 'string' }),
         defineField({ name: 'skrog',         title: 'Skrogmateriale',     type: 'string' }),
         defineField({ name: 'ceKlasse',      title: 'CE-klasse',          type: 'string' }),
-        defineField({ name: 'serie',         title: 'Modellserie',        type: 'string' }),
+        defineField({ name: 'aluminium',     title: 'Aluminiumskvalitet', type: 'string' }),
+      ],
+    }),
+
+    // Fallback for brand = 'other' or unset — also preserves data from initial import
+    defineField({
+      name: 'batSpecs', title: 'Spesifikasjonar', type: 'object', group: 'specs',
+      hidden: ({ document }) => ['summerfun', 'silver', 'linder'].includes(document?.brand as string),
+      fields: [
+        defineField({ name: 'tittel',        title: 'Specs-overskrift',  type: 'string', description: 'Overskrift på nettsida, t.d. "Tekniske data"' }),
+        defineField({ name: 'lengde',        title: 'Lengde',            type: 'string' }),
+        defineField({ name: 'breidde',       title: 'Breidde',           type: 'string' }),
+        defineField({ name: 'djupgang',      title: 'Djupgang',          type: 'string' }),
+        defineField({ name: 'vektUtenMotor', title: 'Vekt (utan motor)', type: 'string' }),
+        defineField({ name: 'maxPersonar',   title: 'Maks personar',     type: 'string' }),
+        defineField({ name: 'tilraaddMotor', title: 'Tilrådd motor',     type: 'string' }),
+        defineField({ name: 'maxMotor',      title: 'Maks motor',        type: 'string' }),
+        defineField({ name: 'skrog',         title: 'Skrogmateriale',    type: 'string' }),
+        defineField({ name: 'ceKlasse',      title: 'CE-klasse',         type: 'string' }),
+        defineField({ name: 'serie',         title: 'Modellserie',       type: 'string' }),
       ],
     }),
 
@@ -65,10 +123,11 @@ export default defineType({
   ],
 
   preview: {
-    select: { title: 'modelName', subtitle: 'brand', media: 'image' },
-    prepare({ title, subtitle, media }) {
+    select: { title: 'modelName', subtitle: 'brand', media: 'image', id: '_id' },
+    prepare({ title, subtitle, media, id }) {
       const b: Record<string, string> = { summerfun: 'Hasle Summerfun', silver: 'Silver Boats', linder: 'Linder', other: 'Anna' };
-      return { title: title || 'Ukjent', subtitle: b[subtitle] ?? subtitle, media };
+      const dot = (id as string)?.startsWith('drafts.') ? '🔴' : '🟢';
+      return { title: `${dot} ${title || 'Ukjent'}`, subtitle: b[subtitle] ?? subtitle, media };
     },
   },
 });

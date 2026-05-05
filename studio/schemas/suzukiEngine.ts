@@ -29,7 +29,10 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: 'modelName', subtitle: 'hp', media: 'image' },
-    prepare: ({ title, subtitle, media }) => ({ title, subtitle: subtitle ?? '', media }),
+    select: { title: 'modelName', subtitle: 'hp', media: 'image', id: '_id' },
+    prepare: ({ title, subtitle, media, id }) => {
+      const dot = (id as string)?.startsWith('drafts.') ? '🔴' : '🟢';
+      return { title: `${dot} ${title || 'Ukjent'}`, subtitle: subtitle ?? '', media };
+    },
   },
 });

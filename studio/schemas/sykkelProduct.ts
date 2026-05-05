@@ -34,48 +34,51 @@ export default defineType({
     defineField({ name: 'priceNote', title: 'Prisnote',                 type: 'string', group: 'info',  description: 'T.d. "inkl. batteri"' }),
     defineField({ name: 'techSpecs', title: 'Tekniske spesifikasjonar', type: 'text',   group: 'specs', rows: 8, description: 'Fritekst frå import — flytt til strukturerte felt etter kvart' }),
 
-    // Specs — shown per category
+    // Specs — shown per category, each with a customisable section headline
     defineField({
       name: 'scooterSpecs', title: 'Spesifikasjonar — El-moped', type: 'object', group: 'specs',
       hidden: ({ document }) => document?.category !== 'scooter',
       fields: [
-        defineField({ name: 'rekkevidde', title: 'Rekkevidde',     type: 'string' }),
-        defineField({ name: 'motor',      title: 'Motor',          type: 'string' }),
-        defineField({ name: 'toppfart',   title: 'Toppfart',       type: 'string' }),
-        defineField({ name: 'ladetid',    title: 'Ladetid',        type: 'string' }),
-        defineField({ name: 'vekt',       title: 'Vekt',           type: 'string' }),
-        defineField({ name: 'maxLast',    title: 'Maks last',      type: 'string' }),
-        defineField({ name: 'batteri',    title: 'Batteri',        type: 'string' }),
-        defineField({ name: 'sertifikat', title: 'Sertifikat',     type: 'string' }),
+        defineField({ name: 'tittel',     title: 'Specs-overskrift', type: 'string', description: 'Overskrift på nettsida, t.d. "Tekniske data"' }),
+        defineField({ name: 'rekkevidde', title: 'Rekkevidde',       type: 'string' }),
+        defineField({ name: 'motor',      title: 'Motor',            type: 'string' }),
+        defineField({ name: 'toppfart',   title: 'Toppfart',         type: 'string' }),
+        defineField({ name: 'ladetid',    title: 'Ladetid',          type: 'string' }),
+        defineField({ name: 'vekt',       title: 'Vekt',             type: 'string' }),
+        defineField({ name: 'maxLast',    title: 'Maks last',        type: 'string' }),
+        defineField({ name: 'batteri',    title: 'Batteri',          type: 'string' }),
+        defineField({ name: 'sertifikat', title: 'Sertifikat',       type: 'string' }),
       ],
     }),
     defineField({
       name: 'sykkelSpecs', title: 'Spesifikasjonar — El-sykkel', type: 'object', group: 'specs',
       hidden: ({ document }) => document?.category !== 'sykkel',
       fields: [
-        defineField({ name: 'rekkevidde',  title: 'Rekkevidde',    type: 'string' }),
-        defineField({ name: 'motor',       title: 'Motor',         type: 'string', description: 'T.d. "Shimano EP8, 85 Nm"' }),
-        defineField({ name: 'driv',        title: 'Driv',          type: 'string', description: 'T.d. "Shimano Deore 12-gir"' }),
-        defineField({ name: 'batteri',     title: 'Batteri',       type: 'string' }),
-        defineField({ name: 'vekt',        title: 'Vekt',          type: 'string' }),
-        defineField({ name: 'ramme',       title: 'Ramme',         type: 'string' }),
-        defineField({ name: 'hjulstorleik', title: 'Hjulstorleik', type: 'string' }),
-        defineField({ name: 'brems',       title: 'Brems',         type: 'string' }),
-        defineField({ name: 'fjoring',     title: 'Fjøring',       type: 'string', description: 'T.d. "Full-suspension, 160mm"' }),
+        defineField({ name: 'tittel',      title: 'Specs-overskrift', type: 'string', description: 'Overskrift på nettsida, t.d. "Teknisk spesifikasjon"' }),
+        defineField({ name: 'rekkevidde',  title: 'Rekkevidde',       type: 'string' }),
+        defineField({ name: 'motor',       title: 'Motor',            type: 'string', description: 'T.d. "Shimano EP8, 85 Nm"' }),
+        defineField({ name: 'driv',        title: 'Driv',             type: 'string', description: 'T.d. "Shimano Deore 12-gir"' }),
+        defineField({ name: 'batteri',     title: 'Batteri',          type: 'string' }),
+        defineField({ name: 'vekt',        title: 'Vekt',             type: 'string' }),
+        defineField({ name: 'ramme',       title: 'Ramme',            type: 'string' }),
+        defineField({ name: 'hjulstorleik', title: 'Hjulstorleik',   type: 'string' }),
+        defineField({ name: 'brems',       title: 'Brems',            type: 'string' }),
+        defineField({ name: 'fjoring',     title: 'Fjøring',          type: 'string', description: 'T.d. "Full-suspension, 160mm"' }),
       ],
     }),
     defineField({
       name: 'sparkesykkelSpecs', title: 'Spesifikasjonar — Sparkesykkel', type: 'object', group: 'specs',
       hidden: ({ document }) => document?.category !== 'sparkesykkel',
       fields: [
-        defineField({ name: 'rekkevidde',  title: 'Rekkevidde',    type: 'string' }),
-        defineField({ name: 'motor',       title: 'Motor',         type: 'string' }),
-        defineField({ name: 'toppfart',    title: 'Toppfart',      type: 'string' }),
-        defineField({ name: 'ladetid',     title: 'Ladetid',       type: 'string' }),
-        defineField({ name: 'vekt',        title: 'Vekt',          type: 'string' }),
-        defineField({ name: 'hjulstorleik', title: 'Hjulstorleik', type: 'string' }),
-        defineField({ name: 'brems',       title: 'Brems',         type: 'string' }),
-        defineField({ name: 'foldbar',     title: 'Foldbar',       type: 'boolean', initialValue: true }),
+        defineField({ name: 'tittel',      title: 'Specs-overskrift', type: 'string', description: 'Overskrift på nettsida, t.d. "Teknisk spesifikasjon"' }),
+        defineField({ name: 'rekkevidde',  title: 'Rekkevidde',       type: 'string' }),
+        defineField({ name: 'motor',       title: 'Motor',            type: 'string' }),
+        defineField({ name: 'toppfart',    title: 'Toppfart',         type: 'string' }),
+        defineField({ name: 'ladetid',     title: 'Ladetid',          type: 'string' }),
+        defineField({ name: 'vekt',        title: 'Vekt',             type: 'string' }),
+        defineField({ name: 'hjulstorleik', title: 'Hjulstorleik',   type: 'string' }),
+        defineField({ name: 'brems',       title: 'Brems',            type: 'string' }),
+        defineField({ name: 'foldbar',     title: 'Foldbar',          type: 'boolean', initialValue: true }),
       ],
     }),
 
@@ -92,10 +95,11 @@ export default defineType({
   ],
 
   preview: {
-    select: { title: 'name', subtitle: 'category', media: 'image' },
-    prepare({ title, subtitle, media }) {
+    select: { title: 'name', subtitle: 'category', media: 'image', id: '_id' },
+    prepare({ title, subtitle, media, id }) {
       const cat: Record<string, string> = { sykkel: 'El-sykkel', scooter: 'El-moped', sparkesykkel: 'Sparkesykkel' };
-      return { title: title || 'Ukjent', subtitle: cat[subtitle] ?? subtitle, media };
+      const dot = (id as string)?.startsWith('drafts.') ? '🔴' : '🟢';
+      return { title: `${dot} ${title || 'Ukjent'}`, subtitle: cat[subtitle] ?? subtitle, media };
     },
   },
 });
